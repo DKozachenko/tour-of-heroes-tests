@@ -1,0 +1,19 @@
+{
+  "name": "angular-tutorials-tests",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "cz-customizable": {
+      "config": "commitizen.config.js"
+    }
+  }
+}
