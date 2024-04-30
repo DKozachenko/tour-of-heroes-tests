@@ -24,7 +24,11 @@ module.exports = {
     { value: "revert", name: "revert:   Revert to a commit" },
     { value: "WIP", name: "WIP:      Work in progress" },
   ],
-  scopes: [{ name: "web" }, { name: "native" }, { name: "all" }],
+  scopes: [
+    { name: "tour-of-heroes" },
+    { name: "rent-houses" },
+    { name: "all" },
+  ],
   messages: {
     type: "Select the type of change that you're committing:",
     scope: "\nDenote the SCOPE of this change (optional):",

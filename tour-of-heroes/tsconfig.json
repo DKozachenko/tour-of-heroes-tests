@@ -19,10 +19,13 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["./src/app/components/index.ts"],
+      "@models": ["./src/app/models/index.ts"],
+      "@services": ["./src/app/services/index.ts"]
+    }
   },
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true,
