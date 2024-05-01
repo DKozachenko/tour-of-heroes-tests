@@ -5,7 +5,7 @@ import {
   DashboardComponent,
   HeroesComponent,
   HeroDetailComponent,
-} from '@components';
+} from './components';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

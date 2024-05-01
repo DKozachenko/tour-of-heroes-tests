@@ -2,7 +2,8 @@
   "name": "angular-tutorials-tests",
   "version": "1.0.0",
   "scripts": {
-    "start:toh": "cd ./tour-of-heroes && npm run start"
+    "start:toh": "cd ./tour-of-heroes && npm run start",
+    "test:toh:unit": "cd ./tour-of-heroes && npm run test:unit"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",

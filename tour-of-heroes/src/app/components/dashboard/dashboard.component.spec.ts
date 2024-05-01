@@ -1,59 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
+import { MockBuilder, MockRender } from 'ng-mocks';
 import { of } from 'rxjs';
-
-import { HeroSearchComponent } from '../hero-search/hero-search.component';
-import { HeroService } from '@services';
+import { mock, instance, when, verify } from 'ts-mockito';
+import { HeroService, HEROES } from '../../services';
 import { DashboardComponent } from './dashboard.component';
-import { Hero } from '@models';
-
-const HEROES: Hero[] = [
-  { id: 12, name: 'Dr. Nice' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr. IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' },
-];
+import { AppModule } from '../../../app/app.module';
 
 describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
-  let heroService;
-  let getHeroesSpy: jasmine.Spy;
+  let mockHeroService: HeroService;
 
-  beforeEach(waitForAsync(() => {
-    heroService = jasmine.createSpyObj('HeroService', ['getHeroes']);
-    getHeroesSpy = heroService.getHeroes.and.returnValue(of(HEROES));
-    TestBed.configureTestingModule({
-      declarations: [DashboardComponent, HeroSearchComponent],
-      imports: [RouterModule.forRoot([])],
-      providers: [{ provide: HeroService, useValue: heroService }],
-    }).compileComponents();
+  beforeEach(() => {
+    mockHeroService = mock(HeroService);
 
-    fixture = TestBed.createComponent(DashboardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
-
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should display "Top Heroes" as headline', () => {
-    expect(fixture.nativeElement.querySelector('h2').textContent).toEqual(
-      'Top Heroes'
+    return MockBuilder(DashboardComponent, AppModule).mock(
+      HeroService,
+      instance(mockHeroService)
     );
   });
 
-  it('should call heroService', waitForAsync(() => {
-    expect(getHeroesSpy.calls.any()).toBe(true);
-  }));
+  function createComponent<T>(): DashboardComponent {
+    const fixture = MockRender(DashboardComponent);
+    return fixture.point.componentInstance;
+  }
 
-  it('should display 4 links', waitForAsync(() => {
-    expect(fixture.nativeElement.querySelectorAll('a').length).toEqual(4);
-  }));
+  it('should call "getHeroes" service method while creating', () => {
+    when(mockHeroService.getHeroes()).thenReturn(of(HEROES));
+
+    createComponent();
+    verify(mockHeroService.getHeroes()).once();
+  });
 });

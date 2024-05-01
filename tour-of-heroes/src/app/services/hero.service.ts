@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { MessageService } from './message.service';
-import { Hero } from '@models';
+import { Hero } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
