@@ -14,7 +14,7 @@ on:
       - ./tour-of-heroes/**
 
 jobs:
-  test:unit:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code

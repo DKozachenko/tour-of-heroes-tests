@@ -34,7 +34,7 @@
     "ng-mocks": "^14.12.2",
     "ts-mockito": "^2.6.1",
     "ts-node": "~10.9.0",
-    "typescript": "~5.4.5"
+    "typescript": "~5.3.3"
   },
   "jest": {
     "preset": "jest-preset-angular",
