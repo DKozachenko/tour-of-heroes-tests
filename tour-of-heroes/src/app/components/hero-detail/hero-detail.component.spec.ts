@@ -1,3 +1,5 @@
+import { DebugElement } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -8,6 +10,38 @@ import { HeroService, HEROES } from '../../services';
 import { Hero } from '../../models';
 import { HeroDetailComponent } from './hero-detail.component';
 import { AppModule } from '../../../app/app.module';
+
+class PageObject {
+  private fixtureDebugElement: DebugElement;
+
+  constructor(fixture: MockedComponentFixture<HeroDetailComponent>) {
+    this.fixtureDebugElement = fixture.debugElement;
+  }
+
+  get heading(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('h2'));
+  }
+
+  get heroId(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('h2 + div'));
+  }
+
+  get heroNameLabel(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('div > label'));
+  }
+
+  get heroNameInput(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('div > input'));
+  }
+
+  get backButton(): DebugElement {
+    return this.fixtureDebugElement.queryAll(By.css('button'))[0];
+  }
+
+  get saveButton(): DebugElement {
+    return this.fixtureDebugElement.queryAll(By.css('button'))[1];
+  }
+}
 
 describe('HeroDetailComponent', () => {
   let mockHeroService: HeroService;
@@ -132,32 +166,21 @@ describe('HeroDetailComponent', () => {
     const mockHero = HEROES[0];
     component.hero = mockHero;
 
-    const fixtureDebugElement = fixture.debugElement;
-    const headingDebugElement = fixtureDebugElement.query(By.css('h2'));
-    const heroIdDebugElement = fixtureDebugElement.query(By.css('h2 + div'));
-    const heroNameLabelDebugElement = fixtureDebugElement.query(
-      By.css('div > label')
-    );
-    const heroNameInputDebugElement = fixtureDebugElement.query(
-      By.css('div > input')
-    );
-    const [backButtonDebugElement, saveButtonDebugElement] =
-      fixtureDebugElement.queryAll(By.css('button'));
-
-    expect(headingDebugElement.nativeElement.textContent).toBe(
+    const pageObject = new PageObject(fixture);
+    expect(pageObject.heading.nativeElement.textContent).toBe(
       `${mockHero.name.toUpperCase()} Details`
     );
-    expect(heroIdDebugElement.nativeElement.textContent).toBe(
+    expect(pageObject.heroId.nativeElement.textContent).toBe(
       `id: ${mockHero.id}`
     );
-    expect(heroNameLabelDebugElement.nativeElement.textContent).toBe(
+    expect(pageObject.heroNameLabel.nativeElement.textContent).toBe(
       'Hero name: '
     );
-    expect(heroNameInputDebugElement.attributes['ng-reflect-model']).toBe(
+    expect(pageObject.heroNameInput.injector.get(NgModel).model).toBe(
       mockHero.name
     );
-    expect(backButtonDebugElement).not.toBeNull();
-    expect(saveButtonDebugElement).not.toBeNull();
+    expect(pageObject.backButton).not.toBeNull();
+    expect(pageObject.saveButton).not.toBeNull();
   });
 
   it('should call "goBack" component method if go back button has clicked', () => {
@@ -165,13 +188,9 @@ describe('HeroDetailComponent', () => {
     const fixture = createFixture();
     const component = fixture.point.componentInstance;
 
-    const fixtureDebugElement = fixture.debugElement;
-    const [backButtonDebugElement] = fixtureDebugElement.queryAll(
-      By.css('button')
-    );
+    const pageObject = new PageObject(fixture);
     const spyOnGoBack = jest.spyOn(component, 'goBack').mockReturnValue();
-    // TODO: https://angular.io/guide/testing-components-scenarios#triggereventhandler
-    backButtonDebugElement.nativeElement.click();
+    pageObject.backButton.triggerEventHandler('click');
     expect(spyOnGoBack).toHaveBeenCalled();
   });
 
@@ -180,12 +199,9 @@ describe('HeroDetailComponent', () => {
     const fixture = createFixture();
     const component = fixture.point.componentInstance;
 
-    const fixtureDebugElement = fixture.debugElement;
-    const [_, saveButtonDebugElement] = fixtureDebugElement.queryAll(
-      By.css('button')
-    );
+    const pageObject = new PageObject(fixture);
     const spyOnSave = jest.spyOn(component, 'save').mockReturnValue();
-    saveButtonDebugElement.nativeElement.click();
+    pageObject.saveButton.triggerEventHandler('click');
     expect(spyOnSave).toHaveBeenCalled();
   });
 });

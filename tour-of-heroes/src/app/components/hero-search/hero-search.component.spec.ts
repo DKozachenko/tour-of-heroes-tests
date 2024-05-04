@@ -1,3 +1,6 @@
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { fakeAsync, discardPeriodicTasks, tick } from '@angular/core/testing';
 import { MockBuilder, MockRender, MockedComponentFixture } from 'ng-mocks';
 import { of } from 'rxjs';
 import { mock, instance, when, anyString } from 'ts-mockito';
@@ -6,8 +9,34 @@ import { HeroService, HEROES } from '../../services';
 import { Hero } from '../../models';
 import { HeroSearchComponent } from './hero-search.component';
 import { AppModule } from '../../app.module';
-import { By } from '@angular/platform-browser';
-import { fakeAsync, discardPeriodicTasks, tick } from '@angular/core/testing';
+
+class PageObject {
+  private fixtureDebugElement: DebugElement;
+
+  constructor(fixture: MockedComponentFixture<HeroSearchComponent>) {
+    this.fixtureDebugElement = fixture.debugElement;
+  }
+
+  get divWrapper(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('#search-component'));
+  }
+
+  get label(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('label'));
+  }
+
+  get input(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('input'));
+  }
+
+  get searchResult(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('.search-result'));
+  }
+
+  get heroLinks(): DebugElement[] {
+    return this.searchResult.queryAll(By.css('li'));
+  }
+}
 
 describe('HeroSearchComponent', () => {
   let mockHeroService: HeroService;
@@ -117,21 +146,16 @@ describe('HeroSearchComponent', () => {
   it('should contain div wrapper', () => {
     mockCalls();
     const fixture = createFixture();
-    const fixtureDebugElement = fixture.debugElement;
-    const divWrapperDebugElement = fixtureDebugElement.query(
-      By.css('#search-component')
-    );
-    expect(divWrapperDebugElement).not.toBeNull();
+    const pageObject = new PageObject(fixture);
+    expect(pageObject.divWrapper).not.toBeNull();
   });
 
   it('should contain label and input for typing', () => {
     mockCalls();
     const fixture = createFixture();
-    const fixtureDebugElement = fixture.debugElement;
-    const labelDebugElement = fixtureDebugElement.query(By.css('label'));
-    const inputDebugElement = fixtureDebugElement.query(By.css('input'));
-    expect(labelDebugElement).not.toBeNull();
-    expect(inputDebugElement).not.toBeNull();
+    const pageObject = new PageObject(fixture);
+    expect(pageObject.label).not.toBeNull();
+    expect(pageObject.input).not.toBeNull();
   });
 
   it('should call "search" component method while typing with input value', () => {
@@ -139,16 +163,12 @@ describe('HeroSearchComponent', () => {
     const fixture = createFixture();
     const component = fixture.point.componentInstance;
 
-    const fixtureDebugElement = fixture.debugElement;
-    const inputDebugElement = fixtureDebugElement.query(By.css('input'));
+    const pageObject = new PageObject(fixture);
     const spyOnSearch = jest.spyOn(component, 'search').mockReturnValue();
 
     const newInputValue = 'new input value';
-    inputDebugElement.nativeElement.value = newInputValue;
-    inputDebugElement.nativeElement.dispatchEvent(
-      new Event('input', { bubbles: true })
-    );
-
+    pageObject.input.nativeElement.value = newInputValue;
+    pageObject.input.triggerEventHandler('input');
     expect(spyOnSearch).toHaveBeenCalled();
     expect(spyOnSearch).toHaveBeenCalledWith(newInputValue);
   });
@@ -161,23 +181,14 @@ describe('HeroSearchComponent', () => {
     component.heroes$ = of(mockHeroes);
     fixture.detectChanges();
 
-    const fixtureDebugElement = fixture.debugElement;
-    // TODO: переделать на PageObject
-    const searchResultDebugElement = fixtureDebugElement.query(
-      By.css('.search-result')
-    );
+    const pageObject = new PageObject(fixture);
+    expect(pageObject.searchResult).not.toBeNull();
+    expect(pageObject.heroLinks.length).toBe(mockHeroes.length);
 
-    const heroLinksDebugElements = searchResultDebugElement.queryAll(
-      By.css('li')
-    );
-    expect(searchResultDebugElement).not.toBeNull();
-    expect(heroLinksDebugElements.length).toBe(mockHeroes.length);
-
-    for (let i = 0; i < heroLinksDebugElements.length; ++i) {
-      const heroLink = heroLinksDebugElements[i];
+    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+      const heroLink = pageObject.heroLinks[i];
       const hero = mockHeroes[i];
       expect(heroLink.nativeElement.textContent).toContain(hero.name);
-      // TODO: https://angular.io/guide/testing-components-scenarios#bydirective-and-injected-directives
     }
   });
 
@@ -196,23 +207,14 @@ describe('HeroSearchComponent', () => {
     tick(500);
     fixture.detectChanges();
 
-    let fixtureDebugElement = fixture.debugElement;
-    // TODO: переделать на PageObject
-    let searchResultDebugElement = fixtureDebugElement.query(
-      By.css('.search-result')
-    );
+    const pageObject = new PageObject(fixture);
+    expect(pageObject.searchResult).not.toBeNull();
+    expect(pageObject.heroLinks.length).toBe(mockOldSearchedHeroes.length);
 
-    let heroLinksDebugElements = searchResultDebugElement.queryAll(
-      By.css('li')
-    );
-    expect(searchResultDebugElement).not.toBeNull();
-    expect(heroLinksDebugElements.length).toBe(mockOldSearchedHeroes.length);
-
-    for (let i = 0; i < heroLinksDebugElements.length; ++i) {
-      const heroLink = heroLinksDebugElements[i];
+    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+      const heroLink = pageObject.heroLinks[i];
       const hero = mockOldSearchedHeroes[i];
       expect(heroLink.nativeElement.textContent).toContain(hero.name);
-      // TODO: https://angular.io/guide/testing-components-scenarios#bydirective-and-injected-directives
     }
 
     const mockNewSearchedHeroes = [HEROES[2], HEROES[3], HEROES[4]];
@@ -225,21 +227,13 @@ describe('HeroSearchComponent', () => {
     tick(500);
     fixture.detectChanges();
 
-    fixtureDebugElement = fixture.debugElement;
-    // TODO: переделать на PageObject
-    searchResultDebugElement = fixtureDebugElement.query(
-      By.css('.search-result')
-    );
+    expect(pageObject.searchResult).not.toBeNull();
+    expect(pageObject.heroLinks.length).toBe(mockNewSearchedHeroes.length);
 
-    heroLinksDebugElements = searchResultDebugElement.queryAll(By.css('li'));
-    expect(searchResultDebugElement).not.toBeNull();
-    expect(heroLinksDebugElements.length).toBe(mockNewSearchedHeroes.length);
-
-    for (let i = 0; i < heroLinksDebugElements.length; ++i) {
-      const heroLink = heroLinksDebugElements[i];
+    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+      const heroLink = pageObject.heroLinks[i];
       const hero = mockNewSearchedHeroes[i];
       expect(heroLink.nativeElement.textContent).toContain(hero.name);
-      // TODO: https://angular.io/guide/testing-components-scenarios#bydirective-and-injected-directives
     }
   }));
 });

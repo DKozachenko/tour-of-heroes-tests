@@ -1,3 +1,5 @@
+import { DebugElement } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MockBuilder, MockRender, MockedComponentFixture } from 'ng-mocks';
 import { of } from 'rxjs';
 import { mock, instance, when, verify } from 'ts-mockito';
@@ -6,6 +8,30 @@ import { DashboardComponent } from './dashboard.component';
 import { AppModule } from '../../../app/app.module';
 import { By } from '@angular/platform-browser';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
+
+class PageObject {
+  private fixtureDebugElement: DebugElement;
+
+  constructor(fixture: MockedComponentFixture<DashboardComponent>) {
+    this.fixtureDebugElement = fixture.debugElement;
+  }
+
+  get heading(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('h2'));
+  }
+
+  get heroesMenu(): DebugElement {
+    return this.fixtureDebugElement.query(By.css('.heroes-menu'));
+  }
+
+  get heroesLinks(): DebugElement[] {
+    return this.heroesMenu.queryAll(By.css('a'));
+  }
+
+  get heroSearch(): DebugElement {
+    return this.fixtureDebugElement.query(By.directive(HeroSearchComponent));
+  }
+}
 
 describe('DashboardComponent', () => {
   let mockHeroService: HeroService;
@@ -57,33 +83,25 @@ describe('DashboardComponent', () => {
   // Layout tests
   it('should contain heading with "Top Heroes" title', () => {
     mockCalls();
-    const fixtureDebugElement = createFixture().debugElement;
-    const headingDebugElement = fixtureDebugElement.query(By.css('h2'));
-
-    expect(headingDebugElement).not.toBeNull();
-    expect(headingDebugElement.nativeElement.textContent).toBe('Top Heroes');
+    const fixture = createFixture();
+    const pageObject = new PageObject(fixture);
+    expect(pageObject.heading).not.toBeNull();
+    expect(pageObject.heading.nativeElement.textContent).toBe('Top Heroes');
   });
 
   it('should contain heroes list including 4 links with hero names and hero id as routerLink attribute', () => {
     mockCalls();
-    const fixtureDebugElement = createFixture().debugElement;
-    const heroesListDebugElement = fixtureDebugElement.query(
-      By.css('.heroes-menu')
-    );
-    expect(heroesListDebugElement).not.toBeNull();
-
-    const heroesLinksDebugElements = heroesListDebugElement.queryAll(
-      By.css('a')
-    );
-    expect(heroesLinksDebugElements.length).toBe(4);
+    const fixture = createFixture();
+    const pageObject = new PageObject(fixture);
+    expect(pageObject.heroesMenu).not.toBeNull();
+    expect(pageObject.heroesLinks.length).toBe(4);
 
     const expectedHeroes = HEROES.slice(1, 5);
-    for (let i = 0; i < heroesLinksDebugElements.length; ++i) {
-      const heroLink = heroesLinksDebugElements[i];
+    for (let i = 0; i < pageObject.heroesLinks.length; ++i) {
+      const heroLink = pageObject.heroesLinks[i];
       const hero = expectedHeroes[i];
       expect(heroLink.nativeElement.textContent).toContain(hero.name);
-      // TODO: https://angular.io/guide/testing-components-scenarios#bydirective-and-injected-directives
-      expect(heroLink.attributes['ng-reflect-router-link']).toBe(
+      expect(heroLink.injector.get(RouterLink).routerLink).toBe(
         `/detail/${hero.id}`
       );
     }
@@ -91,10 +109,8 @@ describe('DashboardComponent', () => {
 
   it('should contain "app-hero-search" component', () => {
     mockCalls();
-    const fixtureDebugElement = createFixture().debugElement;
-    const heroesListDebugElement = fixtureDebugElement.query(
-      By.directive(HeroSearchComponent)
-    );
-    expect(heroesListDebugElement).not.toBeNull();
+    const fixture = createFixture();
+    const pageObject = new PageObject(fixture);
+    expect(pageObject.heroSearch).not.toBeNull();
   });
 });
