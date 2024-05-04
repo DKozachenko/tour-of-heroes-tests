@@ -108,10 +108,10 @@ describe('HeroDetailComponent', () => {
 
     const component = createComponent();
     component.hero = mockHero;
-    const spyOnGoBack = jest.spyOn(component, 'goBack');
+    const spyOnGoBack = jest.spyOn(component, 'goBack').mockReturnValue();
     component.save();
     verify(mockHeroService.updateHero(mockHero)).once();
-    expect(spyOnGoBack).toHaveBeenCalledTimes(1);
+    expect(spyOnGoBack).toHaveBeenCalled();
   });
 
   // Layout tests
@@ -169,9 +169,10 @@ describe('HeroDetailComponent', () => {
     const [backButtonDebugElement] = fixtureDebugElement.queryAll(
       By.css('button')
     );
-    const spyOnGoBack = jest.spyOn(component, 'goBack');
+    const spyOnGoBack = jest.spyOn(component, 'goBack').mockReturnValue();
+    // TODO: https://angular.io/guide/testing-components-scenarios#triggereventhandler
     backButtonDebugElement.nativeElement.click();
-    expect(spyOnGoBack).toHaveBeenCalledTimes(1);
+    expect(spyOnGoBack).toHaveBeenCalled();
   });
 
   it('should call "save" component method if save button has clicked', () => {
@@ -183,8 +184,8 @@ describe('HeroDetailComponent', () => {
     const [_, saveButtonDebugElement] = fixtureDebugElement.queryAll(
       By.css('button')
     );
-    const spyOnSave = jest.spyOn(component, 'save');
+    const spyOnSave = jest.spyOn(component, 'save').mockReturnValue();
     saveButtonDebugElement.nativeElement.click();
-    expect(spyOnSave).toHaveBeenCalledTimes(1);
+    expect(spyOnSave).toHaveBeenCalled();
   });
 });

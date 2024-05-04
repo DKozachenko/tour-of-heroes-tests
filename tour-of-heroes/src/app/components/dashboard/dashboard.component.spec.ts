@@ -64,7 +64,7 @@ describe('DashboardComponent', () => {
     expect(headingDebugElement.nativeElement.textContent).toBe('Top Heroes');
   });
 
-  it('should contain heroes list including 4 links with hero names and hero id as href attribute', () => {
+  it('should contain heroes list including 4 links with hero names and hero id as routerLink attribute', () => {
     mockCalls();
     const fixtureDebugElement = createFixture().debugElement;
     const heroesListDebugElement = fixtureDebugElement.query(
@@ -82,6 +82,7 @@ describe('DashboardComponent', () => {
       const heroLink = heroesLinksDebugElements[i];
       const hero = expectedHeroes[i];
       expect(heroLink.nativeElement.textContent).toContain(hero.name);
+      // TODO: https://angular.io/guide/testing-components-scenarios#bydirective-and-injected-directives
       expect(heroLink.attributes['ng-reflect-router-link']).toBe(
         `/detail/${hero.id}`
       );
