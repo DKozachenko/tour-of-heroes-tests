@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "start:toh": "cd ./tour-of-heroes && npm run start",
-    "test:toh:unit": "cd ./tour-of-heroes && npm run test:unit"
+    "test:toh:unit:local": "cd ./tour-of-heroes && npm run test:unit:local",
+    "test:toh:unit:ci": "cd ./tour-of-heroes && npm run test:unit:ci",
+    "test:toh:unit:coverage": "cd ./tour-of-heroes && npm run test:unit:coverage"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",

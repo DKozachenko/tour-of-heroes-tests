@@ -14,7 +14,7 @@ on:
       - ./tour-of-heroes/**
 
 jobs:
-  test:
+  test-unit:
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -24,4 +24,24 @@ jobs:
         run: npm ci
       - name: Run tests
         working-directory: ./tour-of-heroes
-        run: npm run test:unit
+        run: npm run test:unit:ci
+
+  test-unit-coverage:
+    needs: [test-unit]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        working-directory: ./tour-of-heroes
+        run: npm ci
+      - name: Run tests
+        working-directory: ./tour-of-heroes
+        run: npm run test:unit:coverage
+      - name: Upload coverage directory
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-artifact
+          path: ./tour-of-heroes/coverage
+          if-no-files-found: error
+          retention-days: 3
