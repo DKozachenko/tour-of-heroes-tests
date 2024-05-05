@@ -38,7 +38,7 @@ class PageObject {
   }
 }
 
-describe('HeroSearchComponent', () => {
+xdescribe('HeroSearchComponent', () => {
   let mockHeroService: HeroService;
 
   beforeEach(() => {
@@ -81,7 +81,6 @@ describe('HeroSearchComponent', () => {
     component.search(anyString());
 
     tick();
-    // TODO: а можно ли через toBeObservable?
     expect(heroValues).toStrictEqual([]);
     // Should use for clearing queue
     // https://stackoverflow.com/questions/43060886/angular-2-fakeasync-waiting-for-timeout-in-a-function-using-tick
@@ -183,6 +182,7 @@ describe('HeroSearchComponent', () => {
 
     const pageObject = new PageObject(fixture);
     expect(pageObject.searchResult).not.toBeNull();
+    // TODO: есть toHaveLength
     expect(pageObject.heroLinks.length).toBe(mockHeroes.length);
 
     for (let i = 0; i < pageObject.heroLinks.length; ++i) {

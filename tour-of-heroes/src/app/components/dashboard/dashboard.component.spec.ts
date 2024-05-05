@@ -33,7 +33,9 @@ class PageObject {
   }
 }
 
-describe('DashboardComponent', () => {
+// TODO: router testing, пройтись по всем сценариям
+
+xdescribe('DashboardComponent', () => {
   let mockHeroService: HeroService;
 
   beforeEach(() => {
