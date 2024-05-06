@@ -35,7 +35,7 @@ class PageObject {
 
 // TODO: router testing, пройтись по всем сценариям
 
-xdescribe('DashboardComponent', () => {
+describe('DashboardComponent', () => {
   let mockHeroService: HeroService;
 
   beforeEach(() => {
@@ -78,7 +78,7 @@ xdescribe('DashboardComponent', () => {
     const component = createComponent();
     const expectedHeroes = HEROES.slice(1, 5);
 
-    expect(component.heroes.length).toBe(4);
+    expect(component.heroes).toHaveLength(4);
     expect(component.heroes).toStrictEqual(expectedHeroes);
   });
 
@@ -96,7 +96,7 @@ xdescribe('DashboardComponent', () => {
     const fixture = createFixture();
     const pageObject = new PageObject(fixture);
     expect(pageObject.heroesMenu).not.toBeNull();
-    expect(pageObject.heroesLinks.length).toBe(4);
+    expect(pageObject.heroesLinks).toHaveLength(4);
 
     const expectedHeroes = HEROES.slice(1, 5);
     for (let i = 0; i < pageObject.heroesLinks.length; ++i) {

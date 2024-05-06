@@ -104,10 +104,9 @@ describe('HeroesComponent', () => {
     mockCalls();
     const component = createComponent();
 
-    const spyOnServiceAddHero = jest.spyOn(mockHeroService, 'addHero');
     component.add('');
     component.add('      ');
-    expect(spyOnServiceAddHero).not.toHaveBeenCalled();
+    verify(mockHeroService.addHero(anything())).never();
   });
 
   it('should call "addHero" service method via "add" component method and push new hero in "heroes" property', () => {
@@ -118,7 +117,6 @@ describe('HeroesComponent', () => {
       name: newHeroName.trim(),
     };
 
-    const spyOnServiceAddHero = jest.spyOn(mockHeroService, 'addHero');
     when(mockHeroService.getHeroes()).thenReturn(of([...oldHeroes]));
     when(
       mockHeroService.addHero(deepEqual({ name: mockNewHero.name } as Hero))
@@ -126,13 +124,10 @@ describe('HeroesComponent', () => {
 
     const component = createComponent();
     component.add(newHeroName);
-    // TODO: можно ли без deepEqual
-    expect(spyOnServiceAddHero).toHaveBeenCalledWith(
-      deepEqual({ name: mockNewHero.name })
-    );
-    expect(spyOnServiceAddHero).toHaveBeenCalled();
-
-    expect(component.heroes.length).toBe(oldHeroes.length + 1);
+    verify(
+      mockHeroService.addHero(deepEqual({ name: mockNewHero.name }) as Hero)
+    ).once();
+    expect(component.heroes).toHaveLength(oldHeroes.length + 1);
     expect(component.heroes).toStrictEqual(oldHeroes.concat([mockNewHero]));
   });
 
@@ -142,7 +137,6 @@ describe('HeroesComponent', () => {
       id: 1000,
       name: 'non-existent',
     };
-    const spyOnServiceDeleteHero = jest.spyOn(mockHeroService, 'deleteHero');
     when(mockHeroService.getHeroes()).thenReturn(of(oldHeroes));
     when(mockHeroService.deleteHero(nonExistentHero.id)).thenReturn(
       of(undefined as any)
@@ -150,15 +144,14 @@ describe('HeroesComponent', () => {
 
     const component = createComponent();
     component.delete(nonExistentHero);
-    expect(component.heroes.length).toBe(oldHeroes.length);
+    verify(mockHeroService.deleteHero(nonExistentHero.id)).once();
+    expect(component.heroes).toHaveLength(oldHeroes.length);
     expect(component.heroes).toStrictEqual(oldHeroes);
-    expect(spyOnServiceDeleteHero).toHaveBeenCalledWith(nonExistentHero.id);
   });
 
   it('should change "heroes" property if existed hero was tried to deleted', () => {
     const oldHeroes = [HEROES[0], HEROES[1]];
     const nonExistentHero = oldHeroes[0];
-    const spyOnServiceDeleteHero = jest.spyOn(mockHeroService, 'deleteHero');
     when(mockHeroService.getHeroes()).thenReturn(of(oldHeroes));
     when(mockHeroService.deleteHero(nonExistentHero.id)).thenReturn(
       of(undefined as any)
@@ -166,11 +159,11 @@ describe('HeroesComponent', () => {
 
     const component = createComponent();
     component.delete(nonExistentHero);
-    expect(component.heroes.length).toBe(oldHeroes.length - 1);
+    verify(mockHeroService.deleteHero(nonExistentHero.id)).once();
+    expect(component.heroes).toHaveLength(oldHeroes.length - 1);
     expect(component.heroes).toStrictEqual(
       oldHeroes.filter((hero) => hero.id !== nonExistentHero.id)
     );
-    expect(spyOnServiceDeleteHero).toHaveBeenCalledWith(nonExistentHero.id);
   });
 
   // Layout tests
@@ -219,7 +212,7 @@ describe('HeroesComponent', () => {
     const fixture = createFixture();
     const pageObject = new PageObject(fixture);
     expect(pageObject.heroList).not.toBeNull();
-    expect(pageObject.heroItems.length).toBe(mockHeroes.length);
+    expect(pageObject.heroItems).toHaveLength(mockHeroes.length);
     for (let i = 0; i < pageObject.heroItems.length; ++i) {
       const hero = mockHeroes[i];
       const heroItemLink = pageObject.heroItemsLinks[i];
@@ -249,7 +242,7 @@ describe('HeroesComponent', () => {
     const fixture = createFixture();
     const pageObject = new PageObject(fixture);
     expect(pageObject.heroList).not.toBeNull();
-    expect(pageObject.heroItems.length).toBe(oldHeroes.length);
+    expect(pageObject.heroItems).toHaveLength(oldHeroes.length);
     for (let i = 0; i < pageObject.heroItems.length; ++i) {
       const hero = oldHeroes[i];
       const heroItemLink = pageObject.heroItemsLinks[i];
@@ -267,7 +260,7 @@ describe('HeroesComponent', () => {
     pageObject.addButton.triggerEventHandler('click');
     fixture.detectChanges();
     const newHeroes = oldHeroes.concat([mockNewHero]);
-    expect(pageObject.heroItems.length).toBe(newHeroes.length);
+    expect(pageObject.heroItems).toHaveLength(newHeroes.length);
     for (let i = 0; i < pageObject.heroItems.length; ++i) {
       const hero = newHeroes[i];
       const heroItemLink = pageObject.heroItemsLinks[i];
@@ -314,7 +307,7 @@ describe('HeroesComponent', () => {
     const fixture = createFixture();
     const pageObject = new PageObject(fixture);
     expect(pageObject.heroList).not.toBeNull();
-    expect(pageObject.heroItems.length).toBe(oldHeroes.length);
+    expect(pageObject.heroItems).toHaveLength(oldHeroes.length);
     for (let i = 0; i < pageObject.heroItems.length; ++i) {
       const hero = oldHeroes[i];
       const heroItemLink = pageObject.heroItemsLinks[i];
@@ -333,7 +326,7 @@ describe('HeroesComponent', () => {
     );
     fixture.detectChanges();
     const newHeroes = oldHeroes.filter((hero) => hero.id !== heroForRemove.id);
-    expect(pageObject.heroItems.length).toBe(newHeroes.length);
+    expect(pageObject.heroItems).toHaveLength(newHeroes.length);
     for (let i = 0; i < pageObject.heroItems.length; ++i) {
       const hero = newHeroes[i];
       const heroItemLink = pageObject.heroItemsLinks[i];

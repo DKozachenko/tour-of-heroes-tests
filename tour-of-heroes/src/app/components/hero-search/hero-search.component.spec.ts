@@ -38,7 +38,7 @@ class PageObject {
   }
 }
 
-xdescribe('HeroSearchComponent', () => {
+describe('HeroSearchComponent', () => {
   let mockHeroService: HeroService;
 
   beforeEach(() => {
@@ -163,7 +163,7 @@ xdescribe('HeroSearchComponent', () => {
     const component = fixture.point.componentInstance;
 
     const pageObject = new PageObject(fixture);
-    const spyOnSearch = jest.spyOn(component, 'search').mockReturnValue();
+    const spyOnSearch = jest.spyOn(component, 'search');
 
     const newInputValue = 'new input value';
     pageObject.input.nativeElement.value = newInputValue;
@@ -182,8 +182,7 @@ xdescribe('HeroSearchComponent', () => {
 
     const pageObject = new PageObject(fixture);
     expect(pageObject.searchResult).not.toBeNull();
-    // TODO: есть toHaveLength
-    expect(pageObject.heroLinks.length).toBe(mockHeroes.length);
+    expect(pageObject.heroLinks).toHaveLength(mockHeroes.length);
 
     for (let i = 0; i < pageObject.heroLinks.length; ++i) {
       const heroLink = pageObject.heroLinks[i];
@@ -209,7 +208,7 @@ xdescribe('HeroSearchComponent', () => {
 
     const pageObject = new PageObject(fixture);
     expect(pageObject.searchResult).not.toBeNull();
-    expect(pageObject.heroLinks.length).toBe(mockOldSearchedHeroes.length);
+    expect(pageObject.heroLinks).toHaveLength(mockOldSearchedHeroes.length);
 
     for (let i = 0; i < pageObject.heroLinks.length; ++i) {
       const heroLink = pageObject.heroLinks[i];
@@ -228,7 +227,7 @@ xdescribe('HeroSearchComponent', () => {
     fixture.detectChanges();
 
     expect(pageObject.searchResult).not.toBeNull();
-    expect(pageObject.heroLinks.length).toBe(mockNewSearchedHeroes.length);
+    expect(pageObject.heroLinks).toHaveLength(mockNewSearchedHeroes.length);
 
     for (let i = 0; i < pageObject.heroLinks.length; ++i) {
       const heroLink = pageObject.heroLinks[i];

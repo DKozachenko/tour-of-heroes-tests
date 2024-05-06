@@ -1,7 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { MockBuilder, MockRender, MockedComponentFixture } from 'ng-mocks';
-import { mock, instance, when } from 'ts-mockito';
+import { mock, instance, when, verify } from 'ts-mockito';
 import { MessageService } from '../../services';
 import { MessagesComponent } from './messages.component';
 import { AppModule } from '../../app.module';
@@ -30,7 +30,7 @@ class PageObject {
   }
 }
 
-xdescribe('MessagesComponent', () => {
+describe('MessagesComponent', () => {
   let mockMessageService: MessageService;
 
   beforeEach(() => {
@@ -92,9 +92,9 @@ xdescribe('MessagesComponent', () => {
     // https://angular.io/guide/testing-components-scenarios#whenstable
     fixture.whenStable().then(() => {
       const pageObject = new PageObject(fixture);
-      const spyOnServiceClear = jest.spyOn(mockMessageService, 'clear');
       pageObject.clearButton.triggerEventHandler('click');
-      expect(spyOnServiceClear).toHaveBeenCalled();
+      fixture.detectChanges();
+      verify(mockMessageService.clear()).once();
       expect(pageObject.divWrapper).toBeNull();
     });
   });
@@ -108,7 +108,7 @@ xdescribe('MessagesComponent', () => {
     when(mockMessageService.messages).thenReturn(mockedMessages);
     const fixture = createFixture();
     const pageObject = new PageObject(fixture);
-    expect(pageObject.messages.length).toBeGreaterThan(0);
+    expect(pageObject.messages).not.toHaveLength(0);
 
     for (let i = 0; i < mockedMessages.length; ++i) {
       const messageDiv = pageObject.messages[i];

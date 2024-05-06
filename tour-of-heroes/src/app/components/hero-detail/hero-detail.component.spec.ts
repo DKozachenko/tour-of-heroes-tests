@@ -43,7 +43,7 @@ class PageObject {
   }
 }
 
-xdescribe('HeroDetailComponent', () => {
+describe('HeroDetailComponent', () => {
   let mockHeroService: HeroService;
   let mockLocation: Location;
   let mockRoute: ActivatedRoute;
@@ -142,8 +142,7 @@ xdescribe('HeroDetailComponent', () => {
 
     const component = createComponent();
     component.hero = mockHero;
-    // TODO: мб на verify переписать?
-    const spyOnGoBack = jest.spyOn(component, 'goBack').mockReturnValue();
+    const spyOnGoBack = jest.spyOn(component, 'goBack');
     component.save();
     verify(mockHeroService.updateHero(mockHero)).once();
     expect(spyOnGoBack).toHaveBeenCalled();
@@ -190,19 +189,25 @@ xdescribe('HeroDetailComponent', () => {
     const component = fixture.point.componentInstance;
 
     const pageObject = new PageObject(fixture);
-    // TODO: Без mockReturnValue не воркс?
-    const spyOnGoBack = jest.spyOn(component, 'goBack').mockReturnValue();
+    const spyOnGoBack = jest.spyOn(component, 'goBack');
     pageObject.backButton.triggerEventHandler('click');
     expect(spyOnGoBack).toHaveBeenCalled();
   });
 
   it('should call "save" component method if save button has clicked', () => {
-    mockCalls();
+    const mockId = anyNumber();
+    const mockHero = HEROES[0];
+    when(mockRoute.snapshot).thenReturn({
+      paramMap: new Map([['id', mockId.toString()]]),
+    } as any);
+    when(mockHeroService.getHero(mockId)).thenReturn(of(mockHero));
+    when(mockHeroService.updateHero(anything())).thenReturn(of(anything()));
+
     const fixture = createFixture();
     const component = fixture.point.componentInstance;
 
     const pageObject = new PageObject(fixture);
-    const spyOnSave = jest.spyOn(component, 'save').mockReturnValue();
+    const spyOnSave = jest.spyOn(component, 'save');
     pageObject.saveButton.triggerEventHandler('click');
     expect(spyOnSave).toHaveBeenCalled();
   });
