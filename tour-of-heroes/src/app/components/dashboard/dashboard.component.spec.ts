@@ -41,8 +41,6 @@ class PageObject {
   }
 }
 
-// TODO: router testing, пройтись по всем сценариям
-
 describe('DashboardComponent', () => {
   let mockHeroService: HeroService;
 
