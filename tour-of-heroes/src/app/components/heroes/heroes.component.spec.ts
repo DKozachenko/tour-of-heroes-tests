@@ -1,22 +1,21 @@
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MockBuilder, MockRender, MockedComponentFixture } from 'ng-mocks';
+import { Location } from '@angular/common';
 import {
-  mock,
-  instance,
-  when,
-  verify,
-  anything,
-  anyOfClass,
-  anyString,
-  deepEqual,
-} from 'ts-mockito';
+  MockBuilder,
+  MockRender,
+  MockedComponentFixture,
+  NG_MOCKS_ROOT_PROVIDERS,
+} from 'ng-mocks';
+import { mock, instance, when, verify, anything, deepEqual } from 'ts-mockito';
 import { of } from 'rxjs';
 import { HEROES, HeroService } from '../../services';
 import { Hero } from '../../models';
 import { HeroesComponent } from './heroes.component';
 import { AppModule } from '../../app.module';
-import { RouterLink } from '@angular/router';
 
 class PageObject {
   private fixtureDebugElement: DebugElement;
@@ -83,7 +82,10 @@ describe('HeroesComponent', () => {
   }
 
   function mockCalls(): void {
-    when(mockHeroService.getHeroes()).thenReturn(of(HEROES));
+    // Необходимо сделать копию массива, чтобы тесты не могли влиять друг на друга, меняя массив
+    when(mockHeroService.getHeroes()).thenReturn(
+      of(HEROES.slice(0, HEROES.length))
+    );
   }
 
   // Functional tests
@@ -340,4 +342,60 @@ describe('HeroesComponent', () => {
       expect(heroItemButton.nativeElement.textContent).toContain('x');
     }
   });
+});
+
+describe('HeroSearchComponent:Routing', () => {
+  let mockHeroService: HeroService;
+
+  beforeEach(() => {
+    mockHeroService = mock(HeroService);
+
+    return MockBuilder(
+      [
+        HeroesComponent,
+        RouterModule,
+        RouterTestingModule.withRoutes([]),
+        NG_MOCKS_ROOT_PROVIDERS,
+      ],
+      AppModule
+    ).mock(HeroService, instance(mockHeroService));
+  });
+
+  function createFixture(): MockedComponentFixture<HeroesComponent> {
+    return MockRender(HeroesComponent);
+  }
+
+  function mockCalls(): void {
+    when(mockHeroService.getHeroes()).thenReturn(
+      of(HEROES.slice(0, HEROES.length))
+    );
+  }
+
+  it('should change location if appropriate hero item has clicked', fakeAsync(() => {
+    mockCalls();
+
+    const fixture = createFixture();
+    const router = fixture.point.injector.get(Router);
+    const location = fixture.point.injector.get(Location);
+
+    if (fixture.ngZone) {
+      fixture.ngZone.run(() => router.initialNavigation());
+      tick();
+    }
+
+    const pageObject = new PageObject(fixture);
+    for (let i = 0; i < pageObject.heroItemsLinks.length; ++i) {
+      const heroLink = pageObject.heroItemsLinks[i];
+      if (fixture.ngZone) {
+        fixture.ngZone.run(() => {
+          heroLink.triggerEventHandler('click', {
+            button: 0,
+          });
+          tick();
+        });
+      }
+
+      expect(location.path()).toBe(heroLink.injector.get(RouterLink).href);
+    }
+  }));
 });

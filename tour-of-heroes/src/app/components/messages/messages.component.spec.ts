@@ -84,19 +84,16 @@ describe('MessagesComponent', () => {
 
   it('should clear messages list if clear button has clicked', () => {
     let mockedMessages = ['test message 1', 'test message 2'];
-    when(mockMessageService.messages).thenReturn(mockedMessages);
+    // Надо замкнуть кастомный массив сообщений
+    when(mockMessageService.messages).thenCall(() => mockedMessages);
+    when(mockMessageService.clear()).thenCall(() => (mockedMessages = []));
 
     const fixture = createFixture();
-    // TODO: точно работает? возможно spy нужен перед when
-    // Inline functionality should run in whenStable (ot it doesn't work)
-    // https://angular.io/guide/testing-components-scenarios#whenstable
-    fixture.whenStable().then(() => {
-      const pageObject = new PageObject(fixture);
-      pageObject.clearButton.triggerEventHandler('click');
-      fixture.detectChanges();
-      verify(mockMessageService.clear()).once();
-      expect(pageObject.divWrapper).toBeNull();
-    });
+    const pageObject = new PageObject(fixture);
+    pageObject.clearButton.triggerEventHandler('click');
+    fixture.detectChanges();
+    verify(mockMessageService.clear()).once();
+    expect(pageObject.divWrapper).toBeNull();
   });
 
   it('should contain messages list if messages length more than 0', () => {

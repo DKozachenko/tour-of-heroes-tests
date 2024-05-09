@@ -1,7 +1,15 @@
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Location } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
 import { fakeAsync, discardPeriodicTasks, tick } from '@angular/core/testing';
-import { MockBuilder, MockRender, MockedComponentFixture } from 'ng-mocks';
+import {
+  MockBuilder,
+  MockRender,
+  MockedComponentFixture,
+  NG_MOCKS_ROOT_PROVIDERS,
+} from 'ng-mocks';
 import { of } from 'rxjs';
 import { mock, instance, when, anyString } from 'ts-mockito';
 import { cold } from 'jest-marbles';
@@ -233,6 +241,59 @@ describe('HeroSearchComponent', () => {
       const heroLink = pageObject.heroLinks[i];
       const hero = mockNewSearchedHeroes[i];
       expect(heroLink.nativeElement.textContent).toContain(hero.name);
+    }
+  }));
+});
+
+describe('HeroSearchComponent:Routing', () => {
+  let mockHeroService: HeroService;
+
+  beforeEach(() => {
+    mockHeroService = mock(HeroService);
+
+    return MockBuilder(
+      [
+        HeroSearchComponent,
+        RouterModule,
+        RouterTestingModule.withRoutes([]),
+        NG_MOCKS_ROOT_PROVIDERS,
+      ],
+      AppModule
+    ).mock(HeroService, instance(mockHeroService));
+  });
+
+  function createFixture(): MockedComponentFixture<HeroSearchComponent> {
+    return MockRender(HeroSearchComponent);
+  }
+
+  function mockCalls(): void {
+    when(mockHeroService.searchHeroes(anyString())).thenReturn(of([]));
+  }
+
+  it('should change location if appropriate hero option has clicked', fakeAsync(() => {
+    mockCalls();
+    const fixture = createFixture();
+    const router = fixture.point.injector.get(Router);
+    const location = fixture.point.injector.get(Location);
+
+    if (fixture.ngZone) {
+      fixture.ngZone.run(() => router.initialNavigation());
+      tick();
+    }
+
+    const pageObject = new PageObject(fixture);
+    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+      const heroLink = pageObject.heroLinks[i];
+      if (fixture.ngZone) {
+        fixture.ngZone.run(() => {
+          heroLink.triggerEventHandler('click', {
+            button: 0,
+          });
+        });
+        tick();
+      }
+
+      expect(location.path()).toBe(heroLink.injector.get(RouterLink).href);
     }
   }));
 });

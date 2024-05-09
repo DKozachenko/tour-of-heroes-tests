@@ -1,12 +1,20 @@
 import { DebugElement } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { MockBuilder, MockRender, MockedComponentFixture } from 'ng-mocks';
+import { By } from '@angular/platform-browser';
+import { fakeAsync, tick } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Location } from '@angular/common';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import {
+  MockBuilder,
+  MockRender,
+  MockedComponentFixture,
+  NG_MOCKS_ROOT_PROVIDERS,
+} from 'ng-mocks';
 import { of } from 'rxjs';
 import { mock, instance, when, verify } from 'ts-mockito';
 import { HeroService, HEROES } from '../../services';
 import { DashboardComponent } from './dashboard.component';
 import { AppModule } from '../../../app/app.module';
-import { By } from '@angular/platform-browser';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
 
 class PageObject {
@@ -24,7 +32,7 @@ class PageObject {
     return this.fixtureDebugElement.query(By.css('.heroes-menu'));
   }
 
-  get heroesLinks(): DebugElement[] {
+  get heroLinks(): DebugElement[] {
     return this.heroesMenu.queryAll(By.css('a'));
   }
 
@@ -56,7 +64,9 @@ describe('DashboardComponent', () => {
   }
 
   function mockCalls(): void {
-    when(mockHeroService.getHeroes()).thenReturn(of(HEROES));
+    when(mockHeroService.getHeroes()).thenReturn(
+      of(HEROES.slice(0, HEROES.length))
+    );
   }
 
   // Function tests
@@ -96,11 +106,11 @@ describe('DashboardComponent', () => {
     const fixture = createFixture();
     const pageObject = new PageObject(fixture);
     expect(pageObject.heroesMenu).not.toBeNull();
-    expect(pageObject.heroesLinks).toHaveLength(4);
+    expect(pageObject.heroLinks).toHaveLength(4);
 
     const expectedHeroes = HEROES.slice(1, 5);
-    for (let i = 0; i < pageObject.heroesLinks.length; ++i) {
-      const heroLink = pageObject.heroesLinks[i];
+    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+      const heroLink = pageObject.heroLinks[i];
       const hero = expectedHeroes[i];
       expect(heroLink.nativeElement.textContent).toContain(hero.name);
       expect(heroLink.injector.get(RouterLink).routerLink).toBe(
@@ -115,4 +125,60 @@ describe('DashboardComponent', () => {
     const pageObject = new PageObject(fixture);
     expect(pageObject.heroSearch).not.toBeNull();
   });
+});
+
+// Документация: https://ng-mocks.sudo.eu/guides/route/
+describe('DashboardComponent:Routing', () => {
+  let mockHeroService: HeroService;
+
+  beforeEach(() => {
+    mockHeroService = mock(HeroService);
+
+    return MockBuilder(
+      [
+        DashboardComponent,
+        RouterModule,
+        RouterTestingModule.withRoutes([]),
+        NG_MOCKS_ROOT_PROVIDERS,
+      ],
+      AppModule
+    ).mock(HeroService, instance(mockHeroService));
+  });
+
+  function createFixture(): MockedComponentFixture<DashboardComponent> {
+    return MockRender(DashboardComponent);
+  }
+
+  function mockCalls(): void {
+    when(mockHeroService.getHeroes()).thenReturn(
+      of(HEROES.slice(0, HEROES.length))
+    );
+  }
+
+  it('should change location if appropriate hero link has clicked', fakeAsync(() => {
+    mockCalls();
+    const fixture = createFixture();
+    const router = fixture.point.injector.get(Router);
+    const location = fixture.point.injector.get(Location);
+
+    if (fixture.ngZone) {
+      fixture.ngZone.run(() => router.initialNavigation());
+      tick();
+    }
+
+    const pageObject = new PageObject(fixture);
+    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+      const heroLink = pageObject.heroLinks[i];
+      if (fixture.ngZone) {
+        fixture.ngZone.run(() => {
+          heroLink.triggerEventHandler('click', {
+            button: 0,
+          });
+        });
+        tick();
+      }
+
+      expect(location.path()).toBe(heroLink.injector.get(RouterLink).href);
+    }
+  }));
 });
