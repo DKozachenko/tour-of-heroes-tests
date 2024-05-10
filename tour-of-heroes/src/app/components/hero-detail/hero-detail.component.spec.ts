@@ -156,7 +156,7 @@ describe('HeroDetailComponent', () => {
     component.hero = undefined;
 
     const fixtureDebugElement = fixture.debugElement;
-    expect(fixtureDebugElement.nativeElement.innerHtml).not.toBeDefined();
+    expect(fixtureDebugElement.nativeElement.innerHtml).toBeUndefined();
   });
 
   it('should contain hero description and action buttons if "hero" property is set', () => {

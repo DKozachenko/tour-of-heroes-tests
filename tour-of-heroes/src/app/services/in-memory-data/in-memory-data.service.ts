@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { Hero } from '../models';
+import { Hero } from '../../models';
 
 export const HEROES: Hero[] = [
   { id: 12, name: 'Dr. Nice' },
