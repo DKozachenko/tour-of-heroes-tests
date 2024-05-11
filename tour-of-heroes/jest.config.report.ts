@@ -3,22 +3,15 @@ import type { Config } from 'jest';
 const jestConfig: Config = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/src/setup-jest.ts'],
-  verbose: true,
+  verbose: false,
   bail: 1,
   ci: true,
-  displayName: 'Tour of heroes:Coverage',
+  displayName: 'Tour of heroes:Report',
   moduleFileExtensions: ['js', 'ts'],
-  collectCoverage: true,
-  coverageDirectory: 'coverage',
+  collectCoverage: false,
+  coverageDirectory: undefined,
   updateSnapshot: false,
-  reporters: [
-    'default',
-    [
-      'jest-slow-test-reporter',
-      { numTests: 5, warnOnSlowerThan: 500, color: true },
-    ],
-    ['jest-junit', { outputFile: './report/test-results.xml' }],
-  ],
+  reporters: [['jest-junit', { outputFile: './report/test-results.xml' }]],
 };
 
 export default jestConfig;

@@ -7,6 +7,7 @@
     "start": "ng serve",
     "test:unit:local": "jest --config=jest.config.local.ts",
     "test:unit:ci": "jest --config=jest.config.ci.ts",
+    "test:unit:coverage": "jest --config=jest.config.coverage.ts",
     "test:unit:report": "jest --config=jest.config.report.ts",
     "test:e2e": "ng e2e"
   },

@@ -5,14 +5,14 @@ on:
   pull_request:
     types: [opened]
     branches: ['develop']
-    # paths:
-    #   - .github/workflows/tour-of-heroes.yml
-    #   - ./tour-of-heroes/**
+    paths:
+      - ".github/workflows/tour-of-heroes.yml"
+      - "./tour-of-heroes/**"
   push:
     branches: ['develop']
-    # paths:
-    #   - .github/workflows/tour-of-heroes.yml
-    #   - ./tour-of-heroes/**
+    paths:
+      - ".github/workflows/tour-of-heroes.yml"
+      - "./tour-of-heroes/**"
 
 permissions:
   contents: read
@@ -21,52 +21,102 @@ permissions:
   issues: read
   pull-requests: write
 
-jobs:
-  test-unit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get repository code
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        working-directory: ./tour-of-heroes
-        run: npm ci
-      - name: Run tests
-        working-directory: ./tour-of-heroes
-        run: npm run test:unit:ci
+env:
+  WORKING_DIRECTORY: "./tour-of-heroes"
+  NODE_MODULES_PATH: "./tour-of-heroes/node_modules"
+  NODE_MODULES_CACHE_KEY: "node-modules-key"
 
-  # TODO: возможно разбить coverage и report, но тогда и кэшнуть зависимости   
-  test-unit-report:
-    needs: [test-unit]
+  COVERAGE_PATH: "./tour-of-heroes/coverage"
+
+  TEST_RESULTS_PATH: "./tour-of-heroes/report/test-results.xml"
+
+jobs: 
+  cache-deps:
+    name: Cache dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
         uses: actions/checkout@v4
       - name: Install dependencies
-        working-directory: ./tour-of-heroes
-        run: npm ci
-      - name: Run tests with coverage and timing reports
-        working-directory: ./tour-of-heroes
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npm ci --ignore-scripts
+      - name: Cache (save) node modules
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.NODE_MODULES_PATH }}
+          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+
+  test-unit:
+    name: Run unit tests
+    needs: [cache-deps]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Restore node modules
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.NODE_MODULES_PATH }}
+          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          fail-on-cache-miss: true
+      - name: Run tests
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npm run test:unit:ci
+  
+  test-unit-coverage:
+    name: Create unit tests coverage report
+    needs: [cache-deps]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Restore node modules
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.NODE_MODULES_PATH }}
+          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          fail-on-cache-miss: true
+      - name: Run unit tests with coverage
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: npm run test:unit:coverage
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-artifact
+          path: ${{ env.COVERAGE_PATH }}
+          if-no-files-found: error
+          retention-days: 3
+
+  test-unit-report:
+    name: Create unit tests results report
+    needs: [cache-deps]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Restore node modules
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.NODE_MODULES_PATH }}
+          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          fail-on-cache-miss: true
+      - name: Run unit tests with results
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: npm run test:unit:report
       - name: Create test results report check
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: test-unit-results         
-          path: ./tour-of-heroes/report/test-results.xml
+          name: Show unit tests results         
+          path: ${{ env.TEST_RESULTS_PATH }}
           reporter: jest-junit
       - name: Create test results annotations, PR comment and workflow summary
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: |
-            ./tour-of-heroes/report/test-results.xml
+            ${{ env.TEST_RESULTS_PATH }}
           comment_title: "Unit Test Results"
           job_summary: true
           check_run: false
-      - name: Upload coverage report directory
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-artifact
-          path: ./tour-of-heroes/coverage
-          if-no-files-found: error
-          retention-days: 3
+

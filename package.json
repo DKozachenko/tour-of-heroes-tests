@@ -5,6 +5,7 @@
     "start:toh": "cd ./tour-of-heroes && npm run start",
     "test:toh:unit:local": "cd ./tour-of-heroes && npm run test:unit:local",
     "test:toh:unit:ci": "cd ./tour-of-heroes && npm run test:unit:ci",
+    "test:toh:unit:coverage": "cd ./tour-of-heroes && npm run test:unit:coverage",
     "test:toh:unit:report": "cd ./tour-of-heroes && npm run test:unit:report"
   },
   "devDependencies": {
