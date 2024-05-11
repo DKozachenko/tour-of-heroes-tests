@@ -10,6 +10,14 @@ const jestConfig: Config = {
   moduleFileExtensions: ['js', 'ts'],
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  reporters: [
+    'default',
+    [
+      'jest-slow-test-reporter',
+      { numTests: 5, warnOnSlowerThan: 500, color: true },
+    ],
+    ['jest-junit', { outputFile: './report/test-results.xml' }],
+  ],
 };
 
 export default jestConfig;

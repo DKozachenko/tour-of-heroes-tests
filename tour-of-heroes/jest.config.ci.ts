@@ -9,6 +9,14 @@ const jestConfig: Config = {
   displayName: 'Tour of heroes:CI',
   moduleFileExtensions: ['js', 'ts'],
   collectCoverage: false,
+  reporters: [
+    ['github-actions', { silent: false }],
+    'summary',
+    [
+      'jest-slow-test-reporter',
+      { numTests: 5, warnOnSlowerThan: 500, color: true },
+    ],
+  ],
 };
 
 export default jestConfig;
