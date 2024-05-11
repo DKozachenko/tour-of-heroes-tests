@@ -100,6 +100,7 @@ describe('DashboardComponent', () => {
       const pageObject = new PageObject(fixture);
       expect(pageObject.heading).not.toBeNull();
       expect(pageObject.heading.nativeElement.textContent).toBe('Top Heroes');
+      expect(pageObject.heading.nativeElement).toMatchSnapshot();
     });
 
     it('should contain heroes list including 4 links with hero names and hero id as routerLink attribute', () => {
@@ -107,6 +108,7 @@ describe('DashboardComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.heroesMenu).not.toBeNull();
+      expect(pageObject.heroesMenu.nativeElement).toMatchSnapshot();
       expect(pageObject.heroLinks).toHaveLength(4);
 
       const expectedHeroes = HEROES.slice(1, 5);
@@ -117,6 +119,7 @@ describe('DashboardComponent', () => {
         expect(heroLink.injector.get(RouterLink).routerLink).toBe(
           `/detail/${hero.id}`
         );
+        expect(heroLink.nativeElement).toMatchSnapshot();
       }
     });
 
@@ -125,6 +128,7 @@ describe('DashboardComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.heroSearch).not.toBeNull();
+      expect(pageObject.heroSearch.nativeElement).toMatchSnapshot();
     });
   });
 });

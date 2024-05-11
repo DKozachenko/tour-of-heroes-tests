@@ -162,6 +162,7 @@ describe('HeroDetailComponent', () => {
 
       const fixtureDebugElement = fixture.debugElement;
       expect(fixtureDebugElement.nativeElement.innerHtml).toBeUndefined();
+      expect(fixtureDebugElement.nativeElement).toMatchSnapshot();
     });
 
     it('should contain hero description and action buttons if "hero" property is set', () => {
@@ -175,17 +176,23 @@ describe('HeroDetailComponent', () => {
       expect(pageObject.heading.nativeElement.textContent).toBe(
         `${mockHero.name.toUpperCase()} Details`
       );
+      expect(pageObject.heading.nativeElement).toMatchSnapshot();
       expect(pageObject.heroId.nativeElement.textContent).toBe(
         `id: ${mockHero.id}`
       );
+      expect(pageObject.heroId.nativeElement).toMatchSnapshot();
       expect(pageObject.heroNameLabel.nativeElement.textContent).toBe(
         'Hero name: '
       );
+      expect(pageObject.heroNameLabel.nativeElement).toMatchSnapshot();
       expect(pageObject.heroNameInput.injector.get(NgModel).model).toBe(
         mockHero.name
       );
+      expect(pageObject.heroNameInput.nativeElement).toMatchSnapshot();
       expect(pageObject.backButton).not.toBeNull();
+      expect(pageObject.backButton.nativeElement).toMatchSnapshot();
       expect(pageObject.saveButton).not.toBeNull();
+      expect(pageObject.saveButton.nativeElement).toMatchSnapshot();
     });
 
     it('should call "goBack" component method if go back button has clicked', () => {

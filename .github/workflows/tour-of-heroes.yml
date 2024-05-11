@@ -3,6 +3,7 @@ name: Tour of heroes
 on:
   workflow_dispatch:
   pull_request:
+    types: [opened]
     branches: ['develop']
     # paths:
     #   - .github/workflows/tour-of-heroes.yml
@@ -33,6 +34,7 @@ jobs:
         working-directory: ./tour-of-heroes
         run: npm run test:unit:ci
 
+  # TODO: возможно разбить coverage и report, но тогда и кэшнуть зависимости   
   test-unit-report:
     needs: [test-unit]
     runs-on: ubuntu-latest

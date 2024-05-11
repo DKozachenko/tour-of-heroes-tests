@@ -66,6 +66,7 @@ describe('MessagesComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.divWrapper).not.toBeNull();
+      expect(pageObject.divWrapper.nativeElement).toMatchSnapshot();
     });
 
     it('should contain heading and clear button if messages length more than 0', () => {
@@ -75,10 +76,12 @@ describe('MessagesComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.heading).not.toBeNull();
+      expect(pageObject.heading.nativeElement).toMatchSnapshot();
       expect(pageObject.heading.nativeElement.textContent).toContain(
         'Messages'
       );
       expect(pageObject.clearButton).not.toBeNull();
+      expect(pageObject.clearButton.nativeElement).toMatchSnapshot();
       expect(pageObject.clearButton.nativeElement.textContent).toContain(
         'Clear messages'
       );
@@ -113,6 +116,7 @@ describe('MessagesComponent', () => {
         const messageDiv = pageObject.messages[i];
         const mockMessage = mockedMessages[i];
         expect(messageDiv.nativeElement.textContent).toBe(mockMessage);
+        expect(messageDiv.nativeElement).toMatchSnapshot();
       }
     });
   });

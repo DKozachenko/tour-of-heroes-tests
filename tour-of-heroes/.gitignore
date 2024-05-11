@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+**/__snapshots__/
 
 # Node
 /node_modules

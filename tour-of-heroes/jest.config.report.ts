@@ -10,6 +10,7 @@ const jestConfig: Config = {
   moduleFileExtensions: ['js', 'ts'],
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  updateSnapshot: false,
   reporters: [
     'default',
     [

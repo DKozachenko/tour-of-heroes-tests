@@ -182,6 +182,7 @@ describe('HeroesComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.heading).not.toBeNull();
+      expect(pageObject.heading.nativeElement).toMatchSnapshot();
     });
 
     it('should contain block for creating new hero with input and add button', () => {
@@ -190,9 +191,12 @@ describe('HeroesComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.label).not.toBeNull();
+      expect(pageObject.label.nativeElement).toMatchSnapshot();
       expect(pageObject.label.nativeElement.textContent).toBe('Hero name: ');
       expect(pageObject.input).not.toBeNull();
+      expect(pageObject.input.nativeElement).toMatchSnapshot();
       expect(pageObject.addButton).not.toBeNull();
+      expect(pageObject.addButton.nativeElement).toMatchSnapshot();
       expect(pageObject.addButton.nativeElement.textContent).toContain(
         'Add hero'
       );
@@ -235,13 +239,14 @@ describe('HeroesComponent', () => {
     });
 
     describe('hero list', () => {
-      it('should container hero list with link and button for deleting', () => {
+      it('should contain hero list with link and button for deleting', () => {
         const mockHeroes = [HEROES[0], HEROES[1]];
         when(mockHeroService.getHeroes()).thenReturn(of(mockHeroes));
 
         const fixture = createFixture();
         const pageObject = new PageObject(fixture);
         expect(pageObject.heroList).not.toBeNull();
+        expect(pageObject.heroList.nativeElement).toMatchSnapshot();
         expect(pageObject.heroItems).toHaveLength(mockHeroes.length);
         for (let i = 0; i < pageObject.heroItems.length; ++i) {
           const hero = mockHeroes[i];
@@ -250,10 +255,12 @@ describe('HeroesComponent', () => {
           expect(heroItemLink.nativeElement.textContent).toContain(
             `${hero.id} ${hero.name}`
           );
+          expect(heroItemLink.nativeElement).toMatchSnapshot();
           expect(heroItemLink.injector.get(RouterLink).routerLink).toBe(
             `/detail/${hero.id}`
           );
           expect(heroItemButton.nativeElement.textContent).toContain('x');
+          expect(heroItemButton.nativeElement).toMatchSnapshot();
         }
       });
 

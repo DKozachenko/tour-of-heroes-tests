@@ -9,6 +9,8 @@ const jestConfig: Config = {
   displayName: 'Tour of heroes:CI',
   moduleFileExtensions: ['js', 'ts'],
   collectCoverage: false,
+  coverageDirectory: undefined,
+  updateSnapshot: false,
   reporters: [
     ['github-actions', { silent: false }],
     'summary',

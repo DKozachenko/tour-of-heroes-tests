@@ -9,6 +9,8 @@ const jestConfig: Config = {
   displayName: 'Tour of heroes:Local',
   moduleFileExtensions: ['js', 'ts'],
   collectCoverage: false,
+  coverageDirectory: undefined,
+  updateSnapshot: true,
   reporters: [
     'default',
     [

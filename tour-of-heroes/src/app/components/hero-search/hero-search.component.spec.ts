@@ -156,6 +156,7 @@ describe('HeroSearchComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.divWrapper).not.toBeNull();
+      expect(pageObject.divWrapper.nativeElement).toMatchSnapshot();
     });
 
     it('should contain label and input for typing', () => {
@@ -163,7 +164,9 @@ describe('HeroSearchComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.label).not.toBeNull();
+      expect(pageObject.label.nativeElement).toMatchSnapshot();
       expect(pageObject.input).not.toBeNull();
+      expect(pageObject.input.nativeElement).toMatchSnapshot();
     });
 
     it('should call "search" component method while typing with input value', () => {
@@ -192,12 +195,14 @@ describe('HeroSearchComponent', () => {
 
         const pageObject = new PageObject(fixture);
         expect(pageObject.searchResult).not.toBeNull();
+        expect(pageObject.searchResult.nativeElement).toMatchSnapshot();
         expect(pageObject.heroLinks).toHaveLength(mockHeroes.length);
 
         for (let i = 0; i < pageObject.heroLinks.length; ++i) {
           const heroLink = pageObject.heroLinks[i];
           const hero = mockHeroes[i];
           expect(heroLink.nativeElement.textContent).toContain(hero.name);
+          expect(heroLink.nativeElement).toMatchSnapshot();
         }
       });
 
