@@ -67,61 +67,65 @@ describe('DashboardComponent', () => {
     );
   }
 
-  // Function tests
-  it('should call "getHeroes" service method while creating', () => {
-    mockCalls();
-    createComponent();
-    verify(mockHeroService.getHeroes()).once();
+  describe('Functional', () => {
+    describe('getHeroes', () => {
+      it('should call "getHeroes" service method while creating', () => {
+        mockCalls();
+        createComponent();
+        verify(mockHeroService.getHeroes()).once();
+      });
+
+      it('should call "getHeroes" service method via "getHeroes" component method', () => {
+        mockCalls();
+        const component = createComponent();
+        component.getHeroes();
+        verify(mockHeroService.getHeroes()).twice();
+      });
+    });
+
+    it('should get 4 heroes (from 1 to 5 excluding) while creating', () => {
+      mockCalls();
+      const component = createComponent();
+      const expectedHeroes = HEROES.slice(1, 5);
+
+      expect(component.heroes).toHaveLength(4);
+      expect(component.heroes).toStrictEqual(expectedHeroes);
+    });
   });
 
-  it('should call "getHeroes" service method via "getHeroes" component method', () => {
-    mockCalls();
-    const component = createComponent();
-    component.getHeroes();
-    verify(mockHeroService.getHeroes()).twice();
-  });
+  describe('Layout', () => {
+    it('should contain heading with "Top Heroes" title', () => {
+      mockCalls();
+      const fixture = createFixture();
+      const pageObject = new PageObject(fixture);
+      expect(pageObject.heading).not.toBeNull();
+      expect(pageObject.heading.nativeElement.textContent).toBe('Top Heroes');
+    });
 
-  it('should get 4 heroes (from 1 to 5 excluding) while creating', () => {
-    mockCalls();
-    const component = createComponent();
-    const expectedHeroes = HEROES.slice(1, 5);
+    it('should contain heroes list including 4 links with hero names and hero id as routerLink attribute', () => {
+      mockCalls();
+      const fixture = createFixture();
+      const pageObject = new PageObject(fixture);
+      expect(pageObject.heroesMenu).not.toBeNull();
+      expect(pageObject.heroLinks).toHaveLength(4);
 
-    expect(component.heroes).toHaveLength(4);
-    expect(component.heroes).toStrictEqual(expectedHeroes);
-  });
+      const expectedHeroes = HEROES.slice(1, 5);
+      for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+        const heroLink = pageObject.heroLinks[i];
+        const hero = expectedHeroes[i];
+        expect(heroLink.nativeElement.textContent).toContain(hero.name);
+        expect(heroLink.injector.get(RouterLink).routerLink).toBe(
+          `/detail/${hero.id}`
+        );
+      }
+    });
 
-  // Layout tests
-  it('should contain heading with "Top Heroes" title', () => {
-    mockCalls();
-    const fixture = createFixture();
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.heading).not.toBeNull();
-    expect(pageObject.heading.nativeElement.textContent).toBe('Top Heroes');
-  });
-
-  it('should contain heroes list including 4 links with hero names and hero id as routerLink attribute', () => {
-    mockCalls();
-    const fixture = createFixture();
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.heroesMenu).not.toBeNull();
-    expect(pageObject.heroLinks).toHaveLength(4);
-
-    const expectedHeroes = HEROES.slice(1, 5);
-    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
-      const heroLink = pageObject.heroLinks[i];
-      const hero = expectedHeroes[i];
-      expect(heroLink.nativeElement.textContent).toContain(hero.name);
-      expect(heroLink.injector.get(RouterLink).routerLink).toBe(
-        `/detail/${hero.id}`
-      );
-    }
-  });
-
-  it('should contain "app-hero-search" component', () => {
-    mockCalls();
-    const fixture = createFixture();
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.heroSearch).not.toBeNull();
+    it('should contain "app-hero-search" component', () => {
+      mockCalls();
+      const fixture = createFixture();
+      const pageObject = new PageObject(fixture);
+      expect(pageObject.heroSearch).not.toBeNull();
+    });
   });
 });
 

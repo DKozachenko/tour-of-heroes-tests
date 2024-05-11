@@ -70,179 +70,183 @@ describe('HeroSearchComponent', () => {
     when(mockHeroService.searchHeroes(anyString())).thenReturn(of([]));
   }
 
-  // Functional tests
-  it('should define "heroes$" property as empty observable while creating', () => {
-    mockCalls();
-    const component = createComponent();
-    expect(component.heroes$).toBeDefined();
-    expect(component.heroes$).toBeObservable(cold(''));
+  describe('Functional', () => {
+    it('should define "heroes$" property as empty observable while creating', () => {
+      mockCalls();
+      const component = createComponent();
+      expect(component.heroes$).toBeDefined();
+      expect(component.heroes$).toBeObservable(cold(''));
+    });
+
+    it('should not change "heroes$" property values when "search" method called if less than 300ms has passed', fakeAsync(() => {
+      const mockSearchedHeroes = [HEROES[0], HEROES[1]];
+      when(mockHeroService.searchHeroes(anyString())).thenReturn(
+        of(mockSearchedHeroes)
+      );
+      let heroValues: Hero[] = [];
+      const component = createComponent();
+      component.heroes$.subscribe((newHeroes) => (heroValues = newHeroes));
+      component.search(anyString());
+
+      tick();
+      expect(heroValues).toStrictEqual([]);
+      // Should use for clearing queue
+      // https://stackoverflow.com/questions/43060886/angular-2-fakeasync-waiting-for-timeout-in-a-function-using-tick
+      discardPeriodicTasks();
+    }));
+
+    it('should not change "heroes$" property values when "search" method called if new value is the same as previous (more than 300ms has passed)', fakeAsync(() => {
+      const mockOldSearchedHeroes = [HEROES[0], HEROES[1]];
+      when(mockHeroService.searchHeroes(anyString())).thenReturn(
+        of(mockOldSearchedHeroes)
+      );
+
+      let heroValues: Hero[] = [];
+      const component = createComponent();
+      component.heroes$.subscribe((newHeroes) => (heroValues = newHeroes));
+
+      const oldSearchValue1 = 'test 1';
+      const newSearchValue2 = 'test 2';
+      component.search(oldSearchValue1);
+      tick(500);
+      expect(heroValues).toStrictEqual(mockOldSearchedHeroes);
+
+      const mockNewSearchedHeroes = [HEROES[1], HEROES[2]];
+      when(mockHeroService.searchHeroes(anyString())).thenReturn(
+        of(mockNewSearchedHeroes)
+      );
+      component.search(newSearchValue2);
+      component.search(oldSearchValue1);
+      tick(500);
+      expect(heroValues).toStrictEqual(mockOldSearchedHeroes);
+    }));
+
+    it('should change "heroes$" property values when "search" method called (more than 300ms has passed and new value emitted)', fakeAsync(() => {
+      const mockOldSearchedHeroes = [HEROES[0], HEROES[1]];
+
+      when(mockHeroService.searchHeroes(anyString())).thenReturn(
+        of(mockOldSearchedHeroes)
+      );
+
+      let heroValues: Hero[] = [];
+      const component = createComponent();
+      component.heroes$.subscribe((newHeroes) => (heroValues = newHeroes));
+
+      const oldSearchValue1 = 'test 1';
+      const newSearchValue2 = 'test 2';
+      component.search(oldSearchValue1);
+      tick(500);
+      expect(heroValues).toStrictEqual(mockOldSearchedHeroes);
+
+      const mockNewSearchedHeroes = [HEROES[1], HEROES[2]];
+      when(mockHeroService.searchHeroes(anyString())).thenReturn(
+        of(mockNewSearchedHeroes)
+      );
+      component.search(newSearchValue2);
+      component.search(oldSearchValue1);
+      component.search(newSearchValue2);
+      tick(500);
+      expect(heroValues).toStrictEqual(mockNewSearchedHeroes);
+    }));
   });
 
-  it('should not change "heroes$" property values when "search" method called if less than 300ms has passed', fakeAsync(() => {
-    const mockSearchedHeroes = [HEROES[0], HEROES[1]];
-    when(mockHeroService.searchHeroes(anyString())).thenReturn(
-      of(mockSearchedHeroes)
-    );
-    let heroValues: Hero[] = [];
-    const component = createComponent();
-    component.heroes$.subscribe((newHeroes) => (heroValues = newHeroes));
-    component.search(anyString());
+  describe('Layout', () => {
+    it('should contain div wrapper', () => {
+      mockCalls();
+      const fixture = createFixture();
+      const pageObject = new PageObject(fixture);
+      expect(pageObject.divWrapper).not.toBeNull();
+    });
 
-    tick();
-    expect(heroValues).toStrictEqual([]);
-    // Should use for clearing queue
-    // https://stackoverflow.com/questions/43060886/angular-2-fakeasync-waiting-for-timeout-in-a-function-using-tick
-    discardPeriodicTasks();
-  }));
+    it('should contain label and input for typing', () => {
+      mockCalls();
+      const fixture = createFixture();
+      const pageObject = new PageObject(fixture);
+      expect(pageObject.label).not.toBeNull();
+      expect(pageObject.input).not.toBeNull();
+    });
 
-  it('should not change "heroes$" property values when "search" method called if new value is the same as previous (more than 300ms has passed)', fakeAsync(() => {
-    const mockOldSearchedHeroes = [HEROES[0], HEROES[1]];
-    when(mockHeroService.searchHeroes(anyString())).thenReturn(
-      of(mockOldSearchedHeroes)
-    );
+    it('should call "search" component method while typing with input value', () => {
+      mockCalls();
+      const fixture = createFixture();
+      const component = fixture.point.componentInstance;
 
-    let heroValues: Hero[] = [];
-    const component = createComponent();
-    component.heroes$.subscribe((newHeroes) => (heroValues = newHeroes));
+      const pageObject = new PageObject(fixture);
+      const spyOnSearch = jest.spyOn(component, 'search');
 
-    const oldSearchValue1 = 'test 1';
-    const newSearchValue2 = 'test 2';
-    component.search(oldSearchValue1);
-    tick(500);
-    expect(heroValues).toStrictEqual(mockOldSearchedHeroes);
+      const newInputValue = 'new input value';
+      pageObject.input.nativeElement.value = newInputValue;
+      pageObject.input.triggerEventHandler('input');
+      expect(spyOnSearch).toHaveBeenCalled();
+      expect(spyOnSearch).toHaveBeenCalledWith(newInputValue);
+    });
 
-    const mockNewSearchedHeroes = [HEROES[1], HEROES[2]];
-    when(mockHeroService.searchHeroes(anyString())).thenReturn(
-      of(mockNewSearchedHeroes)
-    );
-    component.search(newSearchValue2);
-    component.search(oldSearchValue1);
-    tick(500);
-    expect(heroValues).toStrictEqual(mockOldSearchedHeroes);
-  }));
+    describe('hero list', () => {
+      it('should contain hero list with hero names and hero id as routerLink attribute', () => {
+        mockCalls();
+        const fixture = createFixture();
+        const component = fixture.point.componentInstance;
+        const mockHeroes = HEROES.slice(0, 3);
+        component.heroes$ = of(mockHeroes);
+        fixture.detectChanges();
 
-  it('should change "heroes$" property values when "search" method called (more than 300ms has passed and new value emitted)', fakeAsync(() => {
-    const mockOldSearchedHeroes = [HEROES[0], HEROES[1]];
+        const pageObject = new PageObject(fixture);
+        expect(pageObject.searchResult).not.toBeNull();
+        expect(pageObject.heroLinks).toHaveLength(mockHeroes.length);
 
-    when(mockHeroService.searchHeroes(anyString())).thenReturn(
-      of(mockOldSearchedHeroes)
-    );
+        for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+          const heroLink = pageObject.heroLinks[i];
+          const hero = mockHeroes[i];
+          expect(heroLink.nativeElement.textContent).toContain(hero.name);
+        }
+      });
 
-    let heroValues: Hero[] = [];
-    const component = createComponent();
-    component.heroes$.subscribe((newHeroes) => (heroValues = newHeroes));
+      it('should change hero list if new value has typed in input (more than 300ms has passed and new value emitted)', fakeAsync(() => {
+        const mockOldSearchedHeroes = [HEROES[0], HEROES[1]];
 
-    const oldSearchValue1 = 'test 1';
-    const newSearchValue2 = 'test 2';
-    component.search(oldSearchValue1);
-    tick(500);
-    expect(heroValues).toStrictEqual(mockOldSearchedHeroes);
+        when(mockHeroService.searchHeroes(anyString())).thenReturn(
+          of(mockOldSearchedHeroes)
+        );
 
-    const mockNewSearchedHeroes = [HEROES[1], HEROES[2]];
-    when(mockHeroService.searchHeroes(anyString())).thenReturn(
-      of(mockNewSearchedHeroes)
-    );
-    component.search(newSearchValue2);
-    component.search(oldSearchValue1);
-    component.search(newSearchValue2);
-    tick(500);
-    expect(heroValues).toStrictEqual(mockNewSearchedHeroes);
-  }));
+        const fixture = createFixture();
+        const component = fixture.point.componentInstance;
 
-  // Layout tests
-  it('should contain div wrapper', () => {
-    mockCalls();
-    const fixture = createFixture();
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.divWrapper).not.toBeNull();
+        const oldSearchValue1 = 'test 1';
+        component.search(oldSearchValue1);
+        tick(500);
+        fixture.detectChanges();
+
+        const pageObject = new PageObject(fixture);
+        expect(pageObject.searchResult).not.toBeNull();
+        expect(pageObject.heroLinks).toHaveLength(mockOldSearchedHeroes.length);
+
+        for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+          const heroLink = pageObject.heroLinks[i];
+          const hero = mockOldSearchedHeroes[i];
+          expect(heroLink.nativeElement.textContent).toContain(hero.name);
+        }
+
+        const mockNewSearchedHeroes = [HEROES[2], HEROES[3], HEROES[4]];
+        when(mockHeroService.searchHeroes(anyString())).thenReturn(
+          of(mockNewSearchedHeroes)
+        );
+
+        const newSearchValue2 = 'test 2';
+        component.search(newSearchValue2);
+        tick(500);
+        fixture.detectChanges();
+
+        expect(pageObject.searchResult).not.toBeNull();
+        expect(pageObject.heroLinks).toHaveLength(mockNewSearchedHeroes.length);
+
+        for (let i = 0; i < pageObject.heroLinks.length; ++i) {
+          const heroLink = pageObject.heroLinks[i];
+          const hero = mockNewSearchedHeroes[i];
+          expect(heroLink.nativeElement.textContent).toContain(hero.name);
+        }
+      }));
+    });
   });
-
-  it('should contain label and input for typing', () => {
-    mockCalls();
-    const fixture = createFixture();
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.label).not.toBeNull();
-    expect(pageObject.input).not.toBeNull();
-  });
-
-  it('should call "search" component method while typing with input value', () => {
-    mockCalls();
-    const fixture = createFixture();
-    const component = fixture.point.componentInstance;
-
-    const pageObject = new PageObject(fixture);
-    const spyOnSearch = jest.spyOn(component, 'search');
-
-    const newInputValue = 'new input value';
-    pageObject.input.nativeElement.value = newInputValue;
-    pageObject.input.triggerEventHandler('input');
-    expect(spyOnSearch).toHaveBeenCalled();
-    expect(spyOnSearch).toHaveBeenCalledWith(newInputValue);
-  });
-
-  it('should contain hero list with hero names and hero id as routerLink attribute', () => {
-    mockCalls();
-    const fixture = createFixture();
-    const component = fixture.point.componentInstance;
-    const mockHeroes = HEROES.slice(0, 3);
-    component.heroes$ = of(mockHeroes);
-    fixture.detectChanges();
-
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.searchResult).not.toBeNull();
-    expect(pageObject.heroLinks).toHaveLength(mockHeroes.length);
-
-    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
-      const heroLink = pageObject.heroLinks[i];
-      const hero = mockHeroes[i];
-      expect(heroLink.nativeElement.textContent).toContain(hero.name);
-    }
-  });
-
-  it('should change hero list if new value has typed in input (more than 300ms has passed and new value emitted)', fakeAsync(() => {
-    const mockOldSearchedHeroes = [HEROES[0], HEROES[1]];
-
-    when(mockHeroService.searchHeroes(anyString())).thenReturn(
-      of(mockOldSearchedHeroes)
-    );
-
-    const fixture = createFixture();
-    const component = fixture.point.componentInstance;
-
-    const oldSearchValue1 = 'test 1';
-    component.search(oldSearchValue1);
-    tick(500);
-    fixture.detectChanges();
-
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.searchResult).not.toBeNull();
-    expect(pageObject.heroLinks).toHaveLength(mockOldSearchedHeroes.length);
-
-    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
-      const heroLink = pageObject.heroLinks[i];
-      const hero = mockOldSearchedHeroes[i];
-      expect(heroLink.nativeElement.textContent).toContain(hero.name);
-    }
-
-    const mockNewSearchedHeroes = [HEROES[2], HEROES[3], HEROES[4]];
-    when(mockHeroService.searchHeroes(anyString())).thenReturn(
-      of(mockNewSearchedHeroes)
-    );
-
-    const newSearchValue2 = 'test 2';
-    component.search(newSearchValue2);
-    tick(500);
-    fixture.detectChanges();
-
-    expect(pageObject.searchResult).not.toBeNull();
-    expect(pageObject.heroLinks).toHaveLength(mockNewSearchedHeroes.length);
-
-    for (let i = 0; i < pageObject.heroLinks.length; ++i) {
-      const heroLink = pageObject.heroLinks[i];
-      const hero = mockNewSearchedHeroes[i];
-      expect(heroLink.nativeElement.textContent).toContain(hero.name);
-    }
-  }));
 });
 
 describe('HeroSearchComponent:Routing', () => {

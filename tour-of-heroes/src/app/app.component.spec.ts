@@ -63,32 +63,37 @@ describe('AppComponent', () => {
     return MockRender(AppComponent);
   }
 
-  // Layout tests
-  it('should contain heading with "Tour of Heroes" title', () => {
-    const fixture = createFixture();
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.heading).not.toBeNull();
-    expect(pageObject.heading.nativeElement.textContent).toBe('Tour of Heroes');
-  });
+  describe('Layout', () => {
+    it('should contain heading with "Tour of Heroes" title', () => {
+      const fixture = createFixture();
+      const pageObject = new PageObject(fixture);
+      expect(pageObject.heading).not.toBeNull();
+      expect(pageObject.heading.nativeElement.textContent).toBe(
+        'Tour of Heroes'
+      );
+    });
 
-  it('should contain navigation with links', () => {
-    const fixture = createFixture();
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.navigation).not.toBeNull();
-    expect(pageObject.links).toHaveLength(LINKS.length);
+    it('should contain navigation with links', () => {
+      const fixture = createFixture();
+      const pageObject = new PageObject(fixture);
+      expect(pageObject.navigation).not.toBeNull();
+      expect(pageObject.links).toHaveLength(LINKS.length);
 
-    for (let i = 0; i < pageObject.links.length; ++i) {
-      const navigationLink = pageObject.links[i];
-      const link = LINKS[i];
-      expect(navigationLink.nativeElement.textContent).toBe(link.text);
-      expect(navigationLink.injector.get(RouterLink).routerLink).toBe(link.url);
-    }
-  });
+      for (let i = 0; i < pageObject.links.length; ++i) {
+        const navigationLink = pageObject.links[i];
+        const link = LINKS[i];
+        expect(navigationLink.nativeElement.textContent).toBe(link.text);
+        expect(navigationLink.injector.get(RouterLink).routerLink).toBe(
+          link.url
+        );
+      }
+    });
 
-  it('should contain "app-messages" component', () => {
-    const fixture = createFixture();
-    const pageObject = new PageObject(fixture);
-    expect(pageObject.messages).not.toBeNull();
+    it('should contain "app-messages" component', () => {
+      const fixture = createFixture();
+      const pageObject = new PageObject(fixture);
+      expect(pageObject.messages).not.toBeNull();
+    });
   });
 });
 
