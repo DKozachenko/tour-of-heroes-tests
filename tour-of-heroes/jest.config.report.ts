@@ -12,6 +12,10 @@ const jestConfig: Config = {
   coverageDirectory: 'coverage',
   reporters: [
     'default',
+    [
+      'jest-slow-test-reporter',
+      { numTests: 5, warnOnSlowerThan: 500, color: true },
+    ],
     ['jest-junit', { outputFile: './report/test-results.xml' }],
   ],
 };

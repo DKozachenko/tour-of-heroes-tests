@@ -49,7 +49,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: Test result report         
+          name: test-unit-results         
           path: ./tour-of-heroes/report/test-results.xml
           reporter: jest-junit
       - name: Create test results annotations, PR comment and workflow summary
