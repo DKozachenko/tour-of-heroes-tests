@@ -10,6 +10,10 @@ const jestConfig: Config = {
   moduleFileExtensions: ['js', 'ts'],
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  reporters: [
+    'default',
+    ['jest-junit', { outputFile: './report/test-results.xml' }],
+  ],
 };
 
 export default jestConfig;

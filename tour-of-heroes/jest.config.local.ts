@@ -9,6 +9,13 @@ const jestConfig: Config = {
   displayName: 'Tour of heroes:Local',
   moduleFileExtensions: ['js', 'ts'],
   collectCoverage: false,
+  reporters: [
+    'default',
+    [
+      'jest-slow-test-reporter',
+      { numTests: 5, warnOnSlowerThan: 500, color: true },
+    ],
+  ],
 };
 
 export default jestConfig;
