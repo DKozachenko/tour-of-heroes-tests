@@ -18,6 +18,7 @@ import { AppModule } from '../../../app/app.module';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
 
 class PageObject {
+  // TODO: через атрибут automation-id
   private fixtureDebugElement: DebugElement;
 
   constructor(fixture: MockedComponentFixture<DashboardComponent>) {
