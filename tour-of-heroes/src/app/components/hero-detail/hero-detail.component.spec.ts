@@ -14,32 +14,36 @@ import { AppModule } from '../../../app/app.module';
 class PageObject {
   private fixtureDebugElement: DebugElement;
 
+  private getElementByAutomationId(id: string): DebugElement {
+    return this.fixtureDebugElement.query(By.css(`[automation-id=${id}]`));
+  }
+
   constructor(fixture: MockedComponentFixture<HeroDetailComponent>) {
     this.fixtureDebugElement = fixture.debugElement;
   }
 
   get heading(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('h2'));
+    return this.getElementByAutomationId('heading');
   }
 
   get heroId(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('h2 + div'));
+    return this.getElementByAutomationId('hero-id');
   }
 
   get heroNameLabel(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('div > label'));
+    return this.getElementByAutomationId('hero-name-label');
   }
 
   get heroNameInput(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('div > input'));
+    return this.getElementByAutomationId('hero-name-input');
   }
 
   get backButton(): DebugElement {
-    return this.fixtureDebugElement.queryAll(By.css('button'))[0];
+    return this.getElementByAutomationId('back-button');
   }
 
   get saveButton(): DebugElement {
-    return this.fixtureDebugElement.queryAll(By.css('button'))[1];
+    return this.getElementByAutomationId('save-button');
   }
 }
 

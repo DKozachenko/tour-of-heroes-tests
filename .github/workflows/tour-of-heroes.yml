@@ -12,7 +12,7 @@ on:
     branches: ['develop']
     paths:
       - ".github/workflows/tour-of-heroes.yml"
-      - "./tour-of-heroes/**"
+      - "tour-of-heroes/**"
 
 permissions:
   contents: read

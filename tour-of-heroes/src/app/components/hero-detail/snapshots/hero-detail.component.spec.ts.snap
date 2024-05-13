@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 1`] = `
+<h2
+  automation-id="heading"
+>
+  DR. NICE Details
+</h2>
+`;
+
+exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 2`] = `
+<div
+  automation-id="hero-id"
+>
+  <span>
+    id: 
+  </span>
+  12
+</div>
+`;
+
+exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 3`] = `
+<label
+  automation-id="hero-name-label"
+  for="hero-name"
+>
+  Hero name: 
+</label>
+`;
+
+exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 4`] = `
+<input
+  automation-id="hero-name-input"
+  id="hero-name"
+  placeholder="Hero name"
+/>
+`;
+
+exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 5`] = `
+<button
+  automation-id="back-button"
+  type="button"
+>
+   go back 
+</button>
+`;
+
+exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 6`] = `
+<button
+  automation-id="save-button"
+  type="button"
+>
+   save 
+</button>
+`;
+
+exports[`HeroDetailComponent Layout should not contain html if "hero" property is not set 1`] = `
+<div
+  id="root6"
+>
+  <app-hero-detail>
+    <div>
+      <h2
+        automation-id="heading"
+      >
+        DR. NICE Details
+      </h2>
+      <div
+        automation-id="hero-id"
+      >
+        <span>
+          id: 
+        </span>
+        12
+      </div>
+      <div>
+        <label
+          automation-id="hero-name-label"
+          for="hero-name"
+        >
+          Hero name: 
+        </label>
+        <input
+          automation-id="hero-name-input"
+          id="hero-name"
+          placeholder="Hero name"
+        />
+        
+      </div>
+      <button
+        automation-id="back-button"
+        type="button"
+      >
+         go back 
+      </button>
+      <button
+        automation-id="save-button"
+        type="button"
+      >
+         save 
+      </button>
+    </div>
+    
+  </app-hero-detail>
+</div>
+`;

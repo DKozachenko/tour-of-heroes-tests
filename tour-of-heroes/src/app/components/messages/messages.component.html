@@ -1,7 +1,14 @@
-<div *ngIf="messageService.messages.length">
-  <h2>Messages</h2>
-  <button type="button" class="clear" (click)="messageService.clear()">
+<div *ngIf="messageService.messages.length" automation-id="wrapper">
+  <h2 automation-id="heading">Messages</h2>
+  <button
+    type="button"
+    class="clear"
+    (click)="messageService.clear()"
+    automation-id="clear-button"
+  >
     Clear messages
   </button>
-  <div *ngFor="let message of messageService.messages">{{ message }}</div>
+  <div *ngFor="let message of messageService.messages" automation-id="message">
+    {{ message }}
+  </div>
 </div>

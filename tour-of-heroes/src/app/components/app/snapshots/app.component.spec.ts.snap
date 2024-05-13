@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppComponent Layout should contain "app-messages" component 1`] = `
+<app-messages
+  automation-id="messages"
+/>
+`;
+
+exports[`AppComponent Layout should contain heading with "Tour of Heroes" title 1`] = `
+<h1
+  automation-id="heading"
+>
+  Tour of Heroes
+</h1>
+`;
+
+exports[`AppComponent Layout should contain navigation with links 1`] = `
+<nav
+  automation-id="navigation"
+>
+  <a
+    automation-id="navigation-link"
+    routerlink="/dashboard"
+  >
+    Dashboard
+  </a>
+  
+  <a
+    automation-id="navigation-link"
+    routerlink="/heroes"
+  >
+    Heroes
+  </a>
+  
+</nav>
+`;
+
+exports[`AppComponent Layout should contain navigation with links 2`] = `
+<a
+  automation-id="navigation-link"
+  routerlink="/dashboard"
+>
+  Dashboard
+</a>
+`;
+
+exports[`AppComponent Layout should contain navigation with links 3`] = `
+<a
+  automation-id="navigation-link"
+  routerlink="/heroes"
+>
+  Heroes
+</a>
+`;

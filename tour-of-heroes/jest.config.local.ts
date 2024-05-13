@@ -2,7 +2,7 @@ import type { Config } from 'jest';
 
 const jestConfig: Config = {
   preset: 'jest-preset-angular',
-  setupFilesAfterEnv: ['<rootDir>/src/setup-jest.ts'],
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   verbose: false,
   bail: 1,
   ci: false,
@@ -11,6 +11,8 @@ const jestConfig: Config = {
   collectCoverage: false,
   coverageDirectory: undefined,
   updateSnapshot: true,
+  snapshotResolver: './snapshot.resolver.js',
+  testTimeout: 3000,
   reporters: [
     'default',
     [

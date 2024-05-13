@@ -15,30 +15,36 @@ import { mock, instance, when, verify } from 'ts-mockito';
 import { HeroService, HEROES } from '../../services';
 import { DashboardComponent } from './dashboard.component';
 import { AppModule } from '../../../app/app.module';
-import { HeroSearchComponent } from '../hero-search/hero-search.component';
 
 class PageObject {
-  // TODO: через атрибут automation-id
   private fixtureDebugElement: DebugElement;
+
+  private getElementByAutomationId(id: string): DebugElement {
+    return this.fixtureDebugElement.query(By.css(`[automation-id=${id}]`));
+  }
+
+  private getElementsByAutomationId(id: string): DebugElement[] {
+    return this.fixtureDebugElement.queryAll(By.css(`[automation-id=${id}]`));
+  }
 
   constructor(fixture: MockedComponentFixture<DashboardComponent>) {
     this.fixtureDebugElement = fixture.debugElement;
   }
 
   get heading(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('h2'));
+    return this.getElementByAutomationId('heading');
   }
 
   get heroesMenu(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('.heroes-menu'));
+    return this.getElementByAutomationId('heroes-menu');
   }
 
   get heroLinks(): DebugElement[] {
-    return this.heroesMenu.queryAll(By.css('a'));
+    return this.getElementsByAutomationId('hero-link');
   }
 
   get heroSearch(): DebugElement {
-    return this.fixtureDebugElement.query(By.directive(HeroSearchComponent));
+    return this.getElementByAutomationId('hero-search');
   }
 }
 
