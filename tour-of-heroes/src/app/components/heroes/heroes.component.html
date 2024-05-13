@@ -1,22 +1,23 @@
-<h2>My Heroes</h2>
+<h2 automation-id="heading">My Heroes</h2>
 
-<div>
-  <label for="new-hero">Hero name: </label>
-  <input id="new-hero" #heroName />
+<div automation-id="create-div">
+  <label for="new-hero" automation-id="create-label">Hero name: </label>
+  <input id="new-hero" #heroName automation-id="create-input" />
 
   <!-- (click) passes input value to add() and then clears the input -->
   <button
     type="button"
     class="add-button"
     (click)="add(heroName.value); heroName.value = ''"
+    automation-id="add-button"
   >
     Add hero
   </button>
 </div>
 
-<ul class="heroes">
-  <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{ hero.id }}">
+<ul class="heroes" automation-id="heroes">
+  <li *ngFor="let hero of heroes" automation-id="hero-item">
+    <a routerLink="/detail/{{ hero.id }}" automation-id="hero-link">
       <span class="badge">{{ hero.id }}</span> {{ hero.name }}
     </a>
     <button
@@ -24,6 +25,7 @@
       class="delete"
       title="delete hero"
       (click)="delete(hero)"
+      automation-id="hero-button"
     >
       x
     </button>

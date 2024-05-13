@@ -12,34 +12,39 @@ import {
   ngMocks,
 } from 'ng-mocks';
 import { AppComponent } from './app.component';
-import { AppModule } from './app.module';
-import {
-  DashboardComponent,
-  HeroesComponent,
-  MessagesComponent,
-} from './components';
+import { AppModule } from '../../app.module';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { HeroesComponent } from '../heroes/heroes.component';
 
 class PageObject {
   private fixtureDebugElement: DebugElement;
+
+  private getElementByAutomationId(id: string): DebugElement {
+    return this.fixtureDebugElement.query(By.css(`[automation-id=${id}]`));
+  }
+
+  private getElementsByAutomationId(id: string): DebugElement[] {
+    return this.fixtureDebugElement.queryAll(By.css(`[automation-id=${id}]`));
+  }
 
   constructor(fixture: MockedComponentFixture<AppComponent>) {
     this.fixtureDebugElement = fixture.debugElement;
   }
 
   get heading(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('h1'));
+    return this.getElementByAutomationId('heading');
   }
 
   get navigation(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('nav'));
+    return this.getElementByAutomationId('navigation');
   }
 
   get links(): DebugElement[] {
-    return this.fixtureDebugElement.queryAll(By.css('a'));
+    return this.getElementsByAutomationId('navigation-link');
   }
 
   get messages(): DebugElement {
-    return this.fixtureDebugElement.query(By.directive(MessagesComponent));
+    return this.getElementByAutomationId('messages');
   }
 }
 
@@ -71,6 +76,7 @@ describe('AppComponent', () => {
       expect(pageObject.heading.nativeElement.textContent).toBe(
         'Tour of Heroes'
       );
+      expect(pageObject.heading.nativeElement).toMatchSnapshot();
     });
 
     it('should contain navigation with links', () => {
@@ -78,6 +84,7 @@ describe('AppComponent', () => {
       const pageObject = new PageObject(fixture);
       expect(pageObject.navigation).not.toBeNull();
       expect(pageObject.links).toHaveLength(LINKS.length);
+      expect(pageObject.navigation.nativeElement).toMatchSnapshot();
 
       for (let i = 0; i < pageObject.links.length; ++i) {
         const navigationLink = pageObject.links[i];
@@ -86,6 +93,7 @@ describe('AppComponent', () => {
         expect(navigationLink.injector.get(RouterLink).routerLink).toBe(
           link.url
         );
+        expect(navigationLink.nativeElement).toMatchSnapshot();
       }
     });
 
@@ -93,6 +101,7 @@ describe('AppComponent', () => {
       const fixture = createFixture();
       const pageObject = new PageObject(fixture);
       expect(pageObject.messages).not.toBeNull();
+      expect(pageObject.messages.nativeElement).toMatchSnapshot();
     });
   });
 });

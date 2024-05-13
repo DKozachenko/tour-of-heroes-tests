@@ -20,44 +20,52 @@ import { AppModule } from '../../app.module';
 class PageObject {
   private fixtureDebugElement: DebugElement;
 
+  private getElementByAutomationId(id: string): DebugElement {
+    return this.fixtureDebugElement.query(By.css(`[automation-id=${id}]`));
+  }
+
+  private getElementsByAutomationId(id: string): DebugElement[] {
+    return this.fixtureDebugElement.queryAll(By.css(`[automation-id=${id}]`));
+  }
+
   constructor(fixture: MockedComponentFixture<HeroesComponent>) {
     this.fixtureDebugElement = fixture.debugElement;
   }
 
   get heading(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('h2'));
+    return this.getElementByAutomationId('heading');
   }
 
   get createDiv(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('div'));
+    return this.getElementByAutomationId('create-div');
   }
 
   get label(): DebugElement {
-    return this.createDiv.query(By.css('label'));
+    return this.getElementByAutomationId('create-label');
   }
 
   get input(): DebugElement {
-    return this.createDiv.query(By.css('input'));
+    return this.getElementByAutomationId('create-input');
   }
 
   get addButton(): DebugElement {
-    return this.createDiv.query(By.css('button'));
+    return this.getElementByAutomationId('add-button');
   }
 
   get heroList(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('.heroes'));
+    return this.getElementByAutomationId('heroes');
   }
 
   get heroItems(): DebugElement[] {
-    return this.heroList.queryAll(By.css('li'));
+    return this.getElementsByAutomationId('hero-item');
   }
 
   get heroItemsLinks(): DebugElement[] {
-    return this.heroList.queryAll(By.css('li a'));
+    return this.getElementsByAutomationId('hero-link');
   }
 
   get heroItemsButtons(): DebugElement[] {
-    return this.heroList.queryAll(By.css('li button'));
+    return this.getElementsByAutomationId('hero-button');
   }
 }
 

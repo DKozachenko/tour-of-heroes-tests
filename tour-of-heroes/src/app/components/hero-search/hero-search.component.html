@@ -1,10 +1,15 @@
-<div id="search-component">
-  <label for="search-box">Hero Search</label>
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+<div id="search-component" automation-id="search-component">
+  <label for="search-box" automation-id="search-label">Hero Search</label>
+  <input
+    #searchBox
+    id="search-box"
+    (input)="search(searchBox.value)"
+    automation-id="search-input"
+  />
 
-  <ul class="search-result">
+  <ul class="search-result" automation-id="search-result">
     <li *ngFor="let hero of heroes$ | async">
-      <a routerLink="/detail/{{ hero.id }}">
+      <a routerLink="/detail/{{ hero.id }}" automation-id="search-link">
         {{ hero.name }}
       </a>
     </li>

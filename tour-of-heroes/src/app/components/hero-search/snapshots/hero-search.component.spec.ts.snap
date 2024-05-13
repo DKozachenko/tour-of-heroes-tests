@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 1`] = `
+<ul
+  automation-id="search-result"
+  class="search-result"
+>
+  <li>
+    <a
+      automation-id="search-link"
+    >
+       Dr. Nice 
+    </a>
+    
+  </li>
+  <li>
+    <a
+      automation-id="search-link"
+    >
+       Bombasto 
+    </a>
+    
+  </li>
+  <li>
+    <a
+      automation-id="search-link"
+    >
+       Celeritas 
+    </a>
+    
+  </li>
+  
+</ul>
+`;
+
+exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 2`] = `
+<a
+  automation-id="search-link"
+>
+   Dr. Nice 
+</a>
+`;
+
+exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 3`] = `
+<a
+  automation-id="search-link"
+>
+   Bombasto 
+</a>
+`;
+
+exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 4`] = `
+<a
+  automation-id="search-link"
+>
+   Celeritas 
+</a>
+`;
+
+exports[`HeroSearchComponent Layout should contain div wrapper 1`] = `
+<div
+  automation-id="search-component"
+  id="search-component"
+>
+  <label
+    automation-id="search-label"
+    for="search-box"
+  >
+    Hero Search
+  </label>
+  <input
+    automation-id="search-input"
+    id="search-box"
+  />
+  <ul
+    automation-id="search-result"
+    class="search-result"
+  >
+    
+  </ul>
+</div>
+`;
+
+exports[`HeroSearchComponent Layout should contain label and input for typing 1`] = `
+<label
+  automation-id="search-label"
+  for="search-box"
+>
+  Hero Search
+</label>
+`;
+
+exports[`HeroSearchComponent Layout should contain label and input for typing 2`] = `
+<input
+  automation-id="search-input"
+  id="search-box"
+/>
+`;

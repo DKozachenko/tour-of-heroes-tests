@@ -21,28 +21,36 @@ import { AppModule } from '../../app.module';
 class PageObject {
   private fixtureDebugElement: DebugElement;
 
+  private getElementByAutomationId(id: string): DebugElement {
+    return this.fixtureDebugElement.query(By.css(`[automation-id=${id}]`));
+  }
+
+  private getElementsByAutomationId(id: string): DebugElement[] {
+    return this.fixtureDebugElement.queryAll(By.css(`[automation-id=${id}]`));
+  }
+
   constructor(fixture: MockedComponentFixture<HeroSearchComponent>) {
     this.fixtureDebugElement = fixture.debugElement;
   }
 
   get divWrapper(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('#search-component'));
+    return this.getElementByAutomationId('search-component');
   }
 
   get label(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('label'));
+    return this.getElementByAutomationId('search-label');
   }
 
   get input(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('input'));
+    return this.getElementByAutomationId('search-input');
   }
 
   get searchResult(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('.search-result'));
+    return this.getElementByAutomationId('search-result');
   }
 
   get heroLinks(): DebugElement[] {
-    return this.searchResult.queryAll(By.css('li'));
+    return this.getElementsByAutomationId('search-link');
   }
 }
 

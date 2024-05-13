@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashboardComponent Layout should contain "app-hero-search" component 1`] = `
+<app-hero-search
+  automation-id="hero-search"
+/>
+`;
+
+exports[`DashboardComponent Layout should contain heading with "Top Heroes" title 1`] = `
+<h2
+  automation-id="heading"
+>
+  Top Heroes
+</h2>
+`;
+
+exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 1`] = `
+<div
+  automation-id="heroes-menu"
+  class="heroes-menu"
+>
+  <a
+    automation-id="hero-link"
+  >
+     Bombasto 
+  </a>
+  
+  <a
+    automation-id="hero-link"
+  >
+     Celeritas 
+  </a>
+  
+  <a
+    automation-id="hero-link"
+  >
+     Magneta 
+  </a>
+  
+  <a
+    automation-id="hero-link"
+  >
+     RubberMan 
+  </a>
+  
+  
+</div>
+`;
+
+exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 2`] = `
+<a
+  automation-id="hero-link"
+>
+   Bombasto 
+</a>
+`;
+
+exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 3`] = `
+<a
+  automation-id="hero-link"
+>
+   Celeritas 
+</a>
+`;
+
+exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 4`] = `
+<a
+  automation-id="hero-link"
+>
+   Magneta 
+</a>
+`;
+
+exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 5`] = `
+<a
+  automation-id="hero-link"
+>
+   RubberMan 
+</a>
+`;

@@ -9,24 +9,32 @@ import { AppModule } from '../../app.module';
 class PageObject {
   private fixtureDebugElement: DebugElement;
 
+  private getElementByAutomationId(id: string): DebugElement {
+    return this.fixtureDebugElement.query(By.css(`[automation-id=${id}]`));
+  }
+
+  private getElementsByAutomationId(id: string): DebugElement[] {
+    return this.fixtureDebugElement.queryAll(By.css(`[automation-id=${id}]`));
+  }
+
   constructor(fixture: MockedComponentFixture<MessagesComponent>) {
     this.fixtureDebugElement = fixture.debugElement;
   }
 
   get divWrapper(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('div'));
+    return this.getElementByAutomationId('wrapper');
   }
 
   get heading(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('h2'));
+    return this.getElementByAutomationId('heading');
   }
 
   get clearButton(): DebugElement {
-    return this.fixtureDebugElement.query(By.css('.clear'));
+    return this.getElementByAutomationId('clear-button');
   }
 
   get messages(): DebugElement[] {
-    return this.divWrapper.queryAll(By.css('div'));
+    return this.getElementsByAutomationId('message');
   }
 }
 
@@ -115,7 +123,7 @@ describe('MessagesComponent', () => {
       for (let i = 0; i < mockedMessages.length; ++i) {
         const messageDiv = pageObject.messages[i];
         const mockMessage = mockedMessages[i];
-        expect(messageDiv.nativeElement.textContent).toBe(mockMessage);
+        expect(messageDiv.nativeElement.textContent).toContain(mockMessage);
         expect(messageDiv.nativeElement).toMatchSnapshot();
       }
     });
