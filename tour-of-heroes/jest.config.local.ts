@@ -3,7 +3,9 @@ import type { Config } from 'jest';
 const jestConfig: Config = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  testMatch: ['**/src/**/*.spec.ts'],
   verbose: false,
+  silent: false,
   bail: 1,
   ci: false,
   displayName: 'Tour of heroes:Local',
