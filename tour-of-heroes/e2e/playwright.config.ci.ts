@@ -1,17 +1,23 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
+  name: 'Tour of heroes:CI',
   testDir: 'tests',
+  testMatch: '*.spec.ts',
   outputDir: 'test-results',
+  quiet: true,
   timeout: 10000,
   fullyParallel: true,
   forbidOnly: true,
+  ignoreSnapshots: false,
   retries: 2,
   workers: 3,
-  reporter: 'dot',
+  updateSnapshots: 'none',
+  reportSlowTests: null,
+  reporter: [['github'], ['dot']],
   use: {
     baseURL: 'http://127.0.0.1:4200',
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     locale: 'ru-RU',
     timezoneId: 'Europe/Moscow',
     screenshot: 'off',
@@ -55,6 +61,7 @@ export default defineConfig({
   ],
   webServer: {
     command: 'npm run start',
+    timeout: 60000,
     url: 'http://127.0.0.1:4200',
     reuseExistingServer: false,
   },
