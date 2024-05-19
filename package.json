@@ -4,9 +4,12 @@
   "scripts": {
     "start:toh": "cd ./tour-of-heroes && npm run start",
     "test:toh:unit:local": "cd ./tour-of-heroes && npm run test:unit:local",
+    "test:toh:unit:local:us": "cd ./tour-of-heroes && npm run test:unit:local:us",
     "test:toh:unit:ci": "cd ./tour-of-heroes && npm run test:unit:ci",
     "test:toh:unit:coverage": "cd ./tour-of-heroes && npm run test:unit:coverage",
-    "test:toh:unit:report": "cd ./tour-of-heroes && npm run test:unit:report"
+    "test:toh:unit:report": "cd ./tour-of-heroes && npm run test:unit:report",
+    "test:toh:e2e:local": "cd ./tour-of-heroes && npm run test:e2e:local",
+    "test:toh:e2e:ci": "cd ./tour-of-heroes && npm run test:e2e:ci"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",

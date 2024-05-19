@@ -6,10 +6,12 @@
   "scripts": {
     "start": "ng serve",
     "test:unit:local": "jest --config=jest.config.local.ts --updateSnapshot",
+    "test:unit:local:us": "jest --config=jest.config.local.ts",
     "test:unit:ci": "jest --config=jest.config.ci.ts",
     "test:unit:coverage": "jest --config=jest.config.coverage.ts",
     "test:unit:report": "jest --config=jest.config.report.ts",
-    "test:e2e:local": "playwright test --config=e2e/playwright.config.local.ts"
+    "test:e2e:local": "playwright test --config=e2e/playwright.config.local.ts --ui",
+    "test:e2e:ci": "playwright test --config=e2e/playwright.config.ci.ts"
   },
   "private": true,
   "dependencies": {

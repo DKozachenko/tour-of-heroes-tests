@@ -16,7 +16,11 @@
 </div>
 
 <ul class="heroes" automation-id="heroes">
-  <li *ngFor="let hero of heroes" automation-id="hero-item">
+  <li
+    *ngFor="let hero of heroes"
+    automation-id="hero-item"
+    pw-automation-id="hero-item"
+  >
     <a routerLink="/detail/{{ hero.id }}" automation-id="hero-link">
       <span class="badge">{{ hero.id }}</span> {{ hero.name }}
     </a>
