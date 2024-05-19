@@ -12,9 +12,12 @@ export default defineConfig({
   forbidOnly: true,
   ignoreSnapshots: false,
   retries: 2,
-  workers: 3,
+  workers: 1,
   updateSnapshots: 'none',
-  reportSlowTests: null,
+  reportSlowTests: {
+    threshold: 5000,
+    max: 5,
+  },
   reporter: [['github'], ['dot']],
   use: {
     baseURL: 'http://127.0.0.1:4200',
