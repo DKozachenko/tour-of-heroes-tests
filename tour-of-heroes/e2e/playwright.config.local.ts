@@ -17,7 +17,7 @@ export default defineConfig({
   reportSlowTests: null,
   reporter: 'line',
   use: {
-    baseURL: 'http://127.0.0.1:4200',
+    baseURL: 'http://localhost:4200',
     trace: 'on',
     locale: 'ru-RU',
     timezoneId: 'Europe/Moscow',
@@ -63,7 +63,7 @@ export default defineConfig({
   webServer: {
     command: 'npm run start',
     timeout: 60000,
-    url: 'http://127.0.0.1:4200',
+    url: 'http://localhost:4200',
     reuseExistingServer: true,
   },
 });

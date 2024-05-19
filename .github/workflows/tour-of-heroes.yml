@@ -29,8 +29,9 @@ env:
   UNIT_COVERAGE_PATH: "./tour-of-heroes/coverage"
   UNIT_TEST_RESULTS_PATH: "./tour-of-heroes/report/test-results.xml"
 
-  E2E_REPORT_PATH: "./tour-of-heroes/e2e/report"
+  E2E_HTML_REPORT_PATH: "./tour-of-heroes/e2e/html-report"
   E2E_OUTPUT_PATH: "./tour-of-heroes/e2e/test-output"
+  E2E_TEST_RESULTS_PATH: "./tour-of-heroes/e2e/report/test-results.xml"
 
 jobs: 
   cache-deps:
@@ -135,7 +136,7 @@ jobs:
           path: ${{ env.NODE_MODULES_PATH }}
           key: ${{ env.NODE_MODULES_CACHE_KEY }}
           fail-on-cache-miss: true
-      - name: Install Playwright Browsers
+      - name: Install Playwright browsers
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: npx playwright install --with-deps
       - name: Run tests
@@ -149,8 +150,8 @@ jobs:
           if-no-files-found: ignore
           retention-days: 3
 
-  test-e2e-html-report:
-    name: Create e2e tests html report
+  test-e2e-report:
+    name: Create e2e tests report
     needs: [test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
@@ -162,16 +163,25 @@ jobs:
           path: ${{ env.NODE_MODULES_PATH }}
           key: ${{ env.NODE_MODULES_CACHE_KEY }}
           fail-on-cache-miss: true
-      - name: Install Playwright Browsers
+      - name: Install Playwright browsers
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: npx playwright install --with-deps
       - name: Run e2e tests with html report
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: npm run test:e2e:report
-      - name: Upload coverage report
+      - name: Upload html report
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-artifact
-          path: ${{ env.E2E_REPORT_PATH }}
+          name: html-report-artifact
+          path: ${{ env.E2E_HTML_REPORT_PATH }}
           if-no-files-found: error
           retention-days: 3
+      - name: Create test results annotations, PR comment and workflow summary
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            ${{ env.E2E_TEST_RESULTS_PATH }}
+          comment_title: "E2E Test Results"
+          job_summary: true
+          check_run: false

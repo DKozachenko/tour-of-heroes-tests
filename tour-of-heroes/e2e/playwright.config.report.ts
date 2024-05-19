@@ -20,10 +20,11 @@ export default defineConfig({
   },
   reporter: [
     ['list', { printSteps: true }],
-    ['html', { outputFolder: 'report' }],
+    ['html', { outputFolder: 'html-report' }],
+    ['junit', { outputFile: 'report/test-results.xml' }],
   ],
   use: {
-    baseURL: 'http://127.0.0.1:4200',
+    baseURL: 'http://localhost:4200',
     trace: 'retain-on-failure',
     locale: 'ru-RU',
     timezoneId: 'Europe/Moscow',
@@ -69,7 +70,7 @@ export default defineConfig({
   webServer: {
     command: 'npm run start',
     timeout: 60000,
-    url: 'http://127.0.0.1:4200',
+    url: 'http://localhost:4200',
     reuseExistingServer: false,
   },
 });

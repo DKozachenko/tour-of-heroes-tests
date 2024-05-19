@@ -20,7 +20,7 @@ export default defineConfig({
   },
   reporter: [['github'], ['dot']],
   use: {
-    baseURL: 'http://127.0.0.1:4200',
+    baseURL: 'http://localhost:4200',
     trace: 'retain-on-failure',
     locale: 'ru-RU',
     timezoneId: 'Europe/Moscow',
@@ -66,7 +66,9 @@ export default defineConfig({
   webServer: {
     command: 'npm run start',
     timeout: 60000,
-    url: 'http://127.0.0.1:4200',
+    // Нужен именно localhost
+    // https://github.com/microsoft/playwright/issues/16834#issuecomment-1699124292
+    url: 'http://localhost:4200',
     reuseExistingServer: false,
   },
 });
