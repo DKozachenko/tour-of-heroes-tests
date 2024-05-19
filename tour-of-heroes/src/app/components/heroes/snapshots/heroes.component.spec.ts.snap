@@ -7,6 +7,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 >
   <li
     automation-id="hero-item"
+    pw-automation-id="hero-item"
   >
     <a
       automation-id="hero-link"
@@ -30,6 +31,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
   </li>
   <li
     automation-id="hero-item"
+    pw-automation-id="hero-item"
   >
     <a
       automation-id="hero-link"

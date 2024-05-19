@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessagesComponent Layout should contain div wrapper if messages length more than 0 1`] = `
+<div
+  automation-id="wrapper"
+>
+  <h2
+    automation-id="heading"
+  >
+    Messages
+  </h2>
+  <button
+    automation-id="clear-button"
+    class="clear"
+    type="button"
+  >
+     Clear messages 
+  </button>
+  <div
+    automation-id="message"
+  >
+     test message 1 
+  </div>
+  <div
+    automation-id="message"
+  >
+     test message 2 
+  </div>
+  
+</div>
+`;
+
+exports[`MessagesComponent Layout should contain heading and clear button if messages length more than 0 1`] = `
+<h2
+  automation-id="heading"
+>
+  Messages
+</h2>
+`;
+
+exports[`MessagesComponent Layout should contain heading and clear button if messages length more than 0 2`] = `
+<button
+  automation-id="clear-button"
+  class="clear"
+  type="button"
+>
+   Clear messages 
+</button>
+`;
+
+exports[`MessagesComponent Layout should contain messages list if messages length more than 0 1`] = `
+<div
+  automation-id="message"
+>
+   test message 1 
+</div>
+`;
+
+exports[`MessagesComponent Layout should contain messages list if messages length more than 0 2`] = `
+<div
+  automation-id="message"
+>
+   test message 2 
+</div>
+`;
+
+exports[`MessagesComponent Layout should contain messages list if messages length more than 0 3`] = `
+<div
+  automation-id="message"
+>
+   test message 3 
+</div>
+`;

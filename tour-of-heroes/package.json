@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ng serve",
-    "test:unit:local": "jest --config=jest.config.local.ts --updateSnapshot",
-    "test:unit:local:us": "jest --config=jest.config.local.ts",
+    "test:unit:local": "jest --config=jest.config.local.ts",
+    "test:unit:local:us": "jest --config=jest.config.local.ts  --updateSnapshot",
     "test:unit:ci": "jest --config=jest.config.ci.ts",
     "test:unit:coverage": "jest --config=jest.config.coverage.ts",
     "test:unit:report": "jest --config=jest.config.report.ts",
