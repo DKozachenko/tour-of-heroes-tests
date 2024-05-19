@@ -5,11 +5,16 @@
     id="search-box"
     (input)="search(searchBox.value)"
     automation-id="search-input"
+    pw-automation-id="search-input"
   />
 
   <ul class="search-result" automation-id="search-result">
     <li *ngFor="let hero of heroes$ | async">
-      <a routerLink="/detail/{{ hero.id }}" automation-id="search-link">
+      <a
+        routerLink="/detail/{{ hero.id }}"
+        automation-id="search-link"
+        pw-automation-id="search-link"
+      >
         {{ hero.name }}
       </a>
     </li>

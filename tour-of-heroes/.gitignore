@@ -34,7 +34,9 @@ yarn-error.log
 /connect.lock
 /coverage
 /report
-/test-results
+/e2e/test-output
+/e2e/report
+/e2e/html-report
 /libpeerconnection.log
 testem.log
 /typings

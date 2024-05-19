@@ -1,7 +1,17 @@
 <h1 automation-id="heading">Tour of Heroes</h1>
 <nav automation-id="navigation">
-  <a routerLink="/dashboard" automation-id="navigation-link">Dashboard</a>
-  <a routerLink="/heroes" automation-id="navigation-link">Heroes</a>
+  <a
+    routerLink="/dashboard"
+    automation-id="navigation-link"
+    pw-automation-id="dashboard-navigation-link"
+    >Dashboard</a
+  >
+  <a
+    routerLink="/heroes"
+    automation-id="navigation-link"
+    pw-automation-id="heroes-navigation-link"
+    >Heroes</a
+  >
 </nav>
 <router-outlet></router-outlet>
 <app-messages automation-id="messages"></app-messages>

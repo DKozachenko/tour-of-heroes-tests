@@ -8,6 +8,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
   <li>
     <a
       automation-id="search-link"
+      pw-automation-id="search-link"
     >
        Dr. Nice 
     </a>
@@ -16,6 +17,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
   <li>
     <a
       automation-id="search-link"
+      pw-automation-id="search-link"
     >
        Bombasto 
     </a>
@@ -24,6 +26,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
   <li>
     <a
       automation-id="search-link"
+      pw-automation-id="search-link"
     >
        Celeritas 
     </a>
@@ -36,6 +39,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 2`] = `
 <a
   automation-id="search-link"
+  pw-automation-id="search-link"
 >
    Dr. Nice 
 </a>
@@ -44,6 +48,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 3`] = `
 <a
   automation-id="search-link"
+  pw-automation-id="search-link"
 >
    Bombasto 
 </a>
@@ -52,6 +57,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 4`] = `
 <a
   automation-id="search-link"
+  pw-automation-id="search-link"
 >
    Celeritas 
 </a>
@@ -71,6 +77,7 @@ exports[`HeroSearchComponent Layout should contain div wrapper 1`] = `
   <input
     automation-id="search-input"
     id="search-box"
+    pw-automation-id="search-input"
   />
   <ul
     automation-id="search-result"
@@ -94,5 +101,6 @@ exports[`HeroSearchComponent Layout should contain label and input for typing 2`
 <input
   automation-id="search-input"
   id="search-box"
+  pw-automation-id="search-input"
 />
 `;
