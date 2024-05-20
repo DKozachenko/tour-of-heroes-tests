@@ -1,12 +1,20 @@
-<h2 automation-id="heading">Top Heroes</h2>
-<div class="heroes-menu" automation-id="heroes-menu">
+<h2 automation-id="heading" pw-automation-id="heading">Top Heroes</h2>
+<div
+  class="heroes-menu"
+  automation-id="heroes-menu"
+  pw-automation-id="heroes-menu"
+>
   <a
     *ngFor="let hero of heroes"
     routerLink="/detail/{{ hero.id }}"
     automation-id="hero-link"
+    pw-automation-id="hero-link"
   >
     {{ hero.name }}
   </a>
 </div>
 
-<app-hero-search automation-id="hero-search"></app-hero-search>
+<app-hero-search
+  automation-id="hero-search"
+  pw-automation-id="hero-search"
+></app-hero-search>

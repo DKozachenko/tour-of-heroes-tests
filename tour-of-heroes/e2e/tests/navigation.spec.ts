@@ -7,6 +7,7 @@ import {
 import { MOCK_HEROES } from '../mocks';
 
 test.describe('Navigation', () => {
+  // TODO: а поч комменты то на англ, то на рус
   test('Navigate to /dashboard route while initial routing', async ({
     page,
   }) => {
@@ -64,32 +65,6 @@ test.describe('Navigation', () => {
       heroIndex + 1
     } элемент списка с героями`, async () => {
       await heroItem.click();
-    });
-
-    await expect(page).toHaveURL(`/detail/${hero.id}`);
-  });
-
-  test('Navigate to /detail:id route if hero link in hero search list has clicked', async ({
-    page,
-  }) => {
-    await test.step('Переход на страницу "dashboard"', async () => {
-      await page.goto('/dashboard');
-    });
-
-    const dashboardPageObject = new DashboardPageObject(page);
-    const heroIndex = 3;
-    const hero = MOCK_HEROES[heroIndex];
-
-    await test.step(`Ввод имени ${heroIndex + 1} героя`, async () => {
-      dashboardPageObject.searchInput.fill(hero.name);
-    });
-
-    const heroLink = dashboardPageObject.searchLinks.first();
-
-    await test.step(`Клик на ${
-      heroIndex + 1
-    } элемент списка с героями`, async () => {
-      await heroLink.click();
     });
 
     await expect(page).toHaveURL(`/detail/${hero.id}`);

@@ -14,6 +14,7 @@ export default defineConfig({
   retries: 0,
   workers: undefined,
   updateSnapshots: 'missing',
+  snapshotPathTemplate: 'snapshots/{testFileName}/{arg}.snap.png',
   reportSlowTests: null,
   reporter: 'line',
   use: {

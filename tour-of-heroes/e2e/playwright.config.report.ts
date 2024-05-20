@@ -14,6 +14,7 @@ export default defineConfig({
   retries: 0,
   workers: 1,
   updateSnapshots: 'none',
+  snapshotPathTemplate: 'snapshots/{testFileName}/{arg}.snap.png',
   reportSlowTests: {
     threshold: 5000,
     max: 5,
