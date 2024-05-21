@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// TODO: сделать базовый конфиг
 export default defineConfig({
   name: 'Tour of heroes:CI',
   testDir: 'tests',

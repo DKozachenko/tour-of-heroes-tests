@@ -1,13 +1,10 @@
 import { test, expect } from '@playwright/test';
-import {
-  AppPageObject,
-  DashboardPageObject,
-  HeroesPageObject,
-} from '../page-objects';
+import { AppPageObject, HeroesPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 
 test.describe('Navigation', () => {
   // TODO: а поч комменты то на англ, то на рус
+  // TODO: скрины полных страниц
   test('Navigate to /dashboard route while initial routing', async ({
     page,
   }) => {

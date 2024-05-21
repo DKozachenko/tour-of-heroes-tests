@@ -23,8 +23,20 @@ export class DashboardPageObject {
     return this.page.getByTestId('hero-search');
   }
 
+  get searchComponentWrapper(): Locator {
+    return this.page.getByTestId('search-component');
+  }
+
+  get searchLabel(): Locator {
+    return this.page.getByTestId('search-label');
+  }
+
   get searchInput(): Locator {
     return this.page.getByTestId('search-input');
+  }
+
+  get searchResult(): Locator {
+    return this.page.getByTestId('search-result');
   }
 
   get searchLinks(): Locator {

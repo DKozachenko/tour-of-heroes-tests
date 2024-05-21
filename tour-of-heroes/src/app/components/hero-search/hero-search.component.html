@@ -1,5 +1,14 @@
-<div id="search-component" automation-id="search-component">
-  <label for="search-box" automation-id="search-label">Hero Search</label>
+<div
+  id="search-component"
+  automation-id="search-component"
+  pw-automation-id="search-component"
+>
+  <label
+    for="search-box"
+    automation-id="search-label"
+    pw-automation-id="search-label"
+    >Hero Search</label
+  >
   <input
     #searchBox
     id="search-box"
@@ -8,7 +17,11 @@
     pw-automation-id="search-input"
   />
 
-  <ul class="search-result" automation-id="search-result">
+  <ul
+    class="search-result"
+    automation-id="search-result"
+    pw-automation-id="search-result"
+  >
     <li *ngFor="let hero of heroes$ | async">
       <a
         routerLink="/detail/{{ hero.id }}"

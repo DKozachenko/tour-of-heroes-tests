@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { DashboardPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 
+// TODO: мб достаточно будет 1000, вынести это из test.step, BTW а нужен ли вообще таймаут
 async function waitForHeroesListLoaded(
   dashboardPageObject: DashboardPageObject
 ): Promise<void> {
@@ -62,11 +63,9 @@ test.describe('Dashboard Heroes List', () => {
         test.step(`Наведение на ${i + 1} ссылку`, async () => {
           await heroLink.hover();
 
-          const bgColor = await heroLink.evaluate((el) => {
-            return window
-              .getComputedStyle(el)
-              .getPropertyValue('background-color');
-          });
+          const bgColor = await heroLink.evaluate((el) =>
+            window.getComputedStyle(el).getPropertyValue('background-color')
+          );
           expect(bgColor).toBe('rgb(0, 0, 0)');
         });
 
