@@ -2,6 +2,7 @@ import { PlaywrightTestConfig, defineConfig } from '@playwright/test';
 import { BASE_CONFIG } from './playwright.config.base';
 
 export default defineConfig({
+  ...BASE_CONFIG,
   name: 'Tour of heroes:Report',
   preserveOutput: 'never',
   quiet: false,

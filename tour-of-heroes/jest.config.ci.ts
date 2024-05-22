@@ -1,20 +1,15 @@
 import type { Config } from 'jest';
+import { BASE_CONFIG } from './jest.config.base';
 
 const jestConfig: Config = {
-  preset: 'jest-preset-angular',
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-  testMatch: ['**/src/**/*.spec.ts'],
+  ...BASE_CONFIG,
+  displayName: 'Tour of heroes:CI',
   verbose: true,
   silent: true,
-  bail: 1,
   ci: true,
-  displayName: 'Tour of heroes:CI',
-  moduleFileExtensions: ['js', 'ts'],
   collectCoverage: false,
   coverageDirectory: undefined,
   updateSnapshot: false,
-  snapshotResolver: './snapshot.resolver.js',
-  testTimeout: 3000,
   reporters: [
     ['github-actions', { silent: false }],
     'summary',

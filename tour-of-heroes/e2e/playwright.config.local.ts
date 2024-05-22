@@ -12,7 +12,7 @@ export default defineConfig({
   workers: undefined,
   updateSnapshots: 'missing',
   reportSlowTests: null,
-  reporter: 'line',
+  reporter: [['line']],
   use: {
     ...BASE_CONFIG.use,
     trace: 'on',
