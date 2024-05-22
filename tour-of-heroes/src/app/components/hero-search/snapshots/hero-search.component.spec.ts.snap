@@ -4,6 +4,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 <ul
   automation-id="search-result"
   class="search-result"
+  pw-automation-id="search-result"
 >
   <li>
     <a
@@ -67,10 +68,12 @@ exports[`HeroSearchComponent Layout should contain div wrapper 1`] = `
 <div
   automation-id="search-component"
   id="search-component"
+  pw-automation-id="search-component"
 >
   <label
     automation-id="search-label"
     for="search-box"
+    pw-automation-id="search-label"
   >
     Hero Search
   </label>
@@ -82,6 +85,7 @@ exports[`HeroSearchComponent Layout should contain div wrapper 1`] = `
   <ul
     automation-id="search-result"
     class="search-result"
+    pw-automation-id="search-result"
   >
     
   </ul>
@@ -92,6 +96,7 @@ exports[`HeroSearchComponent Layout should contain label and input for typing 1`
 <label
   automation-id="search-label"
   for="search-box"
+  pw-automation-id="search-label"
 >
   Hero Search
 </label>
