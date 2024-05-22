@@ -3,12 +3,11 @@ import { AppPageObject, HeroesPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 
 test.describe('Navigation', () => {
-  // TODO: а поч комменты то на англ, то на рус
   // TODO: скрины полных страниц
   test('Navigate to /dashboard route while initial routing', async ({
     page,
   }) => {
-    await test.step('Переход на главную', async () => {
+    await test.step('Go to main page', async () => {
       await page.goto('/');
     });
     await expect(page).toHaveURL('/dashboard');
@@ -19,10 +18,10 @@ test.describe('Navigation', () => {
   }) => {
     const appPageObject = new AppPageObject(page);
 
-    await test.step('Переход на главную', async () => {
+    await test.step('Go to main page', async () => {
       await page.goto('/');
     });
-    await test.step('Клик на кнопку "Heroes"', async () => {
+    await test.step('Click on "Heroes" button', async () => {
       await appPageObject.heroesLink.click();
     });
 
@@ -34,10 +33,10 @@ test.describe('Navigation', () => {
   }) => {
     const appPageObject = new AppPageObject(page);
 
-    await test.step('Переход на страницу "heroes"', async () => {
+    await test.step('Go to "heroes" page', async () => {
       await page.goto('/heroes');
     });
-    await test.step('Клик на кнопку "Dashboard"', async () => {
+    await test.step('Click on "Dashboard" button', async () => {
       await appPageObject.dashboardLink.click();
     });
 
@@ -47,7 +46,7 @@ test.describe('Navigation', () => {
   test('Navigate to /detail:id route if hero link in hero list has clicked', async ({
     page,
   }) => {
-    await test.step('Переход на страницу "heroes"', async () => {
+    await test.step('Go to "heroes" page', async () => {
       await page.goto('/heroes');
     });
 
@@ -57,10 +56,7 @@ test.describe('Navigation', () => {
     const hero = MOCK_HEROES[heroIndex];
 
     const heroItem = heroesPageObject.heroItems.nth(heroIndex);
-
-    await test.step(`Клик на ${
-      heroIndex + 1
-    } элемент списка с героями`, async () => {
+    await test.step(`Click on hero list item #${heroIndex + 1}`, async () => {
       await heroItem.click();
     });
 
