@@ -60,15 +60,11 @@ test.describe('Dashboard Heroes List', () => {
       for (let i = 0; i < heroLinksAll.length; ++i) {
         const heroLink = heroLinksAll[i];
 
+        // TODO: у однострочных степов можно убрать скобочки
         test.step(`Hover on link #${i + 1}`, async () => {
           await heroLink.hover();
-
-          const bgColor = await heroLink.evaluate((el) =>
-            window.getComputedStyle(el).getPropertyValue('background-color')
-          );
-          expect(bgColor).toBe('rgb(0, 0, 0)');
         });
-
+        await expect(heroLink).toHaveCSS('background-color', 'rgb(0, 0, 0)');
         await expect(heroLink).toHaveScreenshot(`hero-link-hover #${i + 1}`);
       }
     });

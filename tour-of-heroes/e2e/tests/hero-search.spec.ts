@@ -35,14 +35,12 @@ test.describe('Hero Search', () => {
       const dashboardPageObject = new DashboardPageObject(page);
       await test.step('Hover on search input', async () => {
         await dashboardPageObject.searchInput.hover();
-
-        // TODO: переделать на toHaveCss
-        const outline = await dashboardPageObject.searchInput.evaluate((el) =>
-          window.getComputedStyle(el).getPropertyValue('outline')
-        );
-        expect(outline).toBe('rgb(0, 0, 0) none 0px');
       });
 
+      await expect(dashboardPageObject.searchInput).toHaveCSS(
+        'outline',
+        'rgb(0, 0, 0) none 0px'
+      );
       await expect(dashboardPageObject.heroSearch).toHaveScreenshot(
         'hero-search-hover'
       );
@@ -56,13 +54,12 @@ test.describe('Hero Search', () => {
       const dashboardPageObject = new DashboardPageObject(page);
       await test.step('Focus on search input', async () => {
         await dashboardPageObject.searchInput.focus();
-
-        const outline = await dashboardPageObject.searchInput.evaluate((el) =>
-          window.getComputedStyle(el).getPropertyValue('outline')
-        );
-        expect(outline).toBe('rgb(51, 102, 153) auto 1px');
       });
 
+      await expect(dashboardPageObject.searchInput).toHaveCSS(
+        'outline',
+        'rgb(51, 102, 153) auto 1px'
+      );
       await expect(dashboardPageObject.heroSearch).toHaveScreenshot(
         'hero-search-focus'
       );
@@ -107,12 +104,12 @@ test.describe('Hero Search', () => {
 
       test.step('Hover on 1 link', async () => {
         await firstSearchLink.hover();
-
-        const bgColor = await firstSearchLink.evaluate((el) =>
-          window.getComputedStyle(el).getPropertyValue('background-color')
-        );
-        expect(bgColor).toBe('rgb(67, 90, 96)');
       });
+
+      await expect(firstSearchLink).toHaveCSS(
+        'background-color',
+        'rgb(67, 90, 96)'
+      );
       await expect(firstSearchLink).toHaveScreenshot('hero-search-link-hover');
     });
   });
