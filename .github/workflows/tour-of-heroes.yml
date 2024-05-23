@@ -24,7 +24,6 @@ permissions:
 env:
   WORKING_DIRECTORY: "./tour-of-heroes"
   NODE_MODULES_PATH: "./tour-of-heroes/node_modules"
-  NODE_MODULES_CACHE_KEY: "node-modules-key"
 
   UNIT_COVERAGE_PATH: "./tour-of-heroes/coverage"
   UNIT_TEST_RESULTS_PATH: "./tour-of-heroes/report/test-results.xml"
@@ -34,8 +33,22 @@ env:
   E2E_TEST_RESULTS_PATH: "./tour-of-heroes/e2e/report/test-results.xml"
 
 jobs: 
+  create-cache-key:
+    name: Create cache key
+    runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ steps.create-cache-key.outputs.key }}
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Output cache key
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        id: create-cache-key
+        run: echo "key=${{ runner.os }}-${{ hashFiles('package-lock.json') }}" >> $GITHUB_OUTPUT
+
   cache-deps:
     name: Cache dependencies
+    needs: [create-cache-key]
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -47,11 +60,11 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ${{ env.NODE_MODULES_PATH }}
-          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          key: "${{needs.create-cache-key.outputs.cache-key}}"
 
   test-unit:
     name: Run unit tests
-    needs: [cache-deps]
+    needs: [create-cache-key, cache-deps]
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -60,7 +73,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ env.NODE_MODULES_PATH }}
-          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          key: "${{needs.create-cache-key.outputs.cache-key}}"
           fail-on-cache-miss: true
       - name: Run tests
         working-directory: ${{ env.WORKING_DIRECTORY }}
@@ -68,7 +81,7 @@ jobs:
   
   test-unit-coverage:
     name: Create unit tests coverage report
-    needs: [cache-deps]
+    needs: [create-cache-key, cache-deps]
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -77,7 +90,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ env.NODE_MODULES_PATH }}
-          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          key: "${{needs.create-cache-key.outputs.cache-key}}"
           fail-on-cache-miss: true
       - name: Run unit tests with coverage
         working-directory: ${{ env.WORKING_DIRECTORY }}
@@ -92,7 +105,7 @@ jobs:
 
   test-unit-report:
     name: Create unit tests results report
-    needs: [cache-deps]
+    needs: [create-cache-key, cache-deps]
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -101,7 +114,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ env.NODE_MODULES_PATH }}
-          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          key: "${{needs.create-cache-key.outputs.cache-key}}"
           fail-on-cache-miss: true
       - name: Run unit tests with results
         working-directory: ${{ env.WORKING_DIRECTORY }}
@@ -125,7 +138,7 @@ jobs:
     
   test-e2e:
     name: Run e2e tests
-    needs: [test-unit, test-unit-coverage, test-unit-report]
+    needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -134,7 +147,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ env.NODE_MODULES_PATH }}
-          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          key: "${{needs.create-cache-key.outputs.cache-key}}"
           fail-on-cache-miss: true
       - name: Install Playwright browsers
         working-directory: ${{ env.WORKING_DIRECTORY }}
@@ -152,7 +165,7 @@ jobs:
 
   test-e2e-report:
     name: Create e2e tests report
-    needs: [test-unit, test-unit-coverage, test-unit-report]
+    needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -161,7 +174,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ env.NODE_MODULES_PATH }}
-          key: ${{ env.NODE_MODULES_CACHE_KEY }}
+          key: "${{needs.create-cache-key.outputs.cache-key}}"
           fail-on-cache-miss: true
       - name: Install Playwright browsers
         working-directory: ${{ env.WORKING_DIRECTORY }}
