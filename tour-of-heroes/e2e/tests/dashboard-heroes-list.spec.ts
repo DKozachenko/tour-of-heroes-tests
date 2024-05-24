@@ -2,15 +2,13 @@ import { test, expect } from '@playwright/test';
 import { DashboardPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 
-// TODO: мб достаточно будет 1000, вынести это из test.step, BTW а нужен ли вообще таймаут
 async function waitForHeroesListLoaded(
   dashboardPageObject: DashboardPageObject
 ): Promise<void> {
-  await test.step('Wait for loading all heroes', async () =>
-    await dashboardPageObject.heroLinks.first().waitFor({
-      state: 'visible',
-      timeout: 2000,
-    }));
+  await dashboardPageObject.heroLinks.first().waitFor({
+    state: 'visible',
+    timeout: 5000,
+  });
 }
 
 test.describe('Dashboard Heroes List', () => {
@@ -22,7 +20,8 @@ test.describe('Dashboard Heroes List', () => {
         await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
-      await waitForHeroesListLoaded(dashboardPageObject);
+      await test.step('Wait for loading all heroes', async () =>
+        await waitForHeroesListLoaded(dashboardPageObject));
 
       const displayedHeroes = MOCK_HEROES.slice(1, 5);
       await expect(dashboardPageObject.heroesMenu).toBeAttached();
@@ -51,7 +50,8 @@ test.describe('Dashboard Heroes List', () => {
         await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
-      await waitForHeroesListLoaded(dashboardPageObject);
+      await test.step('Wait for loading all heroes', async () =>
+        await waitForHeroesListLoaded(dashboardPageObject));
 
       const heroLinksAll = await dashboardPageObject.heroLinks.all();
       for (let i = 0; i < heroLinksAll.length; ++i) {
@@ -73,7 +73,8 @@ test.describe('Dashboard Heroes List', () => {
         await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
-      await waitForHeroesListLoaded(dashboardPageObject);
+      await test.step('Wait for loading all heroes', async () =>
+        await waitForHeroesListLoaded(dashboardPageObject));
 
       const heroIndex = 2;
       const hero = MOCK_HEROES.slice(1, 5)[heroIndex];

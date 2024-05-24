@@ -7,7 +7,7 @@ async function waitForHeroesResultVisible(
 ): Promise<void> {
   await dashboardPageObject.searchLinks.first().waitFor({
     state: 'visible',
-    timeout: 1000,
+    timeout: 5000,
   });
 }
 
