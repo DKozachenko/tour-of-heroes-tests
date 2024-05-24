@@ -6,12 +6,11 @@ import { MOCK_HEROES } from '../mocks';
 async function waitForHeroesListLoaded(
   dashboardPageObject: DashboardPageObject
 ): Promise<void> {
-  await test.step('Wait for loading all heroes', async () => {
+  await test.step('Wait for loading all heroes', async () =>
     await dashboardPageObject.heroLinks.first().waitFor({
       state: 'visible',
       timeout: 2000,
-    });
-  });
+    }));
 }
 
 test.describe('Dashboard Heroes List', () => {
@@ -19,9 +18,8 @@ test.describe('Dashboard Heroes List', () => {
     test('Contain heroes list including 4 links with hero names and hero id as href attribute', async ({
       page,
     }) => {
-      await test.step('Got to "dashboard" page', async () => {
-        await page.goto('/dashboard');
-      });
+      await test.step('Got to "dashboard" page', async () =>
+        await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
       await waitForHeroesListLoaded(dashboardPageObject);
@@ -49,9 +47,8 @@ test.describe('Dashboard Heroes List', () => {
     test('Highlight by black color hero links while hover', async ({
       page,
     }) => {
-      await test.step('Go to "dashboard" page', async () => {
-        await page.goto('/dashboard');
-      });
+      await test.step('Go to "dashboard" page', async () =>
+        await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
       await waitForHeroesListLoaded(dashboardPageObject);
@@ -60,10 +57,8 @@ test.describe('Dashboard Heroes List', () => {
       for (let i = 0; i < heroLinksAll.length; ++i) {
         const heroLink = heroLinksAll[i];
 
-        // TODO: у однострочных степов можно убрать скобочки
-        test.step(`Hover on link #${i + 1}`, async () => {
-          await heroLink.hover();
-        });
+        test.step(`Hover on link #${i + 1}`, async () =>
+          await heroLink.hover());
         await expect(heroLink).toHaveCSS('background-color', 'rgb(0, 0, 0)');
         await expect(heroLink).toHaveScreenshot(`hero-link-hover #${i + 1}`);
       }
@@ -74,9 +69,8 @@ test.describe('Dashboard Heroes List', () => {
     test('Navigate to /detail:id route if hero link in hero list has clicked', async ({
       page,
     }) => {
-      await test.step('Go to "dashboard" page', async () => {
-        await page.goto('/dashboard');
-      });
+      await test.step('Go to "dashboard" page', async () =>
+        await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
       await waitForHeroesListLoaded(dashboardPageObject);
@@ -87,9 +81,8 @@ test.describe('Dashboard Heroes List', () => {
       const heroLink = dashboardPageObject.heroLinks.nth(heroIndex);
       const heroLinkHrefAttribute = (await heroLink.getAttribute('href')) ?? '';
 
-      await test.step(`Click on hero list item #${heroIndex + 1}`, async () => {
-        await heroLink.click();
-      });
+      await test.step(`Click on hero list item #${heroIndex + 1}`, async () =>
+        await heroLink.click());
 
       expect(heroLinkHrefAttribute).toBe(`/detail/${hero.id}`);
       await expect(page).toHaveURL(heroLinkHrefAttribute);
