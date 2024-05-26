@@ -6,11 +6,13 @@
   "scripts": {
     "start": "ng serve",
     "test:unit:local": "jest --config=jest.config.local.ts",
-    "test:unit:local:us": "jest --config=jest.config.local.ts  --updateSnapshot",
+    "test:unit:local:us": "jest --config=jest.config.local.ts --updateSnapshot",
     "test:unit:ci": "jest --config=jest.config.ci.ts",
     "test:unit:coverage": "jest --config=jest.config.coverage.ts",
     "test:unit:report": "jest --config=jest.config.report.ts",
     "test:e2e:local": "playwright test --config=e2e/playwright.config.local.ts --ui",
+    "test:e2e:local:docker": "bash ./scripts/run-e2e-local-docker.sh",
+    "test:e2e:local:docker:serve": "playwright test --config=e2e/playwright.config.local.ts --ui --ui-port=5000 --ui-host=0.0.0.0",
     "test:e2e:ci": "playwright test --config=e2e/playwright.config.ci.ts",
     "test:e2e:report": "playwright test --config=e2e/playwright.config.report.ts"
   },

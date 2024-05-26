@@ -1,6 +1,7 @@
 import { PlaywrightTestConfig, defineConfig, devices } from '@playwright/test';
 
-const snapshotPathTemplateFactory = (projectName: string) => `snapshots/{testFileName}/{arg}-${projectName}.snap.png`;
+const snapshotPathTemplateFactory = (projectName: string) =>
+  `snapshots/{testFileName}/{arg}-${projectName}.snap.png`;
 
 export const BASE_CONFIG: PlaywrightTestConfig = defineConfig({
   testDir: 'tests',
