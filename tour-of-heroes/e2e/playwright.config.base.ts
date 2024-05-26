@@ -1,7 +1,6 @@
 import { PlaywrightTestConfig, defineConfig, devices } from '@playwright/test';
 
-const DESKTOP_SNAPSHOT_PATH_TEMPLATE = 'snapshots/{testFileName}/{arg}-desktop.snap.png';
-const MOBILE_SNAPSHOT_PATH_TEMPLATE = 'snapshots/{testFileName}/{arg}-mobile.snap.png';
+const snapshotPathTemplateFactory = (projectName: string) => `snapshots/{testFileName}/{arg}-${projectName}.snap.png`;
 
 export const BASE_CONFIG: PlaywrightTestConfig = defineConfig({
   testDir: 'tests',
@@ -9,7 +8,6 @@ export const BASE_CONFIG: PlaywrightTestConfig = defineConfig({
   outputDir: 'test-output',
   timeout: 10000,
   ignoreSnapshots: false,
-  snapshotPathTemplate: DESKTOP_SNAPSHOT_PATH_TEMPLATE,
   use: {
     baseURL: 'http://localhost:4200',
     locale: 'ru-RU',
@@ -19,6 +17,7 @@ export const BASE_CONFIG: PlaywrightTestConfig = defineConfig({
     testIdAttribute: 'pw-automation-id',
   },
   expect: {
+    timeout: 5000,
     toHaveScreenshot: {
       maxDiffPixels: 10,
       maxDiffPixelRatio: 0.1,
@@ -30,31 +29,29 @@ export const BASE_CONFIG: PlaywrightTestConfig = defineConfig({
   },
   projects: [
     {
-      name: 'Chromium',
+      name: 'Chrome',
       use: { ...devices['Desktop Chrome'] },
-      snapshotPathTemplate: DESKTOP_SNAPSHOT_PATH_TEMPLATE,
+      snapshotPathTemplate: snapshotPathTemplateFactory('chrome'),
     },
-
     {
       name: 'Firefox',
       use: { ...devices['Desktop Firefox'] },
-      snapshotPathTemplate: DESKTOP_SNAPSHOT_PATH_TEMPLATE,
+      snapshotPathTemplate: snapshotPathTemplateFactory('firefox'),
     },
-
     {
-      name: 'Webkit',
+      name: 'Safari',
       use: { ...devices['Desktop Safari'] },
-      snapshotPathTemplate: DESKTOP_SNAPSHOT_PATH_TEMPLATE,
+      snapshotPathTemplate: snapshotPathTemplateFactory('safari'),
     },
     {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
-      snapshotPathTemplate: MOBILE_SNAPSHOT_PATH_TEMPLATE,
+      snapshotPathTemplate: snapshotPathTemplateFactory('mobile-chrome'),
     },
     {
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
-      snapshotPathTemplate: MOBILE_SNAPSHOT_PATH_TEMPLATE,
+      snapshotPathTemplate: snapshotPathTemplateFactory('mobile-safari'),
     },
   ],
   webServer: {

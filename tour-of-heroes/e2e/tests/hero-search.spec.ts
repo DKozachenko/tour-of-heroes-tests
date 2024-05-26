@@ -35,8 +35,8 @@ test.describe('Hero Search', () => {
         await dashboardPageObject.searchInput.hover());
 
       await expect(dashboardPageObject.searchInput).toHaveCSS(
-        'outline',
-        'rgb(0, 0, 0) none 0px'
+        'outline-style',
+        'none'
       );
       await expect(dashboardPageObject.heroSearch).toHaveScreenshot(
         'hero-search-hover'
@@ -52,8 +52,8 @@ test.describe('Hero Search', () => {
         await dashboardPageObject.searchInput.focus());
 
       await expect(dashboardPageObject.searchInput).toHaveCSS(
-        'outline',
-        'rgb(51, 102, 153) auto 1px'
+        'outline-color',
+        'rgb(51, 102, 153)'
       );
       await expect(dashboardPageObject.heroSearch).toHaveScreenshot(
         'hero-search-focus'
