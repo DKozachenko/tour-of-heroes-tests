@@ -8,7 +8,6 @@ export const BASE_CONFIG: PlaywrightTestConfig = defineConfig({
   testMatch: '*.spec.ts',
   outputDir: 'test-output',
   timeout: 10000,
-  ignoreSnapshots: false,
   use: {
     baseURL: 'http://localhost:4200',
     locale: 'ru-RU',

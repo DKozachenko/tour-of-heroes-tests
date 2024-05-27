@@ -11,8 +11,8 @@
     "test:unit:coverage": "jest --config=jest.config.coverage.ts",
     "test:unit:report": "jest --config=jest.config.report.ts",
     "test:e2e:local": "playwright test --config=e2e/playwright.config.local.ts --ui",
-    "test:e2e:local:docker": "bash ./scripts/run-e2e-local-docker.sh",
-    "test:e2e:local:docker:serve": "playwright test --config=e2e/playwright.config.local.ts --ui --ui-port=5000 --ui-host=0.0.0.0",
+    "test:e2e:local:docker": "playwright test --config=e2e/playwright.config.local.docker.ts --ui --ui-port=5000 --ui-host=0.0.0.0",
+    "test:e2e:local:docker:serve": "bash ./scripts/run-e2e-local-docker.sh",
     "test:e2e:ci": "playwright test --config=e2e/playwright.config.ci.ts",
     "test:e2e:report": "playwright test --config=e2e/playwright.config.report.ts"
   },

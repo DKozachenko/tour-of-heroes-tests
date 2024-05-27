@@ -3,4 +3,4 @@ WORKDIR /app
 COPY package.json package-lock.json /app/
 RUN npm ci --ignore-scripts
 COPY . /app
-CMD [ "npm", "run", "test:e2e:local:docker:serve"]
+CMD [ "npm", "run", "test:e2e:local:docker"]

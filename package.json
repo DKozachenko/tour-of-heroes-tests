@@ -9,7 +9,10 @@
     "test:toh:unit:coverage": "cd ./tour-of-heroes && npm run test:unit:coverage",
     "test:toh:unit:report": "cd ./tour-of-heroes && npm run test:unit:report",
     "test:toh:e2e:local": "cd ./tour-of-heroes && npm run test:e2e:local",
-    "test:toh:e2e:ci": "cd ./tour-of-heroes && npm run test:e2e:ci"
+    "test:toh:e2e:local:docker": "cd ./tour-of-heroes && npm run test:e2e:local:docker",
+    "test:toh:e2e:local:docker:serve": "cd ./tour-of-heroes && npm run test:e2e:local:docker:serve",
+    "test:toh:e2e:ci": "cd ./tour-of-heroes && npm run test:e2e:ci",
+    "test:toh:e2e:report": "cd ./tour-of-heroes && npm run test:e2e:report"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
