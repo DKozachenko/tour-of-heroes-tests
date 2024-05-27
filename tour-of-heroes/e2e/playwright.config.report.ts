@@ -11,6 +11,7 @@ export default defineConfig({
   retries: 0,
   workers: 1,
   updateSnapshots: 'none',
+  ignoreSnapshots: false,
   reportSlowTests: {
     threshold: 5000,
     max: 5,

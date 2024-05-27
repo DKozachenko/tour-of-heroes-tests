@@ -11,6 +11,7 @@ export default defineConfig({
   retries: 0,
   workers: undefined,
   updateSnapshots: 'missing',
+  ignoreSnapshots: true,
   reportSlowTests: null,
   reporter: [['line']],
   use: {

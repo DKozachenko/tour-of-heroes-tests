@@ -13,13 +13,18 @@
 ## Команды
 
 
-| Команда                        | Описание                                                                                                                   |
-|--------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| npm run start:toh              | Запуск приложения tour-of-heroes                                                                                           |
-| npm run test:toh:unit:local    | Запуск unit тестов приложения tour-of-heroes локально                                                                      |
-| npm run test:toh:unit:local:us | Запуск unit тестов приложения tour-of-heroes локально (с обновлением снепшотов)                                            |
-| npm run test:toh:unit:ci       | Запуск unit тестов приложения tour-of-heroes в CI приложения                                                               |
-| npm run test:toh:unit:coverage | Запуск unit тестов приложения tour-of-heroes с отчетом о покрытии, расположенном в `coverage` директории                   |
-| npm run test:toh:unit:report   | Запуск unit тестов приложения tour-of-heroes с отчетом (в формате .XML) о результатах, расположенном в `report` директории |
+| Команда                                     | Описание                                                                                                                   |
+|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| npm run start:toh                           | Запуск приложения tour-of-heroes                                                                                           |
+| npm run test:toh:unit:local                 | Запуск unit тестов приложения tour-of-heroes локально                                                                      |
+| npm run test:toh:unit:local:us              | Запуск unit тестов приложения tour-of-heroes локально (с обновлением снепшотов)                                            |
+| npm run test:toh:unit:ci                    | Запуск unit тестов приложения tour-of-heroes в CI приложения                                                               |
+| npm run test:toh:unit:coverage              | Запуск unit тестов приложения tour-of-heroes с отчетом о покрытии, расположенном в `coverage` директории                   |
+| npm run test:toh:unit:report                | Запуск unit тестов приложения tour-of-heroes с отчетом (в формате .XML) о результатах, расположенном в `report` директории |
+| npm run test:toh:e2e:local                  | Запуск e2e тестов приложения tour-of-heroes локально                                                                       |
+| npm run test:toh:e2e:local:docker           | Запуск e2e тестов приложения tour-of-heroes локально в докере                                                              |
+| npm run test:toh:e2e:local:docker:serve     | Запуск Playwright в UI режиме локально в докере (с обновлением снепшотов) для приложения tour-of-heroes                    |
+| npm run test:toh:e2e:ci                     | Запуск e2e тестов приложения tour-of-heroes в CI приложения                                                                |
+| npm run test:toh:e2e:report                 | Запуск e2e тестов приложения tour-of-heroes с отчетом (в формате .XML) о результатах, расположенном в `report` директории  |
 
 Также команды есть внутри папки каждого приложения отдельно.
