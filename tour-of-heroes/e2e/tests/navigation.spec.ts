@@ -3,7 +3,6 @@ import { AppPageObject, HeroesPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 
 test.describe('Navigation', () => {
-  // TODO: скрины полных страниц
   test('Navigate to /dashboard route while initial routing', async ({
     page,
   }) => {

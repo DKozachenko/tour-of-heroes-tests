@@ -1,27 +1,19 @@
 import { test, expect } from '@playwright/test';
 import { DashboardPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
-
-async function waitForHeroesListLoaded(
-  dashboardPageObject: DashboardPageObject
-): Promise<void> {
-  await dashboardPageObject.heroLinks.first().waitFor({
-    state: 'visible',
-    timeout: 5000,
-  });
-}
+import { waitForHeroesLinksLoaded } from '../helpers';
 
 test.describe('Dashboard Heroes List', () => {
   test.describe('Layout', async () => {
     test('Contain heroes list including 4 links with hero names and hero id as href attribute', async ({
       page,
     }) => {
-      await test.step('Got to "dashboard" page', async () =>
+      await test.step('Go to "dashboard" page', async () =>
         await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
       await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesListLoaded(dashboardPageObject));
+        await waitForHeroesLinksLoaded(dashboardPageObject));
 
       const displayedHeroes = MOCK_HEROES.slice(1, 5);
       await expect(dashboardPageObject.heroesMenu).toBeAttached();
@@ -51,7 +43,7 @@ test.describe('Dashboard Heroes List', () => {
 
       const dashboardPageObject = new DashboardPageObject(page);
       await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesListLoaded(dashboardPageObject));
+        await waitForHeroesLinksLoaded(dashboardPageObject));
 
       const heroLinksAll = await dashboardPageObject.heroLinks.all();
       for (let i = 0; i < heroLinksAll.length; ++i) {
@@ -74,7 +66,7 @@ test.describe('Dashboard Heroes List', () => {
 
       const dashboardPageObject = new DashboardPageObject(page);
       await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesListLoaded(dashboardPageObject));
+        await waitForHeroesLinksLoaded(dashboardPageObject));
 
       const heroIndex = 2;
       const hero = MOCK_HEROES.slice(1, 5)[heroIndex];
