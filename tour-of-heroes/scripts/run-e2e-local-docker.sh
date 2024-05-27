@@ -3,4 +3,4 @@
 export MSYS_NO_PATHCONV=1
 
 docker build . -t e2e-local-docker -f ./e2e/Dockerfile.local
-docker run -v $(pwd)/e2e/snapshots:/app/e2e/snapshots -p 5000:5000 -it e2e-local-docker:latest
+docker run -v $(pwd)/e2e/snapshots:/app/e2e/snapshots -v $(pwd)/e2e/test-output:/app/e2e/test-output -p 5000:5000 -it e2e-local-docker:latest

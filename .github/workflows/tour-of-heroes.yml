@@ -98,7 +98,7 @@ jobs:
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-artifact
+          name: unit-coverage
           path: ${{ env.UNIT_COVERAGE_PATH }}
           if-no-files-found: error
           retention-days: 3
@@ -159,7 +159,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: output-artifact
+          name: e2e-output
           path: ${{ env.E2E_OUTPUT_PATH }}
           if-no-files-found: ignore
           retention-days: 3
@@ -186,7 +186,7 @@ jobs:
       - name: Upload html report
         uses: actions/upload-artifact@v4
         with:
-          name: html-report-artifact
+          name: e2e-html-report
           path: ${{ env.E2E_HTML_REPORT_PATH }}
           if-no-files-found: error
           retention-days: 3
