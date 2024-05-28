@@ -14,4 +14,24 @@ export class AppPageObject {
   get heroesLink(): Locator {
     return this.page.getByTestId('heroes-navigation-link');
   }
+
+  get messagesComponent(): Locator {
+    return this.page.getByTestId('messages-component');
+  }
+
+  get messagesWrapper(): Locator {
+    return this.page.getByTestId('messages-wrapper');
+  }
+
+  get messagesHeading(): Locator {
+    return this.page.getByTestId('messages-heading');
+  }
+
+  get messagesClearButton(): Locator {
+    return this.page.getByTestId('messages-clear-button');
+  }
+
+  get messages(): Locator {
+    return this.page.getByTestId('message');
+  }
 }

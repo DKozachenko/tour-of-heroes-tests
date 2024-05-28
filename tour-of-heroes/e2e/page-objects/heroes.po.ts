@@ -10,4 +10,8 @@ export class HeroesPageObject {
   get heroItems(): Locator {
     return this.page.getByTestId('hero-item');
   }
+
+  get heroButtons(): Locator {
+    return this.page.getByTestId('hero-button');
+  }
 }
