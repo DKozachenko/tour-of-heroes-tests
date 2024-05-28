@@ -1,4 +1,4 @@
-<div *ngIf="hero">
+<div *ngIf="hero" pw-automation-id="wrapper">
   <h2 automation-id="heading">{{ hero.name | uppercase }} Details</h2>
   <div automation-id="hero-id"><span>id: </span>{{ hero.id }}</div>
   <div>
@@ -8,12 +8,13 @@
       [(ngModel)]="hero.name"
       placeholder="Hero name"
       automation-id="hero-name-input"
+      pw-automation-id="hero-name-input"
     />
   </div>
   <button type="button" (click)="goBack()" automation-id="back-button">
     go back
   </button>
-  <button type="button" (click)="save()" automation-id="save-button">
+  <button type="button" (click)="save()" automation-id="save-button" pw-automation-id="save-button">
     save
   </button>
 </div>

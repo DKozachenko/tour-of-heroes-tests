@@ -23,6 +23,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
     <button
       automation-id="hero-button"
       class="delete"
+      pw-automation-id="hero-button"
       title="delete hero"
       type="button"
     >
@@ -47,6 +48,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
     <button
       automation-id="hero-button"
       class="delete"
+      pw-automation-id="hero-button"
       title="delete hero"
       type="button"
     >
@@ -74,6 +76,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 <button
   automation-id="hero-button"
   class="delete"
+  pw-automation-id="hero-button"
   title="delete hero"
   type="button"
 >
@@ -98,6 +101,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 <button
   automation-id="hero-button"
   class="delete"
+  pw-automation-id="hero-button"
   title="delete hero"
   type="button"
 >

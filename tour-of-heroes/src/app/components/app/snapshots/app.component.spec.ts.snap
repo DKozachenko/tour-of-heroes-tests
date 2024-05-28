@@ -3,6 +3,7 @@
 exports[`AppComponent Layout should contain "app-messages" component 1`] = `
 <app-messages
   automation-id="messages"
+  pw-automation-id="messages-component"
 />
 `;
 
