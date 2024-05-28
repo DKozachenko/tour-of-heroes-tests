@@ -14,4 +14,11 @@ export class HeroesPageObject {
   get heroButtons(): Locator {
     return this.page.getByTestId('hero-button');
   }
+
+  waitForHeroesItemsLoaded(): Promise<void> {
+    return this.heroItems.first().waitFor({
+      state: 'visible',
+      timeout: 5000,
+    });
+  }
 }

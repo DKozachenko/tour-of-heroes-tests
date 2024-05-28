@@ -18,4 +18,11 @@ export class DetailsPageObject {
   get saveButton(): Locator {
     return this.page.getByTestId('save-button');
   }
+
+  waitForHeroDetailsLoaded(): Promise<void> {
+    return this.wrapper.waitFor({
+      state: 'visible',
+      timeout: 5000,
+    });
+  }
 }

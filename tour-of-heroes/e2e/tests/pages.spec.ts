@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import { DashboardPageObject, HeroesPageObject } from '../page-objects';
-import { waitForHeroesItemsLoaded, waitForHeroesLinksLoaded } from '../helpers';
 
 test.describe('Pages', () => {
   test('Display "dashboard" page', async ({ page }) => {
@@ -8,8 +7,8 @@ test.describe('Pages', () => {
       await page.goto('/dashboard'));
 
     const dashboardPageObject = new DashboardPageObject(page);
-    await test.step('Wait for loading all heroes', async () =>
-      await waitForHeroesLinksLoaded(dashboardPageObject));
+    await test.step('Wait for loading all heroes links', async () =>
+      await dashboardPageObject.waitForHeroesLinksLoaded());
 
     await expect(page).toHaveURL('/dashboard');
     await expect(page).toHaveTitle('Tour of Heroes');
@@ -21,8 +20,8 @@ test.describe('Pages', () => {
       await page.goto('/heroes'));
 
     const heroesPageObject = new HeroesPageObject(page);
-    await test.step('Wait for loading all heroes', async () =>
-      await waitForHeroesItemsLoaded(heroesPageObject));
+    await test.step('Wait for loading all heroes items', async () =>
+      await heroesPageObject.waitForHeroesItemsLoaded());
 
     await expect(page).toHaveURL('/heroes');
     await expect(page).toHaveTitle('Tour of Heroes');

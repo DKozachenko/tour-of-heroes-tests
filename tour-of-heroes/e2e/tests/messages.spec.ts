@@ -5,11 +5,6 @@ import {
   DetailsPageObject,
   HeroesPageObject,
 } from '../page-objects';
-import {
-  waitForHeroDetailsLoaded,
-  waitForHeroesItemsLoaded,
-  waitForHeroesLinksLoaded,
-} from '../helpers';
 import { MOCK_HEROES } from '../mocks';
 
 test.describe('Messages', () => {
@@ -22,8 +17,8 @@ test.describe('Messages', () => {
 
       const appPageObject = new AppPageObject(page);
       const dashboardPageObject = new DashboardPageObject(page);
-      await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesLinksLoaded(dashboardPageObject));
+      await test.step('Wait for loading all heroes links', async () =>
+        await dashboardPageObject.waitForHeroesLinksLoaded());
 
       await expect(appPageObject.messagesWrapper).toBeAttached();
       await expect(appPageObject.messagesHeading).toHaveText('Messages');
@@ -84,8 +79,8 @@ test.describe('Messages', () => {
       await expect(appPageObject.messages).toHaveCount(0);
 
       const dashboardPageObject = new DashboardPageObject(page);
-      await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesLinksLoaded(dashboardPageObject));
+      await test.step('Wait for loading all heroes links', async () =>
+        await dashboardPageObject.waitForHeroesLinksLoaded());
 
       await expect(appPageObject.messages).toHaveCount(1);
       await expect(appPageObject.messages.first()).toHaveText(
@@ -106,7 +101,7 @@ test.describe('Messages', () => {
 
       const detailsPageObject = new DetailsPageObject(page);
       await test.step('Wait for loading hero details', async () =>
-        await waitForHeroDetailsLoaded(detailsPageObject));
+        await detailsPageObject.waitForHeroDetailsLoaded());
 
       await expect(appPageObject.messages).toHaveCount(1);
       await expect(appPageObject.messages.first()).toHaveText(
@@ -123,8 +118,8 @@ test.describe('Messages', () => {
         await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
-      await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesLinksLoaded(dashboardPageObject));
+      await test.step('Wait for loading all heroes links', async () =>
+        await dashboardPageObject.waitForHeroesLinksLoaded());
 
       await test.step('Click on first hero link', async () =>
         await dashboardPageObject.heroLinks.first().click());
@@ -136,7 +131,7 @@ test.describe('Messages', () => {
 
       const detailsPageObject = new DetailsPageObject(page);
       await test.step('Wait for loading hero details', async () =>
-        await waitForHeroDetailsLoaded(detailsPageObject));
+        await detailsPageObject.waitForHeroDetailsLoaded());
 
       const newHeroName = 'test value';
       await test.step(`Fill hero name input with value: ${newHeroName}`, async () =>
@@ -162,8 +157,8 @@ test.describe('Messages', () => {
         await page.goto('/heroes'));
 
       const heroesdPageObject = new HeroesPageObject(page);
-      await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesItemsLoaded(heroesdPageObject));
+      await test.step('Wait for loading all heroes items', async () =>
+        await heroesdPageObject.waitForHeroesItemsLoaded());
 
       await test.step('Click on first hero delete button', async () =>
         await heroesdPageObject.heroButtons.first().click());
@@ -187,9 +182,8 @@ test.describe('Messages', () => {
         await page.goto('/dashboard'));
 
       const dashboarddPageObject = new DashboardPageObject(page);
-      // TODO: го запихаем эти хелперы в PO
-      await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesLinksLoaded(dashboarddPageObject));
+      await test.step('Wait for loading all heroes links', async () =>
+        await dashboarddPageObject.waitForHeroesLinksLoaded());
 
       const appPageObject = new AppPageObject(page);
       await test.step('Click on "clear" button', async () =>

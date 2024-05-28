@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { DashboardPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
-import { waitForHeroesLinksLoaded } from '../helpers';
 
 test.describe('Dashboard Heroes List', () => {
   test.describe('Layout', async () => {
@@ -12,8 +11,8 @@ test.describe('Dashboard Heroes List', () => {
         await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
-      await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesLinksLoaded(dashboardPageObject));
+      await test.step('Wait for loading all heroes links', async () =>
+        await dashboardPageObject.waitForHeroesLinksLoaded());
 
       const displayedHeroes = MOCK_HEROES.slice(1, 5);
       await expect(dashboardPageObject.heroesMenu).toBeAttached();
@@ -42,8 +41,8 @@ test.describe('Dashboard Heroes List', () => {
         await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
-      await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesLinksLoaded(dashboardPageObject));
+      await test.step('Wait for loading all heroes links', async () =>
+        await dashboardPageObject.waitForHeroesLinksLoaded());
 
       const heroLinksAll = await dashboardPageObject.heroLinks.all();
       for (let i = 0; i < heroLinksAll.length; ++i) {
@@ -65,8 +64,8 @@ test.describe('Dashboard Heroes List', () => {
         await page.goto('/dashboard'));
 
       const dashboardPageObject = new DashboardPageObject(page);
-      await test.step('Wait for loading all heroes', async () =>
-        await waitForHeroesLinksLoaded(dashboardPageObject));
+      await test.step('Wait for loading all heroes links', async () =>
+        await dashboardPageObject.waitForHeroesLinksLoaded());
 
       const heroIndex = 2;
       const hero = MOCK_HEROES.slice(1, 5)[heroIndex];

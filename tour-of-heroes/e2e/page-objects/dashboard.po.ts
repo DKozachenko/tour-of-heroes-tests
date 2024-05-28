@@ -42,4 +42,11 @@ export class DashboardPageObject {
   get searchLinks(): Locator {
     return this.page.getByTestId('search-link');
   }
+
+  waitForHeroesLinksLoaded(): Promise<void> {
+    return this.heroLinks.first().waitFor({
+      state: 'visible',
+      timeout: 5000,
+    });
+  }
 }
