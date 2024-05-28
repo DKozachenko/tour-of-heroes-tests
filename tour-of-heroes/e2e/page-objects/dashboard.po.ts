@@ -49,4 +49,11 @@ export class DashboardPageObject {
       timeout: 5000,
     });
   }
+
+  waitForSearchLinksVisible(): Promise<void> {
+    return this.searchLinks.first().waitFor({
+      state: 'visible',
+      timeout: 5000,
+    });
+  }
 }
