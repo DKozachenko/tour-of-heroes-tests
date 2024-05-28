@@ -1,8 +1,17 @@
 <div *ngIf="hero" pw-automation-id="wrapper">
-  <h2 automation-id="heading">{{ hero.name | uppercase }} Details</h2>
-  <div automation-id="hero-id"><span>id: </span>{{ hero.id }}</div>
+  <h2 automation-id="heading" pw-automation-id="heading">
+    {{ hero.name | uppercase }} Details
+  </h2>
+  <div automation-id="hero-id" pw-automation-id="hero-id">
+    <span>id: </span>{{ hero.id }}
+  </div>
   <div>
-    <label for="hero-name" automation-id="hero-name-label">Hero name: </label>
+    <label
+      for="hero-name"
+      automation-id="hero-name-label"
+      pw-automation-id="hero-name-label"
+      >Hero name:
+    </label>
     <input
       id="hero-name"
       [(ngModel)]="hero.name"
@@ -11,10 +20,20 @@
       pw-automation-id="hero-name-input"
     />
   </div>
-  <button type="button" (click)="goBack()" automation-id="back-button">
+  <button
+    type="button"
+    (click)="goBack()"
+    automation-id="back-button"
+    pw-automation-id="back-button"
+  >
     go back
   </button>
-  <button type="button" (click)="save()" automation-id="save-button" pw-automation-id="save-button">
+  <button
+    type="button"
+    (click)="save()"
+    automation-id="save-button"
+    pw-automation-id="save-button"
+  >
     save
   </button>
 </div>
