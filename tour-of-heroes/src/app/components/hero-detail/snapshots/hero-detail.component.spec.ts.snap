@@ -33,6 +33,7 @@ exports[`HeroDetailComponent Layout should contain hero description and action b
   automation-id="hero-name-input"
   id="hero-name"
   placeholder="Hero name"
+  pw-automation-id="hero-name-input"
 />
 `;
 
@@ -48,6 +49,7 @@ exports[`HeroDetailComponent Layout should contain hero description and action b
 exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 6`] = `
 <button
   automation-id="save-button"
+  pw-automation-id="save-button"
   type="button"
 >
    save 
@@ -59,7 +61,9 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
   id="root6"
 >
   <app-hero-detail>
-    <div>
+    <div
+      pw-automation-id="wrapper"
+    >
       <h2
         automation-id="heading"
       >
@@ -84,6 +88,7 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
           automation-id="hero-name-input"
           id="hero-name"
           placeholder="Hero name"
+          pw-automation-id="hero-name-input"
         />
         
       </div>
@@ -95,6 +100,7 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
       </button>
       <button
         automation-id="save-button"
+        pw-automation-id="save-button"
         type="button"
       >
          save 
