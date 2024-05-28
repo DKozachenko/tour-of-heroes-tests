@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import {
   AppPageObject,
   DashboardPageObject,
-  DetailsPageObject,
+  DetailPageObject,
   HeroesPageObject,
 } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
@@ -99,9 +99,9 @@ test.describe('Messages', () => {
 
       await expect(appPageObject.messages).toHaveCount(0);
 
-      const detailsPageObject = new DetailsPageObject(page);
-      await test.step('Wait for loading hero details', async () =>
-        await detailsPageObject.waitForHeroDetailsLoaded());
+      const detailPageObject = new DetailPageObject(page);
+      await test.step('Wait for loading hero detail', async () =>
+        await detailPageObject.waitForHeroDetailLoaded());
 
       await expect(appPageObject.messages).toHaveCount(1);
       await expect(appPageObject.messages.first()).toHaveText(
@@ -129,16 +129,16 @@ test.describe('Messages', () => {
       await test.step(`Wait for navigation to "detail/${firstDisplayedtHeroId}" page`, async () =>
         await page.waitForURL(`detail/${firstDisplayedtHeroId}`));
 
-      const detailsPageObject = new DetailsPageObject(page);
-      await test.step('Wait for loading hero details', async () =>
-        await detailsPageObject.waitForHeroDetailsLoaded());
+      const detailPageObject = new DetailPageObject(page);
+      await test.step('Wait for loading hero detail', async () =>
+        await detailPageObject.waitForHeroDetailLoaded());
 
       const newHeroName = 'test value';
       await test.step(`Fill hero name input with value: ${newHeroName}`, async () =>
-        await detailsPageObject.heroNameInput.fill(newHeroName));
+        await detailPageObject.heroNameInput.fill(newHeroName));
 
       await test.step('Click on "save" button', async () =>
-        await detailsPageObject.saveButton.click());
+        await detailPageObject.saveButton.click());
 
       await test.step('Wait for navigation to "dashboard" page', async () =>
         await page.waitForURL('dashboard'));

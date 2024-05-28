@@ -1,6 +1,6 @@
 import { Locator, Page } from 'playwright/test';
 
-export class DetailsPageObject {
+export class DetailPageObject {
   private page: Page;
 
   constructor(page: Page) {
@@ -19,7 +19,7 @@ export class DetailsPageObject {
     return this.page.getByTestId('save-button');
   }
 
-  waitForHeroDetailsLoaded(): Promise<void> {
+  waitForHeroDetailLoaded(): Promise<void> {
     return this.wrapper.waitFor({
       state: 'visible',
       timeout: 5000,
