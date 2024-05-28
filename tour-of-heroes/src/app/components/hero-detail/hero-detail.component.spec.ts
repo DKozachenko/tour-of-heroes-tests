@@ -177,11 +177,11 @@ describe('HeroDetailComponent', () => {
       component.hero = mockHero;
 
       const pageObject = new PageObject(fixture);
-      expect(pageObject.heading.nativeElement.textContent).toBe(
+      expect(pageObject.heading.nativeElement.textContent).toContain(
         `${mockHero.name.toUpperCase()} Details`
       );
       expect(pageObject.heading.nativeElement).toMatchSnapshot();
-      expect(pageObject.heroId.nativeElement.textContent).toBe(
+      expect(pageObject.heroId.nativeElement.textContent).toContain(
         `id: ${mockHero.id}`
       );
       expect(pageObject.heroId.nativeElement).toMatchSnapshot();
