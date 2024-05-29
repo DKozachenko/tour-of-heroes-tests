@@ -2,15 +2,6 @@ import { test, expect } from '@playwright/test';
 import { DashboardPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 
-async function waitForHeroesResultVisible(
-  dashboardPageObject: DashboardPageObject
-): Promise<void> {
-  await dashboardPageObject.searchLinks.first().waitFor({
-    state: 'visible',
-    timeout: 5000,
-  });
-}
-
 test.describe('Hero Search', () => {
   test.describe('Layout', async () => {
     test('Contain label and input', async ({ page }) => {
@@ -70,7 +61,7 @@ test.describe('Hero Search', () => {
         await dashboardPageObject.searchInput.fill(testInputValue));
 
       await test.step('Wait for visibility search results', async () =>
-        await waitForHeroesResultVisible(dashboardPageObject));
+        await dashboardPageObject.waitForSearchLinksVisible());
       await expect(dashboardPageObject.heroSearch).toHaveScreenshot(
         'hero-search-results'
       );
@@ -88,7 +79,7 @@ test.describe('Hero Search', () => {
         await dashboardPageObject.searchInput.fill(testInputValue));
 
       await test.step('Wait for visibility search results', async () =>
-        await waitForHeroesResultVisible(dashboardPageObject));
+        await dashboardPageObject.waitForSearchLinksVisible());
       const firstSearchLink = dashboardPageObject.searchLinks.first();
 
       test.step('Hover on 1 link', async () => await firstSearchLink.hover());
@@ -136,7 +127,7 @@ test.describe('Hero Search', () => {
       await test.step(`Fill search input with value: ${oldSearchValue}`, async () =>
         await dashboardPageObject.searchInput.fill(oldSearchValue));
       await test.step('Wait for visibility search results', async () =>
-        await waitForHeroesResultVisible(dashboardPageObject));
+        await dashboardPageObject.waitForSearchLinksVisible());
 
       const oldResultElementsCount =
         await dashboardPageObject.searchLinks.count();
@@ -145,7 +136,7 @@ test.describe('Hero Search', () => {
       await test.step(`Fill search input with value: ${oldSearchValue}`, async () =>
         await dashboardPageObject.searchInput.fill(oldSearchValue));
       await test.step('Wait for visibility search results', async () =>
-        await waitForHeroesResultVisible(dashboardPageObject));
+        await dashboardPageObject.waitForSearchLinksVisible());
 
       await expect(dashboardPageObject.searchLinks).toHaveCount(
         oldResultElementsCount
@@ -190,7 +181,7 @@ test.describe('Hero Search', () => {
       await test.step(`Fill search input with value: ${testInputValue}`, async () =>
         await dashboardPageObject.searchInput.fill(testInputValue));
       await test.step('Wait for visibility search results', async () =>
-        await waitForHeroesResultVisible(dashboardPageObject));
+        await dashboardPageObject.waitForSearchLinksVisible());
 
       await expect(dashboardPageObject.searchLinks).toHaveCount(
         displayedHeroes.length
