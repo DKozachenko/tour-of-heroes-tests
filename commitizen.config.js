@@ -25,8 +25,12 @@ module.exports = {
     { value: "WIP", name: "WIP:      Work in progress" },
   ],
   scopes: [
-    { name: "tour-of-heroes" },
-    { name: "rent-houses" },
+    { name: "app" },
+    { name: "dashboard" },
+    { name: "hero-detail" },
+    { name: "hero-search" },
+    { name: "heroes" },
+    { name: "messages" },
     { name: "all" },
   ],
   messages: {

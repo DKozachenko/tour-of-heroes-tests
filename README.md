@@ -1,4 +1,4 @@
-# tour-of-heroes
+# tour-of-heroes-tests
 
 [Учебный проект](https://angular.io/tutorial/tour-of-heroes) из документации Angular.
 
