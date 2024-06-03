@@ -4,6 +4,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 <ul
   automation-id="heroes"
   class="heroes"
+  pw-automation-id="heroes"
 >
   <li
     automation-id="hero-item"
@@ -11,6 +12,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
   >
     <a
       automation-id="hero-link"
+      pw-automation-id="hero-link"
     >
       <span
         class="badge"
@@ -36,6 +38,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
   >
     <a
       automation-id="hero-link"
+      pw-automation-id="hero-link"
     >
       <span
         class="badge"
@@ -62,6 +65,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 exports[`HeroesComponent Layout hero list should contain hero list with link and button for deleting 2`] = `
 <a
   automation-id="hero-link"
+  pw-automation-id="hero-link"
 >
   <span
     class="badge"
@@ -87,6 +91,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 exports[`HeroesComponent Layout hero list should contain hero list with link and button for deleting 4`] = `
 <a
   automation-id="hero-link"
+  pw-automation-id="hero-link"
 >
   <span
     class="badge"
@@ -113,6 +118,7 @@ exports[`HeroesComponent Layout should contain block for creating new hero with 
 <label
   automation-id="create-label"
   for="new-hero"
+  pw-automation-id="create-label"
 >
   Hero name: 
 </label>
@@ -122,6 +128,7 @@ exports[`HeroesComponent Layout should contain block for creating new hero with 
 <input
   automation-id="create-input"
   id="new-hero"
+  pw-automation-id="create-input"
 />
 `;
 
@@ -129,6 +136,7 @@ exports[`HeroesComponent Layout should contain block for creating new hero with 
 <button
   automation-id="add-button"
   class="add-button"
+  pw-automation-id="add-button"
   type="button"
 >
    Add hero 
@@ -138,6 +146,7 @@ exports[`HeroesComponent Layout should contain block for creating new hero with 
 exports[`HeroesComponent Layout should contain heading 1`] = `
 <h2
   automation-id="heading"
+  pw-automation-id="heading"
 >
   My Heroes
 </h2>
