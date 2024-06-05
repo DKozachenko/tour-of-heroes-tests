@@ -4,14 +4,19 @@
     routerLink="/dashboard"
     automation-id="navigation-link"
     pw-automation-id="dashboard-navigation-link"
+    cy-automation-id="dashboard-navigation-link"
     >Dashboard</a
   >
   <a
     routerLink="/heroes"
     automation-id="navigation-link"
     pw-automation-id="heroes-navigation-link"
+    cy-automation-id="heroes-navigation-link"
     >Heroes</a
   >
 </nav>
 <router-outlet></router-outlet>
-<app-messages automation-id="messages" pw-automation-id="messages-component"></app-messages>
+<app-messages
+  automation-id="messages"
+  pw-automation-id="messages-component"
+></app-messages>

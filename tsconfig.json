@@ -10,7 +10,9 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
+    // Чтобы не ломался Cypress
+    // https://stackoverflow.com/questions/42041056/nativescript-typescript-error-error-ts5053-option-sourcemap-cannot-be-spe
+    "sourceMap": false,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
@@ -19,7 +21,8 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"]
+    "lib": ["ES2022", "dom"],
+    "baseUrl": "."
   },
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true,
