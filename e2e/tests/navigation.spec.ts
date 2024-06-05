@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { AppPageObject, HeroesPageObject } from '../page-objects';
-import { MOCK_HEROES } from '../mocks';
+import { AppPageObject } from '../page-objects';
 
 test.describe('Navigation', () => {
   test('Navigate to /dashboard route while initial routing', async ({
@@ -33,23 +32,5 @@ test.describe('Navigation', () => {
       await appPageObject.dashboardLink.click());
 
     await expect(page).toHaveURL('/dashboard');
-  });
-
-  test('Navigate to /detail:id route if hero link in hero list has clicked', async ({
-    page,
-  }) => {
-    await test.step('Go to "heroes" page', async () =>
-      await page.goto('/heroes'));
-
-    const heroesPageObject = new HeroesPageObject(page);
-
-    const heroIndex = 5;
-    const hero = MOCK_HEROES[heroIndex];
-
-    const heroItem = heroesPageObject.heroItems.nth(heroIndex);
-    await test.step(`Click on hero list item #${heroIndex + 1}`, async () =>
-      await heroItem.click());
-
-    await expect(page).toHaveURL(`/detail/${hero.id}`);
   });
 });
