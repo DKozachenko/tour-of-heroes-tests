@@ -9,10 +9,12 @@ export default defineConfig({
     setupNodeEvents(on) {
       addMatchImageSnapshotPlugin(on)
     },
-    slowTestThreshold: undefined,
+    slowTestThreshold: 5000,
   },
   retries: 0,
-  watchForFileChanges: true,
-  reporter: 'nyan',
-  reporterOptions: undefined
+  watchForFileChanges: false,
+  reporter: 'cypress-multi-reporters',
+  reporterOptions: {
+    configFile: 'e2e-cypress/cypress.report.config.json',
+  },
 });

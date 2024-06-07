@@ -1,0 +1,12 @@
+{
+  "reporterEnabled": "list, cypress-junit-reporter, mochawesome",
+  "cypressJunitReporterReporterOptions": {
+    "mochaFile": "e2e-cypress/report/test-case-results-[hash].xml"
+  },
+  "mochawesomeReporterOptions": {
+    "reportFilename": "test-case-results-[name].html",
+    "reportDir": "e2e-cypress/html-report",
+    "json": true,
+    "html": false
+  }
+}

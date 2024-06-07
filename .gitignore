@@ -36,7 +36,9 @@ yarn-error.log
 /report
 /e2e/test-output
 /e2e/report
+/e2e-cypress/report
 /e2e/html-report
+/e2e-cypress/html-report
 /libpeerconnection.log
 testem.log
 /typings

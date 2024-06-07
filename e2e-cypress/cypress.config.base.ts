@@ -8,5 +8,4 @@ export const BASE_CONFIG: Cypress.ConfigOptions = {
     downloadsFolder: 'e2e-cypress/downloads',
     specPattern: 'e2e-cypress/**/*.spec.ts',
   },
-}
-
+};
