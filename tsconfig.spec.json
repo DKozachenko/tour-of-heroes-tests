@@ -1,0 +1,10 @@
+/* To learn more about this file see: https://angular.io/guide/typescript-configuration. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "module": "CommonJs",
+    "types": ["jest", "cypress"]
+  },
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+}

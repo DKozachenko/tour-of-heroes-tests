@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ng serve",
+    "start:in:test:e2e:cy": "ng serve --host 0.0.0.0 --disable-host-check",
     "-------Jest Tests-------": "",
     "test:unit:local": "jest --config=jest.config.local.ts",
     "test:unit:local:us": "jest --config=jest.config.local.ts --updateSnapshot",
@@ -19,6 +20,9 @@
     "test:e2e:report": "playwright test --config=e2e/playwright.config.report.ts",
     "-------Cypress Tests-------": "",
     "test:e2e:cy:local": "cypress open --e2e --browser chrome --config-file=e2e-cypress/cypress.config.local.ts",
+    "test:e2e:cy:local:docker": "cypress run --e2e --browser chrome --config-file=e2e-cypress/cypress.config.local.ts",
+    "test:e2e:cy:local:docker:run": "bash ./scripts/run-e2e-cy-local-run-docker.sh",
+    "test:e2e:cy:local:docker:open": "bash ./scripts/run-e2e-cy-local-open-docker.sh",
     "test:e2e:cy:ci": "cypress run --e2e --browser chrome --config-file=e2e-cypress/cypress.config.ci.ts",
     "pretest:e2e:cy:report": "rimraf e2e-cypress/report && rimraf e2e-cypress/html-report",
     "test:e2e:cy:report": "cypress run --e2e --browser chrome --config-file=e2e-cypress/cypress.config.report.ts",

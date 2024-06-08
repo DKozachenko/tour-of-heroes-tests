@@ -22,7 +22,9 @@ env:
   UNIT_TEST_RESULTS_PATH: "./report/test-results.xml"
 
   E2E_HTML_REPORT_PATH: "./e2e/html-report"
+  E2E_CYPRESS_HTML_REPORT_PATH: "./e2e-cypress/html-report"
   E2E_OUTPUT_PATH: "./e2e/test-output"
+  E2E_CYPRESS_SNAPSHOTS_PATH: "./e2e-cypress/snapshots"
   E2E_TEST_RESULTS_PATH: "./e2e/report/test-results.xml"
 
 jobs:
@@ -125,7 +127,7 @@ jobs:
           check_run: false
 
   test-e2e:
-    name: Run e2e tests
+    name: Run E2E tests
     needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
@@ -151,7 +153,7 @@ jobs:
           retention-days: 3
 
   test-e2e-report:
-    name: Create e2e tests report
+    name: Create E2E tests report
     needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
@@ -165,7 +167,7 @@ jobs:
           fail-on-cache-miss: true
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
-      - name: Run e2e tests with html report
+      - name: Run E2E tests with html report
         run: npm run test:e2e:report
       - name: Upload html report
         uses: actions/upload-artifact@v4
@@ -183,3 +185,77 @@ jobs:
           comment_title: "E2E Test Results"
           job_summary: true
           check_run: false
+
+  test-e2e-cy:
+    name: Run E2E Cypress tests
+    # needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
+    needs: [create-cache-key]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Restore node modules
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.NODE_MODULES_PATH }}
+          key: "${{needs.create-cache-key.outputs.cache-key}}"
+          fail-on-cache-miss: true
+      - name: Install Cypress binary
+        run: npx cypress install
+      - name: Run tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:4200'
+          wait-on-timeout: 60
+          install: false
+          command:  npm run test:e2e:cy:ci
+      - name: Upload output files if exist
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-cy-output
+          path: ${{ env.E2E_CYPRESS_SNAPSHOTS_PATH }}
+          if-no-files-found: ignore
+          retention-days: 3
+
+  test-e2e-cy-report:
+    name: Create E2E Cypress tests report
+    # needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
+    needs: [create-cache-key]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Restore node modules
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.NODE_MODULES_PATH }}
+          key: "${{needs.create-cache-key.outputs.cache-key}}"
+          fail-on-cache-miss: true
+      - name: Install Cypress binary
+        run: npx cypress install
+      - name: Run tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:4200'
+          wait-on-timeout: 60
+          install: false
+          command:  npm run test:e2e:cy:report
+      - name: Upload html report
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-cy-html-report
+          path: ${{ env.E2E_CYPRESS_HTML_REPORT_PATH }}
+          if-no-files-found: error
+          retention-days: 3
+      # - name: Create test results annotations, PR comment and workflow summary
+      #   uses: EnricoMi/publish-unit-test-result-action@v2
+      #   if: always()
+      #   with:
+      #     files: |
+      #       ${{ env.E2E_TEST_RESULTS_PATH }}
+      #     comment_title: "E2E Test Results"
+      #     job_summary: true
+      #     check_run: false

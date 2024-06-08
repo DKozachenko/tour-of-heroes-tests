@@ -1,0 +1,24 @@
+services:
+  dev-server:
+    network_mode: host
+    build:
+      dockerfile: ./e2e-cypress/Dockerfile.dev-server.local
+      context: ..
+  cypress:
+    # Без этого не работает EGL. Отключить аппаратное ускорение хер знает как:
+    # https://github.com/cypress-io/cypress/issues/5889
+    network_mode: host
+    build:
+      dockerfile: ./e2e-cypress/Dockerfile.cypress.local
+      context: ..
+    volumes:
+      - ./snapshots:/app/e2e-cypress/snapshots
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      # Нужно прокинуть CYPRESS_baseUrl переменную, иначе Cypress пытается найти
+      # дев сервер на http://127.0.0.1:4200
+      - CYPRESS_baseUrl=http://localhost:4200
+      # https://stackoverflow.com/a/59733566
+      - DISPLAY
+    depends_on:
+      - dev-server

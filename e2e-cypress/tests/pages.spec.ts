@@ -1,4 +1,8 @@
-import { DashboardPageObject, DetailPageObject, HeroesPageObject } from '../page-objects';
+import {
+  DashboardPageObject,
+  DetailPageObject,
+  HeroesPageObject,
+} from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 
 describe('Pages', () => {
@@ -6,12 +10,14 @@ describe('Pages', () => {
     cy.step('Go to "dashboard" page', () => cy.visit('/dashboard'));
 
     const dashboardPageObject = new DashboardPageObject();
-    cy.step('Wait for loading all heroes links', () => dashboardPageObject.waitForHeroesLinksLoaded());
+    cy.step('Wait for loading all heroes links', () =>
+      dashboardPageObject.waitForHeroesLinksLoaded()
+    );
 
     cy.shouldHaveUrl('/dashboard');
     cy.title().should('be.eq', 'Tour of Heroes');
-    cy.matchImageSnapshot('dashboard-page', {
-      capture: 'fullPage'
+    cy.toHaveSnapshot('dashboard-page', {
+      capture: 'fullPage',
     });
   });
 
@@ -19,12 +25,14 @@ describe('Pages', () => {
     cy.step('Go to "heroes" page', () => cy.visit('/heroes'));
 
     const heroesPageObject = new HeroesPageObject();
-    cy.step('Wait for loading all heroes items', () => heroesPageObject.waitForHeroesItemsLoaded());
+    cy.step('Wait for loading all heroes items', () =>
+      heroesPageObject.waitForHeroesItemsLoaded()
+    );
 
     cy.shouldHaveUrl('/heroes');
     cy.title().should('be.eq', 'Tour of Heroes');
-    cy.matchImageSnapshot('heroes-page', {
-      capture: 'fullPage'
+    cy.toHaveSnapshot('heroes-page', {
+      capture: 'fullPage',
     });
   });
 
@@ -33,12 +41,14 @@ describe('Pages', () => {
     cy.step('Go to "detail" page', () => cy.visit(`/detail/${heroId}`));
 
     const detailPageObject = new DetailPageObject();
-    cy.step('Wait for loading hero detail', () => detailPageObject.waitForHeroDetailLoaded());
+    cy.step('Wait for loading hero detail', () =>
+      detailPageObject.waitForHeroDetailLoaded()
+    );
 
     cy.shouldHaveUrl(`/detail/${heroId}`);
     cy.title().should('be.eq', 'Tour of Heroes');
-    cy.matchImageSnapshot('detail-page', {
-      capture: 'fullPage'
+    cy.toHaveSnapshot('detail-page', {
+      capture: 'fullPage',
     });
   });
 });

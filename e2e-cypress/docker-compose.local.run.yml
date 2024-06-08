@@ -1,0 +1,17 @@
+services:
+  dev-server:
+    build:
+      dockerfile: ./e2e-cypress/Dockerfile.dev-server.local
+      context: ..
+  cypress:
+    build:
+      dockerfile: ./e2e-cypress/Dockerfile.cypress.local
+      context: ..
+    volumes:
+      - ./snapshots:/app/e2e-cypress/snapshots
+    environment:
+      # Нужно прокинуть CYPRESS_baseUrl переменную, иначе Cypress пытается найти
+      # дев сервер на http://127.0.0.1:4200
+      - CYPRESS_baseUrl=http://dev-server:4200
+    depends_on:
+      - dev-server

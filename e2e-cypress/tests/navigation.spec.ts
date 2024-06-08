@@ -2,10 +2,6 @@ import { AppPageObject } from '../page-objects';
 
 describe('Navigation', () => {
   it('Navigate to /dashboard route while initial routing', () => {
-    cy.log(Cypress.browser.isHeadless.toString())
-    console.log(Cypress.browser.isHeadless.toString())
-    cy.log('1');
-    console.log(1);
     cy.step('Go to main page', () => cy.visit('/'));
     cy.shouldHaveUrl('/dashboard');
   });
