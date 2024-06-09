@@ -13,6 +13,7 @@
 export {};
 import { addMatchImageSnapshotCommand } from '@simonsmith/cypress-image-snapshot/command';
 import { Options } from 'cypress-image-snapshot';
+import { Viewport } from '../types';
 
 addMatchImageSnapshotCommand({
   failureThreshold: 0.3,
@@ -31,6 +32,8 @@ declare global {
       step(description: string, callback: Function): void;
       shouldHaveUrl(url: string): Chainable<string>;
       toHaveSnapshot(name: string, options?: Options): void;
+      desktopViewport(): void;
+      mobileViewport(): void;
     }
   }
 }
@@ -54,13 +57,42 @@ Cypress.Commands.add('toHaveSnapshot', (name: string, options?: Options) => {
   // https://docs.cypress.io/guides/references/legacy-configuration#isInteractive
   if (Cypress.config('isInteractive')) {
     // "cypress open" mode
-    cy.log(`Ignore making snaphost with name: ${name} and options: ${options} in local environment`);
+    cy.log(
+      `Ignore making snaphost with name: ${name} and options: ${options} in local environment`
+    );
   } else {
     // "cypress run" mode
-    if (options) {
-      cy.matchImageSnapshot(name, options);
+    const viewportHeight: number = Cypress.config('viewportHeight');
+    const viewportWidth: number = Cypress.config('viewportWidth');
+
+    let viewport: Viewport;
+    if (viewportWidth === 1280 && viewportHeight === 720) {
+      viewport = 'Desktop';
+    } else if (viewportWidth === 393 && viewportHeight === 727) {
+      viewport = 'Mobile';
     } else {
-      cy.matchImageSnapshot(name);
+      viewport = 'Desktop';
+    }
+
+    const snapshotName: string = `${name}-${viewport.toLowerCase()}-${
+      Cypress.browser.name
+    }`;
+    if (options) {
+      cy.matchImageSnapshot(snapshotName, options);
+    } else {
+      cy.matchImageSnapshot(snapshotName);
     }
   }
+});
+
+Cypress.Commands.add('desktopViewport', () => {
+  cy.viewport(1280, 720);
+  Cypress.config('viewportWidth', 1280);
+  Cypress.config('viewportHeight', 720);
+});
+
+Cypress.Commands.add('mobileViewport', () => {
+  cy.viewport(393, 727);
+  Cypress.config('viewportWidth', 393);
+  Cypress.config('viewportHeight', 727);
 });

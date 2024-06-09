@@ -188,8 +188,7 @@ jobs:
 
   test-e2e-cy:
     name: Run E2E Cypress tests
-    # needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
-    needs: [create-cache-key]
+    needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -221,8 +220,7 @@ jobs:
 
   test-e2e-cy-report:
     name: Create E2E Cypress tests report
-    # needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
-    needs: [create-cache-key]
+    needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code

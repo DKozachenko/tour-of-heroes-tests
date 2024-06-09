@@ -1,7 +1,0 @@
-FROM cypress/included:latest
-WORKDIR /app
-COPY package.json package-lock.json .npmrc /app/
-RUN npm ci --ignore-scripts
-COPY . /app
-RUN npx cypress install
-ENTRYPOINT [ "npm", "run", "test:e2e:cy:local:docker"]

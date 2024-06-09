@@ -4,51 +4,68 @@ import {
   HeroesPageObject,
 } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
+import { VIEWPORTS, Viewport } from '../types';
 
 describe('Pages', () => {
-  it('Display "dashboard" page', () => {
-    cy.step('Go to "dashboard" page', () => cy.visit('/dashboard'));
+  VIEWPORTS.forEach((viewport: Viewport) => {
+    context(`${viewport} screen`, () => {
+      beforeEach(() => {
+        switch (viewport) {
+          case 'Desktop':
+          default:
+            cy.desktopViewport();
+            break;
+          case 'Mobile':
+            cy.mobileViewport();
+            break;
+        }
+      });
 
-    const dashboardPageObject = new DashboardPageObject();
-    cy.step('Wait for loading all heroes links', () =>
-      dashboardPageObject.waitForHeroesLinksLoaded()
-    );
+      it('Display "dashboard" page', () => {
+        cy.step('Go to "dashboard" page', () => cy.visit('/dashboard'));
 
-    cy.shouldHaveUrl('/dashboard');
-    cy.title().should('be.eq', 'Tour of Heroes');
-    cy.toHaveSnapshot('dashboard-page', {
-      capture: 'fullPage',
-    });
-  });
+        const dashboardPageObject = new DashboardPageObject();
+        cy.step('Wait for loading all heroes links', () =>
+          dashboardPageObject.waitForHeroesLinksLoaded()
+        );
 
-  it('Display "heroes" page', () => {
-    cy.step('Go to "heroes" page', () => cy.visit('/heroes'));
+        cy.shouldHaveUrl('/dashboard');
+        cy.title().should('be.eq', 'Tour of Heroes');
+        cy.toHaveSnapshot('dashboard-page', {
+          capture: 'fullPage',
+        });
+      });
 
-    const heroesPageObject = new HeroesPageObject();
-    cy.step('Wait for loading all heroes items', () =>
-      heroesPageObject.waitForHeroesItemsLoaded()
-    );
+      it('Display "heroes" page', () => {
+        cy.step('Go to "heroes" page', () => cy.visit('/heroes'));
 
-    cy.shouldHaveUrl('/heroes');
-    cy.title().should('be.eq', 'Tour of Heroes');
-    cy.toHaveSnapshot('heroes-page', {
-      capture: 'fullPage',
-    });
-  });
+        const heroesPageObject = new HeroesPageObject();
+        cy.step('Wait for loading all heroes items', () =>
+          heroesPageObject.waitForHeroesItemsLoaded()
+        );
 
-  it('Display "detail" page', () => {
-    const heroId = MOCK_HEROES[1].id;
-    cy.step('Go to "detail" page', () => cy.visit(`/detail/${heroId}`));
+        cy.shouldHaveUrl('/heroes');
+        cy.title().should('be.eq', 'Tour of Heroes');
+        cy.toHaveSnapshot('heroes-page', {
+          capture: 'fullPage',
+        });
+      });
 
-    const detailPageObject = new DetailPageObject();
-    cy.step('Wait for loading hero detail', () =>
-      detailPageObject.waitForHeroDetailLoaded()
-    );
+      it('Display "detail" page', () => {
+        const heroId = MOCK_HEROES[1].id;
+        cy.step('Go to "detail" page', () => cy.visit(`/detail/${heroId}`));
 
-    cy.shouldHaveUrl(`/detail/${heroId}`);
-    cy.title().should('be.eq', 'Tour of Heroes');
-    cy.toHaveSnapshot('detail-page', {
-      capture: 'fullPage',
+        const detailPageObject = new DetailPageObject();
+        cy.step('Wait for loading hero detail', () =>
+          detailPageObject.waitForHeroDetailLoaded()
+        );
+
+        cy.shouldHaveUrl(`/detail/${heroId}`);
+        cy.title().should('be.eq', 'Tour of Heroes');
+        cy.toHaveSnapshot('detail-page', {
+          capture: 'fullPage',
+        });
+      });
     });
   });
 });

@@ -1,3 +1,4 @@
+# https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command
 services:
   dev-server:
     build:
@@ -5,7 +6,7 @@ services:
       context: ..
   cypress:
     build:
-      dockerfile: ./e2e-cypress/Dockerfile.cypress.local
+      dockerfile: ./e2e-cypress/Dockerfile.cypress.run.local
       context: ..
     volumes:
       - ./snapshots:/app/e2e-cypress/snapshots
