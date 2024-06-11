@@ -66,6 +66,7 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
 >
   <app-hero-detail>
     <div
+      cy-automation-id="wrapper"
       pw-automation-id="wrapper"
     >
       <h2

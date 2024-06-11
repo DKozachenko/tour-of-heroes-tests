@@ -24,6 +24,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
 >
   <a
     automation-id="hero-link"
+    cy-automation-id="hero-link"
     pw-automation-id="hero-link"
   >
      Bombasto 
@@ -31,6 +32,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
   
   <a
     automation-id="hero-link"
+    cy-automation-id="hero-link"
     pw-automation-id="hero-link"
   >
      Celeritas 
@@ -38,6 +40,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
   
   <a
     automation-id="hero-link"
+    cy-automation-id="hero-link"
     pw-automation-id="hero-link"
   >
      Magneta 
@@ -45,6 +48,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
   
   <a
     automation-id="hero-link"
+    cy-automation-id="hero-link"
     pw-automation-id="hero-link"
   >
      RubberMan 
@@ -57,6 +61,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
 exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 2`] = `
 <a
   automation-id="hero-link"
+  cy-automation-id="hero-link"
   pw-automation-id="hero-link"
 >
    Bombasto 
@@ -66,6 +71,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
 exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 3`] = `
 <a
   automation-id="hero-link"
+  cy-automation-id="hero-link"
   pw-automation-id="hero-link"
 >
    Celeritas 
@@ -75,6 +81,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
 exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 4`] = `
 <a
   automation-id="hero-link"
+  cy-automation-id="hero-link"
   pw-automation-id="hero-link"
 >
    Magneta 
@@ -84,6 +91,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
 exports[`DashboardComponent Layout should contain heroes list including 4 links with hero names and hero id as routerLink attribute 5`] = `
 <a
   automation-id="hero-link"
+  cy-automation-id="hero-link"
   pw-automation-id="hero-link"
 >
    RubberMan 

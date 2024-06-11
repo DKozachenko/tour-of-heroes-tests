@@ -21,6 +21,7 @@ exports[`AppComponent Layout should contain navigation with links 1`] = `
 >
   <a
     automation-id="navigation-link"
+    cy-automation-id="dashboard-navigation-link"
     pw-automation-id="dashboard-navigation-link"
     routerlink="/dashboard"
   >
@@ -29,6 +30,7 @@ exports[`AppComponent Layout should contain navigation with links 1`] = `
   
   <a
     automation-id="navigation-link"
+    cy-automation-id="heroes-navigation-link"
     pw-automation-id="heroes-navigation-link"
     routerlink="/heroes"
   >
@@ -41,6 +43,7 @@ exports[`AppComponent Layout should contain navigation with links 1`] = `
 exports[`AppComponent Layout should contain navigation with links 2`] = `
 <a
   automation-id="navigation-link"
+  cy-automation-id="dashboard-navigation-link"
   pw-automation-id="dashboard-navigation-link"
   routerlink="/dashboard"
 >
@@ -51,6 +54,7 @@ exports[`AppComponent Layout should contain navigation with links 2`] = `
 exports[`AppComponent Layout should contain navigation with links 3`] = `
 <a
   automation-id="navigation-link"
+  cy-automation-id="heroes-navigation-link"
   pw-automation-id="heroes-navigation-link"
   routerlink="/heroes"
 >
