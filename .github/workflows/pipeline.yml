@@ -26,6 +26,7 @@ env:
   E2E_OUTPUT_PATH: "./e2e/test-output"
   E2E_CYPRESS_SNAPSHOTS_PATH: "./e2e-cypress/snapshots"
   E2E_TEST_RESULTS_PATH: "./e2e/report/test-results.xml"
+  E2E_CYPRESS_TEST_RESULTS_PATH: "./e2e-cypress/report/test-results.xml"
 
 jobs:
   create-cache-key:
@@ -248,12 +249,13 @@ jobs:
           path: ${{ env.E2E_CYPRESS_HTML_REPORT_PATH }}
           if-no-files-found: error
           retention-days: 3
-      # - name: Create test results annotations, PR comment and workflow summary
-      #   uses: EnricoMi/publish-unit-test-result-action@v2
-      #   if: always()
-      #   with:
-      #     files: |
-      #       ${{ env.E2E_TEST_RESULTS_PATH }}
-      #     comment_title: "E2E Test Results"
-      #     job_summary: true
-      #     check_run: false
+      - name: Create test results annotations, PR comment and workflow summary
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            ${{ env.E2E_CYPRESS_TEST_RESULTS_PATH }}
+          comment_title: "E2E Cypress Test Results"
+          job_summary: true
+          check_run: false
+
