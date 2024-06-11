@@ -31,7 +31,7 @@ describe('Pages', () => {
 
         cy.shouldHaveUrl('/dashboard');
         cy.title().should('be.eq', 'Tour of Heroes');
-        cy.toHaveSnapshot('dashboard-page', {
+        cy.toHaveSnapshot('dashboard-page', undefined, {
           capture: 'fullPage',
         });
       });
@@ -46,7 +46,7 @@ describe('Pages', () => {
 
         cy.shouldHaveUrl('/heroes');
         cy.title().should('be.eq', 'Tour of Heroes');
-        cy.toHaveSnapshot('heroes-page', {
+        cy.toHaveSnapshot('heroes-page', undefined, {
           capture: 'fullPage',
         });
       });
@@ -62,7 +62,7 @@ describe('Pages', () => {
 
         cy.shouldHaveUrl(`/detail/${heroId}`);
         cy.title().should('be.eq', 'Tour of Heroes');
-        cy.toHaveSnapshot('detail-page', {
+        cy.toHaveSnapshot('detail-page', undefined, {
           capture: 'fullPage',
         });
       });
