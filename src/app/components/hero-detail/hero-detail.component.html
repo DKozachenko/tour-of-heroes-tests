@@ -1,8 +1,16 @@
 <div *ngIf="hero" pw-automation-id="wrapper" cy-automation-id="wrapper">
-  <h2 automation-id="heading" pw-automation-id="heading">
+  <h2
+    automation-id="heading"
+    pw-automation-id="heading"
+    cy-automation-id="heading"
+  >
     {{ hero.name | uppercase }} Details
   </h2>
-  <div automation-id="hero-id" pw-automation-id="hero-id">
+  <div
+    automation-id="hero-id"
+    pw-automation-id="hero-id"
+    cy-automation-id="hero-id"
+  >
     <span>id: </span>{{ hero.id }}
   </div>
   <div>
@@ -10,6 +18,7 @@
       for="hero-name"
       automation-id="hero-name-label"
       pw-automation-id="hero-name-label"
+      cy-automation-id="hero-name-label"
       >Hero name:
     </label>
     <input
@@ -18,6 +27,7 @@
       placeholder="Hero name"
       automation-id="hero-name-input"
       pw-automation-id="hero-name-input"
+      cy-automation-id="hero-name-input"
     />
   </div>
   <button
@@ -25,6 +35,7 @@
     (click)="goBack()"
     automation-id="back-button"
     pw-automation-id="back-button"
+    cy-automation-id="back-button"
   >
     go back
   </button>
@@ -33,6 +44,7 @@
     (click)="save()"
     automation-id="save-button"
     pw-automation-id="save-button"
+    cy-automation-id="save-button"
   >
     save
   </button>

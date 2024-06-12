@@ -3,17 +3,20 @@
 exports[`MessagesComponent Layout should contain div wrapper if messages length more than 0 1`] = `
 <div
   automation-id="wrapper"
+  cy-automation-id="messages-wrapper"
   pw-automation-id="messages-wrapper"
 >
   <h2
     automation-id="heading"
+    cy-automation-id="messages-heading"
     pw-automation-id="messages-heading"
   >
-    Messages
+     Messages 
   </h2>
   <button
     automation-id="clear-button"
     class="clear"
+    cy-automation-id="messages-clear-button"
     pw-automation-id="messages-clear-button"
     type="button"
   >
@@ -21,12 +24,14 @@ exports[`MessagesComponent Layout should contain div wrapper if messages length 
   </button>
   <div
     automation-id="message"
+    cy-automation-id="message"
     pw-automation-id="message"
   >
      test message 1 
   </div>
   <div
     automation-id="message"
+    cy-automation-id="message"
     pw-automation-id="message"
   >
      test message 2 
@@ -38,9 +43,10 @@ exports[`MessagesComponent Layout should contain div wrapper if messages length 
 exports[`MessagesComponent Layout should contain heading and clear button if messages length more than 0 1`] = `
 <h2
   automation-id="heading"
+  cy-automation-id="messages-heading"
   pw-automation-id="messages-heading"
 >
-  Messages
+   Messages 
 </h2>
 `;
 
@@ -48,6 +54,7 @@ exports[`MessagesComponent Layout should contain heading and clear button if mes
 <button
   automation-id="clear-button"
   class="clear"
+  cy-automation-id="messages-clear-button"
   pw-automation-id="messages-clear-button"
   type="button"
 >
@@ -58,6 +65,7 @@ exports[`MessagesComponent Layout should contain heading and clear button if mes
 exports[`MessagesComponent Layout should contain messages list if messages length more than 0 1`] = `
 <div
   automation-id="message"
+  cy-automation-id="message"
   pw-automation-id="message"
 >
    test message 1 
@@ -67,6 +75,7 @@ exports[`MessagesComponent Layout should contain messages list if messages lengt
 exports[`MessagesComponent Layout should contain messages list if messages length more than 0 2`] = `
 <div
   automation-id="message"
+  cy-automation-id="message"
   pw-automation-id="message"
 >
    test message 2 
@@ -76,6 +85,7 @@ exports[`MessagesComponent Layout should contain messages list if messages lengt
 exports[`MessagesComponent Layout should contain messages list if messages length more than 0 3`] = `
 <div
   automation-id="message"
+  cy-automation-id="message"
   pw-automation-id="message"
 >
    test message 3 

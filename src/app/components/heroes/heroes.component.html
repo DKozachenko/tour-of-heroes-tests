@@ -1,10 +1,21 @@
-<h2 automation-id="heading" pw-automation-id="heading">My Heroes</h2>
+<h2
+  automation-id="heading"
+  pw-automation-id="heading"
+  cy-automation-id="heading"
+>
+  My Heroes
+</h2>
 
-<div automation-id="create-div" pw-automation-id="create-div">
+<div
+  automation-id="create-div"
+  pw-automation-id="create-div"
+  cy-automation-id="create-div"
+>
   <label
     for="new-hero"
     automation-id="create-label"
     pw-automation-id="create-label"
+    cy-automation-id="create-label"
     >Hero name:
   </label>
   <input
@@ -12,6 +23,7 @@
     #heroName
     automation-id="create-input"
     pw-automation-id="create-input"
+    cy-automation-id="create-input"
   />
 
   <!-- (click) passes input value to add() and then clears the input -->
@@ -21,12 +33,18 @@
     (click)="add(heroName.value); heroName.value = ''"
     automation-id="add-button"
     pw-automation-id="add-button"
+    cy-automation-id="add-button"
   >
     Add hero
   </button>
 </div>
 
-<ul class="heroes" automation-id="heroes" pw-automation-id="heroes">
+<ul
+  class="heroes"
+  automation-id="heroes"
+  pw-automation-id="heroes"
+  cy-automation-id="heroes"
+>
   <li
     *ngFor="let hero of heroes"
     automation-id="hero-item"
@@ -37,6 +55,7 @@
       routerLink="/detail/{{ hero.id }}"
       automation-id="hero-link"
       pw-automation-id="hero-link"
+      cy-automation-id="hero-link"
     >
       <span class="badge">{{ hero.id }}</span> {{ hero.name }}
     </a>
@@ -47,6 +66,7 @@
       (click)="delete(hero)"
       automation-id="hero-button"
       pw-automation-id="hero-button"
+      cy-automation-id="hero-button"
     >
       x
     </button>

@@ -3,6 +3,7 @@
 exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 1`] = `
 <h2
   automation-id="heading"
+  cy-automation-id="heading"
   pw-automation-id="heading"
 >
    DR. NICE Details 
@@ -12,6 +13,7 @@ exports[`HeroDetailComponent Layout should contain hero description and action b
 exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 2`] = `
 <div
   automation-id="hero-id"
+  cy-automation-id="hero-id"
   pw-automation-id="hero-id"
 >
   <span>
@@ -24,6 +26,7 @@ exports[`HeroDetailComponent Layout should contain hero description and action b
 exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 3`] = `
 <label
   automation-id="hero-name-label"
+  cy-automation-id="hero-name-label"
   for="hero-name"
   pw-automation-id="hero-name-label"
 >
@@ -34,6 +37,7 @@ exports[`HeroDetailComponent Layout should contain hero description and action b
 exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 4`] = `
 <input
   automation-id="hero-name-input"
+  cy-automation-id="hero-name-input"
   id="hero-name"
   placeholder="Hero name"
   pw-automation-id="hero-name-input"
@@ -43,6 +47,7 @@ exports[`HeroDetailComponent Layout should contain hero description and action b
 exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 5`] = `
 <button
   automation-id="back-button"
+  cy-automation-id="back-button"
   pw-automation-id="back-button"
   type="button"
 >
@@ -53,6 +58,7 @@ exports[`HeroDetailComponent Layout should contain hero description and action b
 exports[`HeroDetailComponent Layout should contain hero description and action buttons if "hero" property is set 6`] = `
 <button
   automation-id="save-button"
+  cy-automation-id="save-button"
   pw-automation-id="save-button"
   type="button"
 >
@@ -71,12 +77,14 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
     >
       <h2
         automation-id="heading"
+        cy-automation-id="heading"
         pw-automation-id="heading"
       >
          DR. NICE Details 
       </h2>
       <div
         automation-id="hero-id"
+        cy-automation-id="hero-id"
         pw-automation-id="hero-id"
       >
         <span>
@@ -87,6 +95,7 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
       <div>
         <label
           automation-id="hero-name-label"
+          cy-automation-id="hero-name-label"
           for="hero-name"
           pw-automation-id="hero-name-label"
         >
@@ -94,6 +103,7 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
         </label>
         <input
           automation-id="hero-name-input"
+          cy-automation-id="hero-name-input"
           id="hero-name"
           placeholder="Hero name"
           pw-automation-id="hero-name-input"
@@ -102,6 +112,7 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
       </div>
       <button
         automation-id="back-button"
+        cy-automation-id="back-button"
         pw-automation-id="back-button"
         type="button"
       >
@@ -109,6 +120,7 @@ exports[`HeroDetailComponent Layout should not contain html if "hero" property i
       </button>
       <button
         automation-id="save-button"
+        cy-automation-id="save-button"
         pw-automation-id="save-button"
         type="button"
       >

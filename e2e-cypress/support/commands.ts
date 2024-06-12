@@ -31,7 +31,11 @@ declare global {
       getByTestId(id: string): Chainable<JQuery<HTMLElement>>;
       step(description: string, callback: Function): void;
       shouldHaveUrl(url: string): Chainable<string>;
-      toHaveSnapshot(name: string, options?: Options): void;
+      toHaveSnapshot(
+        name: string,
+        element?: Cypress.Chainable<JQuery<HTMLElement>>,
+        options?: Options
+      ): void;
       desktopViewport(): void;
       mobileViewport(): void;
     }
@@ -51,39 +55,55 @@ Cypress.Commands.add('shouldHaveUrl', (url: string) => {
   return cy.url().should('satisfy', (fullUrl: string) => fullUrl.endsWith(url));
 });
 
-Cypress.Commands.add('toHaveSnapshot', (name: string, options?: Options) => {
-  // Для локального запуска через open нужно игнорировать снепшоты, тк они сделаны
-  // в окружении разработчика и вероятнее всего будут отличатся от CI
-  // https://docs.cypress.io/guides/references/legacy-configuration#isInteractive
-  if (Cypress.config('isInteractive')) {
-    // "cypress open" mode
-    cy.log(
-      `Ignore making snaphost with name: ${name} and options: ${options} in local environment`
-    );
-  } else {
-    // "cypress run" mode
-    const viewportHeight: number = Cypress.config('viewportHeight');
-    const viewportWidth: number = Cypress.config('viewportWidth');
-
-    let viewport: Viewport;
-    if (viewportWidth === 1280 && viewportHeight === 720) {
-      viewport = 'Desktop';
-    } else if (viewportWidth === 393 && viewportHeight === 727) {
-      viewport = 'Mobile';
+Cypress.Commands.add(
+  'toHaveSnapshot',
+  (
+    name: string,
+    element?: Cypress.Chainable<JQuery<HTMLElement>>,
+    options?: Options
+  ) => {
+    // Для локального запуска через open нужно игнорировать снепшоты, тк они сделаны
+    // в окружении разработчика и вероятнее всего будут отличатся от CI
+    // https://docs.cypress.io/guides/references/legacy-configuration#isInteractive
+    if (Cypress.config('isInteractive')) {
+      // "cypress open" mode
+      cy.log(
+        `Ignore making snaphost with name: ${name} and options: ${options} in local environment`
+      );
     } else {
-      viewport = 'Desktop';
-    }
+      // "cypress run" mode
+      const viewportHeight: number = Cypress.config('viewportHeight');
+      const viewportWidth: number = Cypress.config('viewportWidth');
 
-    const snapshotName: string = `${name}-${viewport.toLowerCase()}-${
-      Cypress.browser.name
-    }`;
-    if (options) {
-      cy.matchImageSnapshot(snapshotName, options);
-    } else {
-      cy.matchImageSnapshot(snapshotName);
+      let viewport: Viewport;
+      if (viewportWidth === 1280 && viewportHeight === 720) {
+        viewport = 'Desktop';
+      } else if (viewportWidth === 393 && viewportHeight === 727) {
+        viewport = 'Mobile';
+      } else {
+        viewport = 'Desktop';
+      }
+
+      const snapshotName: string = `${name}-${viewport.toLowerCase()}-${
+        Cypress.browser.name
+      }`;
+
+      if (options) {
+        if (element) {
+          element.matchImageSnapshot(snapshotName, options);
+        } else {
+          cy.matchImageSnapshot(snapshotName, options);
+        }
+      } else {
+        if (element) {
+          element.matchImageSnapshot(snapshotName);
+        } else {
+          cy.matchImageSnapshot(snapshotName);
+        }
+      }
     }
   }
-});
+);
 
 Cypress.Commands.add('desktopViewport', () => {
   cy.viewport(1280, 720);

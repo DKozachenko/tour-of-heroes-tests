@@ -2,11 +2,13 @@
   id="search-component"
   automation-id="search-component"
   pw-automation-id="search-component"
+  cy-automation-id="search-component"
 >
   <label
     for="search-box"
     automation-id="search-label"
     pw-automation-id="search-label"
+    cy-automation-id="search-label"
     >Hero Search</label
   >
   <input
@@ -15,18 +17,21 @@
     (input)="search(searchBox.value)"
     automation-id="search-input"
     pw-automation-id="search-input"
+    cy-automation-id="search-input"
   />
 
   <ul
     class="search-result"
     automation-id="search-result"
     pw-automation-id="search-result"
+    cy-automation-id="search-result"
   >
     <li *ngFor="let hero of heroes$ | async">
       <a
         routerLink="/detail/{{ hero.id }}"
         automation-id="search-link"
         pw-automation-id="search-link"
+        cy-automation-id="search-link"
       >
         {{ hero.name }}
       </a>

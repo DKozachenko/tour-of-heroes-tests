@@ -4,6 +4,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 <ul
   automation-id="heroes"
   class="heroes"
+  cy-automation-id="heroes"
   pw-automation-id="heroes"
 >
   <li
@@ -13,6 +14,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
   >
     <a
       automation-id="hero-link"
+      cy-automation-id="hero-link"
       pw-automation-id="hero-link"
     >
       <span
@@ -26,6 +28,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
     <button
       automation-id="hero-button"
       class="delete"
+      cy-automation-id="hero-button"
       pw-automation-id="hero-button"
       title="delete hero"
       type="button"
@@ -40,6 +43,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
   >
     <a
       automation-id="hero-link"
+      cy-automation-id="hero-link"
       pw-automation-id="hero-link"
     >
       <span
@@ -53,6 +57,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
     <button
       automation-id="hero-button"
       class="delete"
+      cy-automation-id="hero-button"
       pw-automation-id="hero-button"
       title="delete hero"
       type="button"
@@ -67,6 +72,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 exports[`HeroesComponent Layout hero list should contain hero list with link and button for deleting 2`] = `
 <a
   automation-id="hero-link"
+  cy-automation-id="hero-link"
   pw-automation-id="hero-link"
 >
   <span
@@ -82,6 +88,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 <button
   automation-id="hero-button"
   class="delete"
+  cy-automation-id="hero-button"
   pw-automation-id="hero-button"
   title="delete hero"
   type="button"
@@ -93,6 +100,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 exports[`HeroesComponent Layout hero list should contain hero list with link and button for deleting 4`] = `
 <a
   automation-id="hero-link"
+  cy-automation-id="hero-link"
   pw-automation-id="hero-link"
 >
   <span
@@ -108,6 +116,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 <button
   automation-id="hero-button"
   class="delete"
+  cy-automation-id="hero-button"
   pw-automation-id="hero-button"
   title="delete hero"
   type="button"
@@ -119,6 +128,7 @@ exports[`HeroesComponent Layout hero list should contain hero list with link and
 exports[`HeroesComponent Layout should contain block for creating new hero with input and add button 1`] = `
 <label
   automation-id="create-label"
+  cy-automation-id="create-label"
   for="new-hero"
   pw-automation-id="create-label"
 >
@@ -129,6 +139,7 @@ exports[`HeroesComponent Layout should contain block for creating new hero with 
 exports[`HeroesComponent Layout should contain block for creating new hero with input and add button 2`] = `
 <input
   automation-id="create-input"
+  cy-automation-id="create-input"
   id="new-hero"
   pw-automation-id="create-input"
 />
@@ -138,6 +149,7 @@ exports[`HeroesComponent Layout should contain block for creating new hero with 
 <button
   automation-id="add-button"
   class="add-button"
+  cy-automation-id="add-button"
   pw-automation-id="add-button"
   type="button"
 >
@@ -148,8 +160,10 @@ exports[`HeroesComponent Layout should contain block for creating new hero with 
 exports[`HeroesComponent Layout should contain heading 1`] = `
 <h2
   automation-id="heading"
+  cy-automation-id="heading"
   pw-automation-id="heading"
 >
-  My Heroes
+   My Heroes
+
 </h2>
 `;

@@ -2,14 +2,22 @@
   *ngIf="messageService.messages.length"
   automation-id="wrapper"
   pw-automation-id="messages-wrapper"
+  cy-automation-id="messages-wrapper"
 >
-  <h2 automation-id="heading" pw-automation-id="messages-heading">Messages</h2>
+  <h2
+    automation-id="heading"
+    pw-automation-id="messages-heading"
+    cy-automation-id="messages-heading"
+  >
+    Messages
+  </h2>
   <button
     type="button"
     class="clear"
     (click)="messageService.clear()"
     automation-id="clear-button"
     pw-automation-id="messages-clear-button"
+    cy-automation-id="messages-clear-button"
   >
     Clear messages
   </button>
@@ -17,6 +25,7 @@
     *ngFor="let message of messageService.messages"
     automation-id="message"
     pw-automation-id="message"
+    cy-automation-id="message"
   >
     {{ message }}
   </div>
