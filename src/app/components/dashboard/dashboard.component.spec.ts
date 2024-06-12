@@ -140,7 +140,7 @@ describe('DashboardComponent', () => {
   });
 });
 
-// Документация: https://ng-mocks.sudo.eu/guides/route/
+// https://ng-mocks.sudo.eu/guides/route/
 describe('DashboardComponent:Routing', () => {
   let mockHeroService: HeroService;
 

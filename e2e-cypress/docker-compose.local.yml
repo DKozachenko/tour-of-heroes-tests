@@ -11,8 +11,8 @@ services:
     volumes:
       - ./snapshots:/app/e2e-cypress/snapshots
     environment:
-      # Нужно прокинуть CYPRESS_baseUrl переменную, иначе Cypress пытается найти
-      # дев сервер на http://127.0.0.1:4200
+      # You need to pass the CYPRESS_baseUrl variable, otherwise Cypress tries to find
+      # dev server at http://127.0.0.1:4200
       - CYPRESS_baseUrl=http://dev-server:4200
     depends_on:
       - dev-server

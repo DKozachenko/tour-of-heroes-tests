@@ -54,7 +54,7 @@ describe('Messages', () => {
           cy.toHaveSnapshot('messages', appPageObject.messagesComponent);
         });
 
-        // Нет возможности протестить hover состояние
+        // There is no way to test the hover state
         // https://github.com/cypress-io/cypress/issues/10
         xit('Change background color and color of clear button while hover over it', () => {
           cy.step('Go to "dashboard" page', () => cy.visit('/dashboard'));
@@ -123,8 +123,8 @@ describe('Messages', () => {
         });
 
         it('Show message about updating hero after saving hero with new data', () => {
-          // Сначала нужно перейти на страницу дашборда, чтобы навигации
-          // впоследствии было куда возвращаться с помощью `location.back()`
+          // First you need to go to the dashboard page so that navigation
+          // later has somewhere to return using `location.back()`
           cy.step('Go to "dashboard" page', () => cy.visit('/dashboard'));
 
           const dashboardPageObject = new DashboardPageObject();

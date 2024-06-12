@@ -97,7 +97,7 @@ describe('MessagesComponent', () => {
 
     it('should clear messages list if clear button has clicked', () => {
       let mockedMessages = ['test message 1', 'test message 2'];
-      // Надо замкнуть кастомный массив сообщений
+      // We need to close the custom message array
       when(mockMessageService.messages).thenCall(() => mockedMessages);
       when(mockMessageService.clear()).thenCall(() => (mockedMessages = []));
 

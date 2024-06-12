@@ -90,7 +90,7 @@ describe('HeroesComponent', () => {
   }
 
   function mockCalls(): void {
-    // Необходимо сделать копию массива, чтобы тесты не могли влиять друг на друга, меняя массив
+    // It is necessary to make a copy of the array so that tests cannot influence each other by changing the array
     when(mockHeroService.getHeroes()).thenReturn(
       of(HEROES.slice(0, HEROES.length))
     );

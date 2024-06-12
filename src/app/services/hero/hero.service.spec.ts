@@ -61,7 +61,7 @@ describe('HeroService', () => {
         })
       );
       expect(service.getHeroes()).toSatisfyOnFlush(() => {
-        // twice потому что в прошлом expect также создается подписка
+        // "twice" because in the past expect a subscription is also created
         verify(mockMessageService.add('HeroService: fetched heroes')).twice();
       });
     });

@@ -10,7 +10,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
-    // Чтобы не ломался Cypress
+    // To fix Cypress
     // https://stackoverflow.com/questions/42041056/nativescript-typescript-error-error-ts5053-option-sourcemap-cannot-be-spe
     "sourceMap": false,
     "declaration": false,
