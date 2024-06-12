@@ -99,8 +99,8 @@ describe('Hero Detail', () => {
         });
 
         it('Navigate to "dashboard" page if "back" button has clicked', () => {
-          // Сначала нужно перейти на страницу дашборда, чтобы навигации
-          // впоследствии было куда возвращаться с помощью `location.back()`
+          // First you need to go to the dashboard page so that navigation
+          // later has somewhere to return using `location.back()`
           cy.step('Go to "dashboard" page', () => cy.visit('/dashboard'));
 
           const dashboardPageObject = new DashboardPageObject();
@@ -125,8 +125,8 @@ describe('Hero Detail', () => {
         });
 
         it('Navigate to "dashboard" page if "save" button has clicked', () => {
-          // Сначала нужно перейти на страницу дашборда, чтобы навигации
-          // впоследствии было куда возвращаться с помощью `location.back()`
+          // First you need to go to the dashboard page so that navigation
+          // later has somewhere to return using `location.back()`
           cy.step('Go to "dashboard" page', () => cy.visit('/dashboard'));
 
           const dashboardPageObject = new DashboardPageObject();

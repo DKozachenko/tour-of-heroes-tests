@@ -1,4 +1,4 @@
-# Нужно для корректного создания volume
+# Necessary for correct volume creation on Windows
 # https://stackoverflow.com/questions/50608301/docker-mounted-volume-adds-c-to-end-of-windows-path-when-translating-from-linux
 export MSYS_NO_PATHCONV=1
 

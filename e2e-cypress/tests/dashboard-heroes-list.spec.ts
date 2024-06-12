@@ -85,7 +85,7 @@ describe('Dashboard Heroes List', () => {
 
           heroLink.invoke('attr', 'href').then((href: string | undefined) => {
             cy.step(`Click on hero list item #${heroIndex + 1}`, () =>
-              // Почему-то, некопия элемента превращается в null
+              // For some reason, a non-copy of an element turns into null
               heroLinkCopy.click()
             );
 

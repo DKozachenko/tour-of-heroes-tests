@@ -1,17 +1,17 @@
 # tour-of-heroes-tests
 
-[Учебный проект](https://angular.io/tutorial/tour-of-heroes) из документации Angular.
+[Tutorial Project](https://angular.io/tutorial/tour-of-heroes) from Angular documentation.
 
-В приложении для тестов используются:
+The test application uses:
 * [Jest](https://jestjs.io/ru/)
 * [Playwright](https://playwright.dev/)
 * [Cypress](https://www.cypress.io/)
 
-Код в этом проекте отличается от [оригинального](https://stackblitz.com/run?file=src%2Fapp%2Fhero.service.ts).
+The code in this project is different from the [original](https://stackblitz.com/run?file=src%2Fapp%2Fhero.service.ts).
 
-Вот некоторые изменения:
+Here are some changes:
 
-* удаление пакетов для тестирования с помощью karma, jasmine, protractor, а именно:
+* removing packages for testing using karma, jasmine, protractor, namely:
   * protractor
   * copyfiles
   * karma
@@ -23,7 +23,7 @@
   * jasmine-core
   * jasmine-marbles
   * jasmine-spec-reporter
-* добавление зависимостей для тестирования с помощью jest и playwright, а именно:
+* adding dependencies for testing using jest, playwright and cypress, namely:
   * jest
   * jest-preset-angular
   * @types/jest
@@ -33,21 +33,41 @@
   * jest-junit
   * ts-mockito
   * ng-mocks
-* изменение версий **typescript** c *~4.9.3* на *~5.3.3* во избежание конфликтов версий других пакетов
-* реструктурирование проекта, добавление [barrel](https://basarat.gitbook.io/typescript/main-1/barrel) файлов
+  * cypress
+  * @simonsmith/cypress-image-snapshot
+  * @types/cypress-image-snapshot
+  * cypress-junit-reporter
+  * cypress-multi-reporters
+  * junit-report-merger
+  * mochawesome
+  * mochawesome-merge
+  * mochawesome-report-generator
+* changing **typescript** versions from *~4.9.3* to *~5.3.3* to avoid conflicts between versions of other packages
+* restructuring the project, adding [barrel](https://basarat.gitbook.io/typescript/main-1/barrel) files
 
-### Команды
+### Scripts
 
-| Команда                                 | Описание                                                                                             |
-|-----------------------------------------|------------------------------------------------------------------------------------------------------|
-| npm run start                           | Запуск приложения                                                                                    |
-| npm run test:unit:local                 | Запуск unit тестов локально                                                                          |
-| npm run test:unit:local:us              | Запуск unit тестов локально (с обновлением снепшотов)                                                |
-| npm run test:unit:ci                    | Запуск unit тестов в CI                                                                              |
-| npm run test:unit:coverage              | Запуск unit тестов с отчетом о покрытии, расположенном в `coverage` директории                       |
-| npm run test:unit:report                | Запуск unit тестов с отчетом (в формате **.XML**) о результатах, расположенном в `report` директории |
-| npm run test:e2e:local                  | Запуск e2e тестов локально                                                                           |
-| npm run test:e2e:local:docker           | Запуск e2e тестов локально в докере                                                                  |
-| npm run test:e2e:local:docker:serve     | Запуск Playwright в UI режиме локально в докере (с обновлением снепшотов)                            |
-| npm run test:e2e:ci                     | Запуск e2e тестов в CI                                                                               |
-| npm run test:e2e:report                 | Запуск e2e тестов с отчетом (в формате **.XML**) о результатах, расположенном в `report` директории  |
+| Script                                     | Description                                                                                                                |
+|--------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| npm run start                              | Running the application                                                                                                    |
+| npm run start:in:test:e2e:cy               | Running an application for E2E tests on Cypress locally in Docker (with snapshot updates)                                  |
+| npm run test:unit:local                    | Running unit tests on JEST locally                                                                                         |
+| npm run test:unit:local:us                 | Running unit tests on JEST locally (with snapshot updates)                                                                 |
+| npm run test:unit:ci                       | Running unit tests on JEST in CI                                                                                           |
+| npm run test:unit:coverage                 | Running unit tests on JEST with a coverage report located in the `coverage` directory                                      |
+| npm run test:unit:report                   | Running unit tests on JEST with a report (in **.XML** format) about the results located in the `report` directory          |
+| npm run test:e2e:pw:local                  | Running E2E tests on Playwright locally                                                                                    |
+| npm run test:e2e:pw:local:docker           | Running E2E tests on Playwright locally in docker                                                                          |
+| npm run test:e2e:pw:local:docker:serve     | Running E2e tests on Playwright in UI mode locally in Docker (with the ability to update snapshots)                        |
+| npm run test:e2e:pw:ci                     | Running E2E tests on Playwright in CI                                                                                      |
+| npm run test:e2e:pw:report                 | Running E2E tests on Playwright with a report (in **.XML** format) about the results located in the `report` directory     |
+| npm run test:e2e:cy:local                  | Running E2E tests on Cypress locally                                                                                       |
+| npm run test:e2e:cy:local:docker           | Running E2E tests on Cypress locally in docker                                                                             |
+| npm run test:e2e:cy:local:docker:run       | Running E2e tests on Cypress locally in docker (with snapshot updates)                                                     |
+| npm run test:e2e:cy:ci                     | Running E2E tests on Cypress in CI                                                                                         |
+| npm run pretest:e2e:cy:report              | Cleaning directories before running `npm run test:e2e:cy:report`                                                           |
+| npm run test:e2e:cy:report                 | Running E2E tests on Cypress with a report (in **.XML** format) about the results located in the `report` directory        |
+| npm run posttest:e2e:cy:report             | Generating reports about execution results in different formats after running `npm run test:e2e:cy:report`                 |
+| npm run test:e2e:cy:merge:reports          | Combining **.XML** reports into one                                                                                        |
+| npm run test:e2e:cy:merge:json:reports     | Combining **.JSON** reports into one                                                                                       |
+| npm run test:e2e:cy:generate:html:report   | Creating a **.HTML** report based on a **.JSON** report                                                                    |

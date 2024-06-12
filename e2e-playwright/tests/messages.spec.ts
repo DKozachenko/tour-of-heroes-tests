@@ -112,8 +112,8 @@ test.describe('Messages', () => {
     test('Show message about updating hero after saving hero with new data', async ({
       page,
     }) => {
-      // Сначала нужно перейти на страницу дашборда, чтобы навигации
-      // впоследствии было куда возвращаться с помощью `location.back()`
+      // First you need to go to the dashboard page so that navigation
+      // later has somewhere to return using `location.back()`
       await test.step('Go to "dashboard" page', async () =>
         await page.goto('/dashboard'));
 

@@ -12,7 +12,7 @@
     "test:unit:ci": "jest --config=jest.config.ci.ts",
     "test:unit:coverage": "jest --config=jest.config.coverage.ts",
     "test:unit:report": "jest --config=jest.config.report.ts",
-    "-------Playwright Tests-------": "TODO: добавить префикс pw",
+    "-------Playwright Tests-------": "",
     "test:e2e:pw:local": "playwright test --config=e2e-playwright/playwright.config.local.ts --ui",
     "test:e2e:pw:local:docker": "playwright test --config=e2e-playwright/playwright.config.local.docker.ts --ui --ui-port=5000 --ui-host=0.0.0.0",
     "test:e2e:pw:local:docker:serve": "bash ./scripts/run-e2e-pw-local-docker.sh",

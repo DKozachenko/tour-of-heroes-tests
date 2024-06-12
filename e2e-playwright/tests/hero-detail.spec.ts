@@ -89,8 +89,8 @@ test.describe('Hero Detail', () => {
     test('Navigate to "dashboard" page if "back" button has clicked', async ({
       page,
     }) => {
-      // Сначала нужно перейти на страницу дашборда, чтобы навигации
-      // впоследствии было куда возвращаться с помощью `location.back()`
+      // First you need to go to the dashboard page so that navigation
+      // later has somewhere to return using `location.back()`
       await test.step('Go to "dashboard" page', async () =>
         await page.goto('/dashboard'));
 
@@ -122,8 +122,8 @@ test.describe('Hero Detail', () => {
     test('Navigate to "dashboard" page if "save" button has clicked', async ({
       page,
     }) => {
-      // Сначала нужно перейти на страницу дашборда, чтобы навигации
-      // впоследствии было куда возвращаться с помощью `location.back()`
+      // First you need to go to the dashboard page so that navigation
+      // later has somewhere to return using `location.back()`
       await test.step('Go to "dashboard" page', async () =>
         await page.goto('/dashboard'));
 

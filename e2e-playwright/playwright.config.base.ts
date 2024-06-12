@@ -57,7 +57,7 @@ export const BASE_CONFIG: PlaywrightTestConfig = defineConfig({
   webServer: {
     command: 'npm run start',
     timeout: 60000,
-    // Нужен именно localhost
+    // You need localhost
     // https://github.com/microsoft/playwright/issues/16834#issuecomment-1699124292
     url: 'http://localhost:4200',
   },

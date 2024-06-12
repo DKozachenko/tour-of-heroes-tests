@@ -62,8 +62,8 @@ Cypress.Commands.add(
     element?: Cypress.Chainable<JQuery<HTMLElement>>,
     options?: Options
   ) => {
-    // Для локального запуска через open нужно игнорировать снепшоты, тк они сделаны
-    // в окружении разработчика и вероятнее всего будут отличатся от CI
+    // To run locally via "open", you need to ignore snapshots,
+    // as they were made in the developer's environment and will most likely differ from CI
     // https://docs.cypress.io/guides/references/legacy-configuration#isInteractive
     if (Cypress.config('isInteractive')) {
       // "cypress open" mode
