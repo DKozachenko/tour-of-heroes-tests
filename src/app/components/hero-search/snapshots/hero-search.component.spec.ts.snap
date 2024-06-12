@@ -4,11 +4,13 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 <ul
   automation-id="search-result"
   class="search-result"
+  cy-automation-id="search-result"
   pw-automation-id="search-result"
 >
   <li>
     <a
       automation-id="search-link"
+      cy-automation-id="search-link"
       pw-automation-id="search-link"
     >
        Dr. Nice 
@@ -18,6 +20,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
   <li>
     <a
       automation-id="search-link"
+      cy-automation-id="search-link"
       pw-automation-id="search-link"
     >
        Bombasto 
@@ -27,6 +30,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
   <li>
     <a
       automation-id="search-link"
+      cy-automation-id="search-link"
       pw-automation-id="search-link"
     >
        Celeritas 
@@ -40,6 +44,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 2`] = `
 <a
   automation-id="search-link"
+  cy-automation-id="search-link"
   pw-automation-id="search-link"
 >
    Dr. Nice 
@@ -49,6 +54,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 3`] = `
 <a
   automation-id="search-link"
+  cy-automation-id="search-link"
   pw-automation-id="search-link"
 >
    Bombasto 
@@ -58,6 +64,7 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 exports[`HeroSearchComponent Layout hero list should contain hero list with hero names and hero id as routerLink attribute 4`] = `
 <a
   automation-id="search-link"
+  cy-automation-id="search-link"
   pw-automation-id="search-link"
 >
    Celeritas 
@@ -67,11 +74,13 @@ exports[`HeroSearchComponent Layout hero list should contain hero list with hero
 exports[`HeroSearchComponent Layout should contain div wrapper 1`] = `
 <div
   automation-id="search-component"
+  cy-automation-id="search-component"
   id="search-component"
   pw-automation-id="search-component"
 >
   <label
     automation-id="search-label"
+    cy-automation-id="search-label"
     for="search-box"
     pw-automation-id="search-label"
   >
@@ -79,12 +88,14 @@ exports[`HeroSearchComponent Layout should contain div wrapper 1`] = `
   </label>
   <input
     automation-id="search-input"
+    cy-automation-id="search-input"
     id="search-box"
     pw-automation-id="search-input"
   />
   <ul
     automation-id="search-result"
     class="search-result"
+    cy-automation-id="search-result"
     pw-automation-id="search-result"
   >
     
@@ -95,6 +106,7 @@ exports[`HeroSearchComponent Layout should contain div wrapper 1`] = `
 exports[`HeroSearchComponent Layout should contain label and input for typing 1`] = `
 <label
   automation-id="search-label"
+  cy-automation-id="search-label"
   for="search-box"
   pw-automation-id="search-label"
 >
@@ -105,6 +117,7 @@ exports[`HeroSearchComponent Layout should contain label and input for typing 1`
 exports[`HeroSearchComponent Layout should contain label and input for typing 2`] = `
 <input
   automation-id="search-input"
+  cy-automation-id="search-input"
   id="search-box"
   pw-automation-id="search-input"
 />

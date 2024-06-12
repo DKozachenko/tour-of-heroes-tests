@@ -3,6 +3,7 @@
 exports[`DashboardComponent Layout should contain "app-hero-search" component 1`] = `
 <app-hero-search
   automation-id="hero-search"
+  cy-automation-id="hero-search"
   pw-automation-id="hero-search"
 />
 `;
@@ -20,6 +21,7 @@ exports[`DashboardComponent Layout should contain heroes list including 4 links 
 <div
   automation-id="heroes-menu"
   class="heroes-menu"
+  cy-automation-id="heroes-menu"
   pw-automation-id="heroes-menu"
 >
   <a
