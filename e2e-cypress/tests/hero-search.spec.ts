@@ -1,4 +1,3 @@
-import { test, expect } from '@playwright/test';
 import { DashboardPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 import { VIEWPORTS, Viewport } from '../types';

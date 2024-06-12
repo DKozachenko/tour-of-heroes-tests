@@ -2,7 +2,7 @@ import { HeroesPageObject } from '../page-objects';
 import { MOCK_HEROES } from '../mocks';
 import { VIEWPORTS, Viewport } from '../types';
 
-describe.only('Heroes Items List', () => {
+describe('Heroes Items List', () => {
   VIEWPORTS.forEach((viewport: Viewport) => {
     context(`${viewport} screen`, () => {
       beforeEach(() => {
