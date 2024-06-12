@@ -23,7 +23,7 @@ Here are some changes:
   * jasmine-core
   * jasmine-marbles
   * jasmine-spec-reporter
-* adding dependencies for testing using jest and playwright, namely:
+* adding dependencies for testing using jest, playwright and cypress, namely:
   * jest
   * jest-preset-angular
   * @types/jest
@@ -33,6 +33,15 @@ Here are some changes:
   * jest-junit
   * ts-mockito
   * ng-mocks
+  * cypress
+  * @simonsmith/cypress-image-snapshot
+  * @types/cypress-image-snapshot
+  * cypress-junit-reporter
+  * cypress-multi-reporters
+  * junit-report-merger
+  * mochawesome
+  * mochawesome-merge
+  * mochawesome-report-generator
 * changing **typescript** versions from *~4.9.3* to *~5.3.3* to avoid conflicts between versions of other packages
 * restructuring the project, adding [barrel](https://basarat.gitbook.io/typescript/main-1/barrel) files
 
