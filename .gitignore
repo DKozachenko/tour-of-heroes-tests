@@ -34,10 +34,10 @@ yarn-error.log
 /connect.lock
 /coverage
 /report
-/e2e/test-output
-/e2e/report
+/e2e-playwright/test-output
+/e2e-playwright/report
 /e2e-cypress/report
-/e2e/html-report
+/e2e-playwright/html-report
 /e2e-cypress/html-report
 /libpeerconnection.log
 testem.log

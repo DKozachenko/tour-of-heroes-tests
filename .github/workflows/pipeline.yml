@@ -21,11 +21,11 @@ env:
   UNIT_COVERAGE_PATH: "./coverage"
   UNIT_TEST_RESULTS_PATH: "./report/test-results.xml"
 
-  E2E_HTML_REPORT_PATH: "./e2e/html-report"
+  E2E_PLAYWRIGHT_HTML_REPORT_PATH: "./e2e-playwright/html-report"
   E2E_CYPRESS_HTML_REPORT_PATH: "./e2e-cypress/html-report"
-  E2E_OUTPUT_PATH: "./e2e/test-output"
+  E2E_PLAYWRIGHT_OUTPUT_PATH: "./e2e-playwright/test-output"
   E2E_CYPRESS_SNAPSHOTS_PATH: "./e2e-cypress/snapshots"
-  E2E_TEST_RESULTS_PATH: "./e2e/report/test-results.xml"
+  E2E_PLAYWRIGHT_TEST_RESULTS_PATH: "./e2e-playwright/report/test-results.xml"
   E2E_CYPRESS_TEST_RESULTS_PATH: "./e2e-cypress/report/test-results.xml"
 
 jobs:
@@ -127,8 +127,8 @@ jobs:
           job_summary: true
           check_run: false
 
-  test-e2e:
-    name: Run E2E tests
+  test-e2e-pw:
+    name: Run E2E Playwright tests
     needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
@@ -143,18 +143,18 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Run tests
-        run: npm run test:e2e:ci
+        run: npm run test:e2e:pw:ci
       - name: Upload output files if exist
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-output
-          path: ${{ env.E2E_OUTPUT_PATH }}
+          name: e2e-pw-output
+          path: ${{ env.E2E_PLAYWRIGHT_OUTPUT_PATH }}
           if-no-files-found: ignore
           retention-days: 3
 
-  test-e2e-report:
-    name: Create E2E tests report
+  test-e2e-pw-report:
+    name: Create E2E Playwright tests report
     needs: [create-cache-key, test-unit, test-unit-coverage, test-unit-report]
     runs-on: ubuntu-latest
     steps:
@@ -169,12 +169,12 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Run E2E tests with html report
-        run: npm run test:e2e:report
+        run: npm run test:e2e:pw:report
       - name: Upload html report
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-html-report
-          path: ${{ env.E2E_HTML_REPORT_PATH }}
+          name: e2e-pw-html-report
+          path: ${{ env.E2E_PLAYWRIGHT_HTML_REPORT_PATH }}
           if-no-files-found: error
           retention-days: 3
       - name: Create test results annotations, PR comment and workflow summary
@@ -182,8 +182,8 @@ jobs:
         if: always()
         with:
           files: |
-            ${{ env.E2E_TEST_RESULTS_PATH }}
-          comment_title: "E2E Test Results"
+            ${{ env.E2E_PLAYWRIGHT_TEST_RESULTS_PATH }}
+          comment_title: "E2E Playwright Test Results"
           job_summary: true
           check_run: false
 
