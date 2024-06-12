@@ -21,11 +21,11 @@ env:
   UNIT_COVERAGE_PATH: "./coverage"
   UNIT_TEST_RESULTS_PATH: "./report/test-results.xml"
 
-  E2E_PLAYWRIGHT_HTML_REPORT_PATH: "./e2e/html-report"
+  E2E_PLAYWRIGHT_HTML_REPORT_PATH: "./e2e-playwright/html-report"
   E2E_CYPRESS_HTML_REPORT_PATH: "./e2e-cypress/html-report"
-  E2E_PLAYWRIGHT_OUTPUT_PATH: "./e2e/test-output"
+  E2E_PLAYWRIGHT_OUTPUT_PATH: "./e2e-playwright/test-output"
   E2E_CYPRESS_SNAPSHOTS_PATH: "./e2e-cypress/snapshots"
-  E2E_PLAYWRIGHT_TEST_RESULTS_PATH: "./e2e/report/test-results.xml"
+  E2E_PLAYWRIGHT_TEST_RESULTS_PATH: "./e2e-playwright/report/test-results.xml"
   E2E_CYPRESS_TEST_RESULTS_PATH: "./e2e-cypress/report/test-results.xml"
 
 jobs:
